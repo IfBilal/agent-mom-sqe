@@ -23,7 +23,8 @@ export function Unicast({ agents, events, eventsRef }: PageProps) {
 
   return (
     <div>
-      <h2>Unicast <span className="req-chip">FR1 · FR5</span></h2>
+      <h2>Unicast</h2>
+      <p className="muted">Point-to-point delivery over TCP, with optional per-message encryption.</p>
       <div className="panel">
         <div className="row">
           <label>from
@@ -42,7 +43,7 @@ export function Unicast({ agents, events, eventsRef }: PageProps) {
           onSend={(body) => run(() => api.sendUnicast({ senderId: sender, recipientId: recipient, body, encrypted }))}
         />
         <StatusBadge state={status.state} event={status.event} detail={status.detail} />
-        <p className="muted">sequence anomalies (BR-03): {seqReadout.join(" · ") || "none"}</p>
+        <p className="muted">out-of-order messages: {seqReadout.join(" · ") || "none detected"}</p>
       </div>
       <h3>Unicast log</h3>
       <MessageLog

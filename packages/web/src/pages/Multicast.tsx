@@ -29,7 +29,8 @@ export function Multicast({ agents, events, eventsRef, refresh }: PageProps) {
 
   return (
     <div>
-      <h2>Multicast <span className="req-chip">FR2 membership · FR3 messaging + TTL</span></h2>
+      <h2>Multicast</h2>
+      <p className="muted">Group membership, group messaging, and time-to-live.</p>
 
       <div className="panel">
         <label>group
@@ -38,7 +39,7 @@ export function Multicast({ agents, events, eventsRef, refresh }: PageProps) {
           </select>
         </label>
 
-        <h3>Membership (FR2) — live state</h3>
+        <h3>Group membership — live state</h3>
         <GroupMembershipPanel
           agents={agents}
           group={group}
@@ -46,7 +47,7 @@ export function Multicast({ agents, events, eventsRef, refresh }: PageProps) {
           onLeave={(id) => api.leave(group, id).then(refresh)}
         />
 
-        <h3>Group address / port config <span className="muted">(3.2.2.8)</span></h3>
+        <h3>Group address / port config</h3>
         <div className="row tight">
           <label>port <input type="number" value={port} onChange={(e) => setPort(Number(e.target.value))} style={{ width: 90 }} /></label>
           <button className="btn secondary" onClick={() => api.configGroup(group, sender, port).then(refresh)}>apply to {sender}</button>
@@ -54,7 +55,7 @@ export function Multicast({ agents, events, eventsRef, refresh }: PageProps) {
       </div>
 
       <div className="panel">
-        <h3 style={{ marginTop: 0 }}>Send a multicast (FR3)</h3>
+        <h3 style={{ marginTop: 0 }}>Send a multicast</h3>
         <div className="row">
           <label>from
             <select value={sender} onChange={(e) => setSender(e.target.value)}>
@@ -69,7 +70,7 @@ export function Multicast({ agents, events, eventsRef, refresh }: PageProps) {
       </div>
 
       <div className="panel">
-        <h3 style={{ marginTop: 0 }}>BR-06 — “send while leaving” <span className="muted">(TC-05 entry point)</span></h3>
+        <h3 style={{ marginTop: 0 }}>Send while leaving</h3>
         <p className="muted">
           Fires a leave and an inbound multicast from another agent within the same event-loop tick.
           The datagram must be dropped for the leaving agent, not delivered.

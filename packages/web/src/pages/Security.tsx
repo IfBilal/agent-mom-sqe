@@ -28,7 +28,8 @@ export function Security({ agents, events, eventsRef }: PageProps) {
 
   return (
     <div>
-      <h2>Security <span className="req-chip">FR5 unicast · FR6 group key</span></h2>
+      <h2>Security</h2>
+      <p className="muted">Per-message unicast encryption and key-holder-gated group keys.</p>
 
       <div className="panel">
         <label>group
@@ -36,9 +37,9 @@ export function Security({ agents, events, eventsRef }: PageProps) {
             {GROUPS.map((g) => <option key={g}>{g}</option>)}
           </select>
         </label>
-        <h3>Key-holder allow-list (agent-D) — BR-18</h3>
+        <h3>Key-holder allow-list (agent-D)</h3>
         <p className="muted">
-          Allow-list ≠ current membership (§9.6). Allowed: <code>{allow.join(", ") || "none"}</code>
+          The allow-list is separate from current group membership. Allowed: <code>{allow.join(", ") || "none"}</code>
         </p>
 
         <h3>Request group key</h3>
@@ -56,7 +57,7 @@ export function Security({ agents, events, eventsRef }: PageProps) {
       </div>
 
       <div className="panel">
-        <h3 style={{ marginTop: 0 }}>Encrypted multicast composer (FR6)</h3>
+        <h3 style={{ marginTop: 0 }}>Encrypted multicast</h3>
         {!hasKey && (
           <p className="disabled-hint" title="request and be granted a group key first">
             disabled — {sender} holds no group key for {group}

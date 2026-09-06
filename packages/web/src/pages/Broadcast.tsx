@@ -27,7 +27,8 @@ export function Broadcast({ agents, events, eventsRef }: PageProps) {
 
   return (
     <div>
-      <h2>Broadcast <span className="req-chip">FR4</span></h2>
+      <h2>Broadcast</h2>
+      <p className="muted">One datagram sent to every host on the local network.</p>
       <div className="panel">
         <div className="row">
           <label>from
@@ -54,8 +55,8 @@ export function Broadcast({ agents, events, eventsRef }: PageProps) {
         />
         <StatusBadge state={status.state} event={status.event} detail={status.detail} />
         <p className="muted">
-          <strong>addressUsed:</strong> <code>{addressUsed ?? "—"}</code> — BR-12 may fall back from
-          limited to subnet-directed
+          <strong>addressUsed:</strong> <code>{addressUsed ?? "—"}</code> — the OS may fall back from the
+          limited-broadcast address to the subnet-directed one
         </p>
       </div>
 

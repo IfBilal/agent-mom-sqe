@@ -13,11 +13,13 @@ export function Architecture({ agents, events, eventsRef, refresh }: PageProps) 
 
   return (
     <div>
-      <h2>Architecture <span className="req-chip">FR7</span></h2>
+      <h2>Conversation architecture</h2>
+      <p className="muted">Switch an agent between agent-controlled and component-controlled handling, live.</p>
       <div className="panel">
         <p className="muted">
-          BR-21: both handlers implement one <code>ConversationHandler</code>. A7.2: switching
-          replaces only the handler, never the sockets — delivery is identical either side.
+          Both handlers implement one interface and share the transport layer. Switching replaces
+          only the handler — sockets and connections are untouched, and delivery is identical
+          on either side of the switch.
         </p>
         {agents.map((a) => (
           <ArchitectureSwitch

@@ -1,3 +1,9 @@
+// AI ASSUMPTION A11 — Design decision, not traceable to any SRS clause.
+// This whole app is a TEST HARNESS OVER THE FRAMEWORK, added to satisfy the
+// assignment's observability requirement. The SRS specifies a developer
+// framework (§2.1, §2.3) with no interface requirements. No expected result in
+// Part 3 is asserted about the harness itself — every expected result is
+// asserted about framework behaviour observed *through* it.
 import { useCallback, useEffect, useRef, useState } from "react";
 import { api, type AgentDescriptor } from "./lib/api-client";
 import { useLiveEvents } from "./lib/ws-client";
@@ -11,15 +17,15 @@ import { Compatibility } from "./pages/Compatibility";
 import { Admin } from "./pages/Admin";
 import type { PageProps } from "./pages/types";
 
-const PAGES: Record<string, { label: string; reqs: string; Component: (p: PageProps) => JSX.Element }> = {
-  dashboard: { label: "Dashboard", reqs: "ALL", Component: Dashboard },
-  unicast: { label: "Unicast", reqs: "FR1·5", Component: Unicast },
-  multicast: { label: "Multicast", reqs: "FR2·3", Component: Multicast },
-  broadcast: { label: "Broadcast", reqs: "FR4", Component: Broadcast },
-  security: { label: "Security", reqs: "FR5·6", Component: Security },
-  architecture: { label: "Architecture", reqs: "FR7", Component: Architecture },
-  compatibility: { label: "Compatibility", reqs: "NFR8", Component: Compatibility },
-  admin: { label: "Admin", reqs: "NFR9·10", Component: Admin },
+const PAGES: Record<string, { label: string; Component: (p: PageProps) => JSX.Element }> = {
+  dashboard: { label: "Dashboard", Component: Dashboard },
+  unicast: { label: "Unicast", Component: Unicast },
+  multicast: { label: "Multicast", Component: Multicast },
+  broadcast: { label: "Broadcast", Component: Broadcast },
+  security: { label: "Security", Component: Security },
+  architecture: { label: "Architecture", Component: Architecture },
+  compatibility: { label: "Compatibility", Component: Compatibility },
+  admin: { label: "Admin", Component: Admin },
 };
 
 function readTheme(): "dark" | "light" {
@@ -60,7 +66,7 @@ export function App() {
       <header className="topbar">
         <div className="brand">
           <span className="logo">agentMom</span>
-          <span className="tag">mission control · harness over the framework (A11)</span>
+          <span className="tag">mission control · test harness for the agent framework</span>
         </div>
         <span className="spacer" />
         <span className={`conn${connected ? " live" : ""}`}>
@@ -80,7 +86,6 @@ export function App() {
         {Object.entries(PAGES).map(([key, p]) => (
           <button key={key} onClick={() => setPage(key)} aria-current={key === page}>
             {p.label}
-            <span className="req">{p.reqs}</span>
           </button>
         ))}
       </nav>

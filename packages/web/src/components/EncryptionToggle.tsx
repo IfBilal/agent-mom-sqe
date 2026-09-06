@@ -4,7 +4,7 @@ export function EncryptionToggle({ value, onChange }: { value: boolean; onChange
   return (
     <label>
       <input type="checkbox" checked={value} onChange={(e) => onChange(e.target.checked)} />
-      encrypt this message <span className="muted">(per-message — BR-14)</span>
+      encrypt this message
     </label>
   );
 }

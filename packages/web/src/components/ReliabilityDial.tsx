@@ -22,7 +22,7 @@ export function ReliabilityDial({ onChange }: { onChange: (rate: number) => void
         />
       </label>
       <p className="muted">
-        Simulates packet loss for NFR 2.4.1 observation. Default 0%. Real UDP loss
+        Simulates packet loss so best-effort delivery can be observed. Default 0%. Real UDP loss
         can occur independently of this control. Applies to multicast / broadcast
         only — never unicast.
       </p>

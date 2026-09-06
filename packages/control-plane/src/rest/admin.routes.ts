@@ -45,14 +45,14 @@ export function adminRoutes(ctx: RouteContext): Router {
       .flat()
       .some((i) => i && i.family === "IPv4" && !i.internal);
     res.json({
-      "CON-04_multicast": {
-        supported: true,
+      multicast: {
+        available: true,
         scope: "single-host loopback",
-        note: "Router/NIC/OS multicast scope is NOT verifiable on this test bed — this is TC-08 territory.",
+        note: "Router / NIC / OS multicast scope cannot be verified on a single machine.",
       },
-      "CON-05_broadcast": {
-        supported: hasNonInternalV4,
-        note: "Limited broadcast may require admin on some networks (2.4.4); BR-12 falls back to subnet-directed.",
+      broadcast: {
+        available: hasNonInternalV4,
+        note: "Limited broadcast may need admin rights on some networks; the sender falls back to the subnet-directed address.",
       },
       host: os.hostname(),
       interfaces: Object.keys(ifaces),
@@ -70,9 +70,9 @@ export function adminRoutes(ctx: RouteContext): Router {
   r.get("/admin/crypto", (_req, res) => {
     res.json({
       algorithm: "AES-256-GCM",
-      note: "Basic encryption only (NFR10 / 2.4.2). No strength, key-length or resistance claim is made (BR-24, A10.2).",
-      unicastKeyModel: "deterministic pairwise sha256(sorted(pair)+SEED) — A5.2 UNSUPPORTED",
-      multicastKeyModel: "random 32-byte per-group key from key holder, never rotated — A6.2 UNSUPPORTED",
+      note: "Basic encryption only. No claim is made about encryption strength, key length, or resistance to attack.",
+      unicastKeyModel: "one shared key per agent pair, derived deterministically — no key exchange",
+      multicastKeyModel: "one random per-group key issued by the key holder, never rotated",
     });
   });
 

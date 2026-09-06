@@ -17,12 +17,12 @@ export function Compatibility({ agents, events, eventsRef }: PageProps) {
 
   return (
     <div>
-      <h2>Compatibility <span className="req-chip">NFR8 · agentMom 1.2</span></h2>
+      <h2>Legacy compatibility</h2>
+      <p className="muted">Sends through the agentMom 1.2 interface — plaintext only, no new-feature controls.</p>
       <div className="panel caution">
-        This evaluation <strong>cannot validate real compatibility</strong>. No agentMom 1.2
-        artifact was obtainable and this implementation is not on the JVM the SRS specifies
-        (2.1 / 2.1.1). The contract inspected is our own reconstruction (A8.2, Unsupported).
-        A self-authored contract cannot fail.
+        This panel demonstrates the legacy call path — it does <strong>not</strong> prove true
+        compatibility. It runs on Node, not the Java runtime the original spec assumes, and
+        there is no reference 1.2 build to check against.
       </div>
       <div className="panel">
         <p className="muted">
