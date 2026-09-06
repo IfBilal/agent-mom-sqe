@@ -13,21 +13,25 @@ export function Dashboard({ agents, events, refresh }: PageProps) {
 
   return (
     <div>
-      <h2>Dashboard — all requirements</h2>
-      <button onClick={() => api.spawnDemo().then(refresh)}>Spawn demo topology (agent-A…D)</button>{" "}
-      <button onClick={refresh}>Refresh</button>
+      <h2>Dashboard <span className="req">all requirements</span></h2>
+      <div className="row tight" style={{ margin: "10px 0" }}>
+        <button className="btn" onClick={() => api.spawnDemo().then(refresh)}>Spawn demo topology (agent-A…D)</button>
+        <button className="btn secondary" onClick={refresh}>Refresh</button>
+      </div>
 
-      <section style={{ border: "1px solid #ddd", padding: 8, margin: "12px 0", background: "#fffef0" }}>
-        <strong>Precondition banner (CON-04 / CON-05)</strong>
-        <pre style={{ fontSize: 12 }}>{pre ? JSON.stringify(pre, null, 2) : "…"}</pre>
-        <small>
-          Authoritative check is <code>scripts/verify-preconditions.sh</code>, run before any
-          test session. This test bed is a single host — LAN-scale multicast/broadcast scope
-          is not verifiable here (TC-08 / TC-11 territory).
-        </small>
-      </section>
+      <div className="card note">
+        <strong>Precondition banner — CON-04 / CON-05</strong>
+        <pre className="readout">{pre ? JSON.stringify(pre, null, 2) : "…"}</pre>
+        <p className="muted">
+          Authoritative check is <code>scripts/verify-preconditions.sh</code>, run before any test
+          session. This test bed is a single host — LAN-scale multicast / broadcast scope is not
+          verifiable here (TC-08 / TC-11 territory).
+        </p>
+      </div>
 
+      <h3>Agent topology</h3>
       <AgentTopologyGraph agents={agents} events={events} />
+
       <h3>Aggregated event log</h3>
       <MessageLog events={events} />
     </div>

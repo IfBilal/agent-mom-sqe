@@ -10,16 +10,16 @@ export function ArchitectureSwitch({
   onSwitch: (agentId: string, mode: string) => void;
 }) {
   return (
-    <div style={{ fontSize: 13, margin: "4px 0" }}>
-      <strong>{agentId}</strong>:{" "}
+    <div className="row tight" style={{ margin: "6px 0" }}>
+      <strong style={{ minWidth: 72 }}>{agentId}</strong>
       {(["agent-controlled", "component-controlled"] as const).map((m) => (
-        <label key={m} style={{ marginRight: 10 }}>
+        <label key={m}>
           <input
             type="radio"
             name={`arch-${agentId}`}
             checked={mode === m}
             onChange={() => onSwitch(agentId, m)}
-          />{" "}
+          />
           {m}
         </label>
       ))}

@@ -96,10 +96,14 @@ if (process.argv[1] && import.meta.url === `file://${process.argv[1]}`) {
         await cp.spawnDemoTopology();
         console.log("demo topology spawned: agent-A..D");
       }
-      process.on("SIGINT", async () => {
-        await cp.close();
-        process.exit(0);
-      });
+      // Kill the forked agents on any orderly shutdown signal, so a stopped
+      // control plane never leaves orphan agents holding ports 7001–7004.
+      for (const signal of ["SIGINT", "SIGTERM", "SIGHUP"] as const) {
+        process.on(signal, async () => {
+          await cp.close();
+          process.exit(0);
+        });
+      }
     })
     .catch((err) => {
       console.error(err);

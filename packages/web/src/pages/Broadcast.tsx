@@ -15,9 +15,9 @@ export function Broadcast({ agents, events, eventsRef }: PageProps) {
     failure: ["BROADCAST_PERMISSION_DENIED"],
   });
 
-  // Wording discipline (§1): a broadcast is SENT TO all possible hosts,
-  // never "reaches" them. Per-agent indicators below evidence HOST-LOCAL
-  // reach only (§9.4) — not 3.2.3.3's LAN-wide claim (TC-11 = BLOCKED).
+  // Wording discipline (§1): a broadcast is SENT TO all possible hosts, never
+  // "reaches" them. Per-agent indicators below evidence HOST-LOCAL reach only
+  // (§9.4) — not 3.2.3.3's LAN-wide claim (TC-11 = BLOCKED).
   const recentReceivers = new Set(
     events
       .filter((e) => e.type === "MESSAGE_RECEIVED" && e.payload["mode"] === "broadcast")
@@ -27,45 +27,50 @@ export function Broadcast({ agents, events, eventsRef }: PageProps) {
 
   return (
     <div>
-      <h2>Broadcast — FR4</h2>
-      <label>
-        from{" "}
-        <select value={sender} onChange={(e) => setSender(e.target.value)}>
-          {agents.map((a) => <option key={a.agentId}>{a.agentId}</option>)}
-        </select>
-      </label>
-      <div style={{ fontSize: 13, margin: "6px 0" }}>
-        <label>
-          <input
-            type="checkbox"
-            checked={denied}
-            onChange={(e) => { setDenied(e.target.checked); api.setBroadcastPermission(e.target.checked); }}
-          />{" "}
-          simulate permission denied (demo aid — a handled denial is a PASS, never a FAILED)
-        </label>
+      <h2>Broadcast <span className="req">FR4</span></h2>
+      <div className="card">
+        <div className="row">
+          <label>from
+            <select value={sender} onChange={(e) => setSender(e.target.value)}>
+              {agents.map((a) => <option key={a.agentId}>{a.agentId}</option>)}
+            </select>
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={denied}
+              onChange={(e) => { setDenied(e.target.checked); api.setBroadcastPermission(e.target.checked); }}
+            />
+            simulate permission denied <span className="muted">(demo aid — a handled denial is a PASS, never a FAILED)</span>
+          </label>
+        </div>
+        <MessageComposer
+          onSend={(body) =>
+            run(async () => {
+              const out = await api.sendBroadcast({ senderId: sender, body });
+              setAddressUsed(out.addressUsed);
+            })
+          }
+        />
+        <StatusBadge state={status.state} event={status.event} detail={status.detail} />
+        <p className="muted">
+          <strong>addressUsed:</strong> <code>{addressUsed ?? "—"}</code> — BR-12 may fall back from
+          limited to subnet-directed
+        </p>
       </div>
-      <MessageComposer
-        onSend={(body) =>
-          run(async () => {
-            const out = await api.sendBroadcast({ senderId: sender, body });
-            setAddressUsed(out.addressUsed);
-          })
-        }
-      />
-      <StatusBadge state={status.state} event={status.event} detail={status.detail} />
-      <div style={{ fontSize: 13 }}>
-        <strong>addressUsed:</strong> <code>{addressUsed ?? "—"}</code> (BR-12 may fall back from
-        limited to subnet-directed)
-      </div>
-      <h3>Per-agent receipt (host-local reach only)</h3>
-      <ul>
+
+      <h3>Per-agent receipt <span className="muted">(host-local reach only)</span></h3>
+      <div className="node-grid">
         {agents.map((a) => (
-          <li key={a.agentId}>
-            {a.agentId}: {recentReceivers.has(a.agentId) ? "✓ received" : "—"}
-          </li>
+          <div key={a.agentId} className={`node${recentReceivers.has(a.agentId) ? " hot" : ""}`}>
+            <div className="name">{a.agentId}</div>
+            <div className="meta">{recentReceivers.has(a.agentId) ? "✓ received" : "—"}</div>
+          </div>
         ))}
-      </ul>
-      <MessageLog events={events} filter={(e) => e.type.includes("BROADCAST") || (e.payload["mode"] === "broadcast")} />
+      </div>
+
+      <h3>Broadcast log</h3>
+      <MessageLog events={events} filter={(e) => e.type.includes("BROADCAST") || e.payload["mode"] === "broadcast"} />
     </div>
   );
 }

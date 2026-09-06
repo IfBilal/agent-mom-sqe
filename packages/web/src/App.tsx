@@ -42,27 +42,24 @@ export function App() {
   const { Component } = PAGES[page];
 
   return (
-    <div style={{ fontFamily: "system-ui, sans-serif", maxWidth: 1100, margin: "0 auto", padding: 16 }}>
-      <h1 style={{ fontSize: 20 }}>agentMom — test harness <small style={{ color: "#888" }}>(A11: a harness over the framework)</small></h1>
-      <nav style={{ display: "flex", gap: 4, flexWrap: "wrap", borderBottom: "1px solid #ccc", paddingBottom: 8 }}>
+    <div className="app">
+      <header className="app-header">
+        <h1>agentMom</h1>
+        <span className="sub">test harness over the framework · A11</span>
+      </header>
+      <nav className="nav">
         {Object.entries(PAGES).map(([key, p]) => (
           <button
             key={key}
             onClick={() => setPage(key)}
-            style={{
-              fontWeight: key === page ? "bold" : "normal",
-              background: key === page ? "#e3f2fd" : "#f5f5f5",
-              border: "1px solid #ccc",
-              padding: "4px 10px",
-              cursor: "pointer",
-            }}
+            aria-current={key === page}
             title={p.reqs}
           >
             {p.label}
           </button>
         ))}
       </nav>
-      <main style={{ marginTop: 16 }}>
+      <main>
         <Component agents={agents} events={events} eventsRef={eventsRef} refresh={refresh} />
       </main>
     </div>

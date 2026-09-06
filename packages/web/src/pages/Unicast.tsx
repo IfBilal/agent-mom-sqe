@@ -23,27 +23,32 @@ export function Unicast({ agents, events, eventsRef }: PageProps) {
 
   return (
     <div>
-      <h2>Unicast — FR1, FR5</h2>
-      <label>
-        from{" "}
-        <select value={sender} onChange={(e) => setSender(e.target.value)}>
-          {agents.map((a) => <option key={a.agentId}>{a.agentId}</option>)}
-        </select>
-      </label>{" "}
-      <label>
-        to{" "}
-        <select value={recipient} onChange={(e) => setRecipient(e.target.value)}>
-          {agents.map((a) => <option key={a.agentId}>{a.agentId}</option>)}
-        </select>
-      </label>
-      <div><EncryptionToggle value={encrypted} onChange={setEncrypted} /></div>
-      <MessageComposer
-        onSend={(body) => run(() => api.sendUnicast({ senderId: sender, recipientId: recipient, body, encrypted }))}
-      />
-      <StatusBadge state={status.state} event={status.event} detail={status.detail} />
-      <div style={{ fontSize: 12 }}>sequence anomalies (BR-03): {seqReadout.join(" | ") || "none"}</div>
+      <h2>Unicast <span className="req">FR1 · FR5</span></h2>
+      <div className="card">
+        <div className="row">
+          <label>from
+            <select value={sender} onChange={(e) => setSender(e.target.value)}>
+              {agents.map((a) => <option key={a.agentId}>{a.agentId}</option>)}
+            </select>
+          </label>
+          <label>to
+            <select value={recipient} onChange={(e) => setRecipient(e.target.value)}>
+              {agents.map((a) => <option key={a.agentId}>{a.agentId}</option>)}
+            </select>
+          </label>
+          <EncryptionToggle value={encrypted} onChange={setEncrypted} />
+        </div>
+        <MessageComposer
+          onSend={(body) => run(() => api.sendUnicast({ senderId: sender, recipientId: recipient, body, encrypted }))}
+        />
+        <StatusBadge state={status.state} event={status.event} detail={status.detail} />
+        <p className="muted">sequence anomalies (BR-03): {seqReadout.join(" · ") || "none"}</p>
+      </div>
       <h3>Unicast log</h3>
-      <MessageLog events={events} filter={(e) => ["MESSAGE_SENT", "MESSAGE_RECEIVED", "PROTOCOL_VIOLATION", "DECRYPTION_FAILED", "SEQUENCE_ANOMALY"].includes(e.type)} />
+      <MessageLog
+        events={events}
+        filter={(e) => ["MESSAGE_SENT", "MESSAGE_RECEIVED", "PROTOCOL_VIOLATION", "DECRYPTION_FAILED", "SEQUENCE_ANOMALY"].includes(e.type)}
+      />
     </div>
   );
 }

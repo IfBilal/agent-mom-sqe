@@ -1,17 +1,20 @@
 # Phase 10 — Pre-freeze verification
 
-Date: 2026-09-06
+Date: 2026-09-06 (revised after the hardening pass)
 
 | Check (plan §10 / §20) | Status |
 |---|---|
 | `packages/core` compiles; `npm run build` green for core/agent/control-plane | ✅ |
-| All U/C/I suites green | ✅ 58 tests, 9 files |
-| Coverage report generated, non-zero per package | ✅ core 100% lines on pure modules; agent + control-plane non-zero; `coverage/lcov.info` emitted (27 KB) |
+| All U/C/I suites green | ✅ **79 tests, 15 files** |
+| Coverage report generated, non-zero per package | ✅ core ~100% on pure modules; agent + control-plane non-zero; `coverage/lcov.info` emitted; overall 63.9% lines |
 | `ASSUMPTIONS.md` matches §4 — 24 entries, each file-linked, one of three labels | ✅ 24 |
 | `TEST-CONDITIONS.md` matches §13 — 54 entries | ✅ 54 |
-| Every §4 assumption has a findable comment in its named file | ✅ `grep -r "AI ASSUMPTION" packages/*/src` + inline `A<n>` refs |
-| Re-enact SRS Figures 1–4 in the harness | ▶ manual — demo topology boots from `SPAWN_DEMO=1`; all four agents + two groups + key holder |
+| Every §4 assumption has a findable comment in its named file | ✅ all 24 verified by `grep -rl "\bA<n>\b" packages/*/src` |
+| **Every non-system COND-nn traced to a Table B case or automated test** | ✅ enforced by `core/tests/unit/traceability.test.ts` — zero orphans; see `TRACEABILITY.md` |
+| COND-52 static inspection (no ack/retry/resend on transports) | ✅ meta-test greps transport source, passes |
+| Re-enact SRS Figures 1–4 in the harness | ✅ driven live via Playwright — FR1–FR7 + BR-13 handled denial + BR-19 encrypted key exchange all confirmed in-browser |
 | `README.md` documents node version, install, `npm run dev-up`, demo spawn | ✅ |
+| Orderly shutdown leaves no orphan agents | ✅ control-plane handles SIGINT/SIGTERM/SIGHUP → `supervisor.shutdown()`; agent exits on IPC `disconnect` |
 | Nothing outside §1 built (checked against §21 non-goals) | ✅ no DB, no auth, no retry/ack layer, no resequencing buffer, no Docker/k8s, no workaround for COND-22 |
 
 ## Known limitations carried into the baseline (declared, not hidden)
