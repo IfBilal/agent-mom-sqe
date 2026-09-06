@@ -41,14 +41,23 @@ export class AgentSupervisor {
       this.sink({ type: "AGENT_KILLED", payload: { agentId: config.agentId, code }, ts: Date.now() });
     });
 
-    const ready = new Promise<void>((resolve) => {
+    const ready = new Promise<void>((resolve, reject) => {
+      const timer = setTimeout(() => {
+        child.off("message", handler);
+        reject(new Error(`agent ${config.agentId} did not become ready within 10s`));
+      }, 10000);
       const handler = (msg: AgentToControl) => {
         if (msg.type === "ready" && msg.agentId === config.agentId) {
+          clearTimeout(timer);
           child.off("message", handler);
           resolve();
         }
       };
       child.on("message", handler);
+      child.once("exit", (code) => {
+        clearTimeout(timer);
+        reject(new Error(`agent ${config.agentId} exited during startup (code ${code})`));
+      });
     });
 
     this.sendRaw(config.agentId, { type: "init", config });

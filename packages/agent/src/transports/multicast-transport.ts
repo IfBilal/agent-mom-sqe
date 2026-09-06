@@ -162,9 +162,18 @@ export class MulticastTransport {
     const datagram = encodeDatagram(stamped); // BR-11 — throws if too large
 
     // Level 1 TTL — the real OS hop-count control, matching SRS §1.3.
-    const sender = this.sockets.get(groupAddress)?.socket ?? dgram.createSocket({ type: "udp4", reuseAddr: true });
-    const ephemeral = !this.sockets.has(groupAddress);
-    if (ephemeral) sender.setMulticastInterface(MULTICAST_INTERFACE);
+    const existing = this.sockets.get(groupAddress)?.socket;
+    const sender = existing ?? dgram.createSocket({ type: "udp4", reuseAddr: true });
+    const ephemeral = !existing;
+    if (ephemeral) {
+      // A socket must be bound before setMulticastInterface on Linux (EBADF otherwise).
+      await new Promise<void>((resolve) => sender.bind(0, () => resolve()));
+    }
+    try {
+      sender.setMulticastInterface(MULTICAST_INTERFACE);
+    } catch {
+      /* interface selection unavailable on this host — CON-04 */
+    }
     sender.setMulticastTTL(stamped.ttl ?? this.defaultTtl);
 
     await new Promise<void>((resolve, reject) => {
