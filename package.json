@@ -1,0 +1,41 @@
+{
+  "name": "agentmom",
+  "version": "1.0.0",
+  "private": true,
+  "description": "agentMom — broadcasting/multicasting/secured communication for multi-agent systems (SE3002 baseline)",
+  "workspaces": [
+    "packages/core",
+    "packages/agent",
+    "packages/control-plane",
+    "packages/web"
+  ],
+  "scripts": {
+    "build": "tsc -b packages/core packages/agent packages/control-plane",
+    "typecheck": "tsc -b --noEmit packages/core packages/agent packages/control-plane",
+    "test": "vitest run",
+    "test:unit": "vitest run packages/core/tests/unit",
+    "test:component": "vitest run packages/agent/tests/component",
+    "test:integration": "vitest run packages/control-plane/tests/integration",
+    "coverage": "vitest run --coverage",
+    "dev-up": "bash scripts/dev-up.sh",
+    "spawn-demo": "bash scripts/spawn-demo-agents.sh",
+    "verify-preconditions": "bash scripts/verify-preconditions.sh"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.14.0",
+    "@types/supertest": "^6.0.2",
+    "@types/ws": "^8.5.10",
+    "@vitest/coverage-v8": "^2.1.9",
+    "supertest": "^7.0.0",
+    "typescript": "^5.5.4",
+    "vitest": "^2.1.9"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "ws": "^8.18.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
