@@ -28,9 +28,9 @@ export function Security({ agents, events, eventsRef }: PageProps) {
 
   return (
     <div>
-      <h2>Security <span className="req">FR5 unicast · FR6 group key</span></h2>
+      <h2>Security <span className="req-chip">FR5 unicast · FR6 group key</span></h2>
 
-      <div className="card">
+      <div className="panel">
         <label>group
           <select value={group} onChange={(e) => setGroup(e.target.value)}>
             {GROUPS.map((g) => <option key={g}>{g}</option>)}
@@ -55,7 +55,7 @@ export function Security({ agents, events, eventsRef }: PageProps) {
         <StatusBadge state={keyReq.status.state} event={keyReq.status.event} detail={keyReq.status.detail} />
       </div>
 
-      <div className="card">
+      <div className="panel">
         <h3 style={{ marginTop: 0 }}>Encrypted multicast composer (FR6)</h3>
         {!hasKey && (
           <p className="disabled-hint" title="request and be granted a group key first">

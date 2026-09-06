@@ -13,8 +13,8 @@ export function Architecture({ agents, events, eventsRef, refresh }: PageProps) 
 
   return (
     <div>
-      <h2>Architecture <span className="req">FR7</span></h2>
-      <div className="card">
+      <h2>Architecture <span className="req-chip">FR7</span></h2>
+      <div className="panel">
         <p className="muted">
           BR-21: both handlers implement one <code>ConversationHandler</code>. A7.2: switching
           replaces only the handler, never the sockets — delivery is identical either side.

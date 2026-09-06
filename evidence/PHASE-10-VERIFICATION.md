@@ -5,8 +5,8 @@ Date: 2026-09-06 (revised after the hardening pass)
 | Check (plan §10 / §20) | Status |
 |---|---|
 | `packages/core` compiles; `npm run build` green for core/agent/control-plane | ✅ |
-| All U/C/I suites green | ✅ **79 tests, 15 files** |
-| Coverage report generated, non-zero per package | ✅ core ~100% on pure modules; agent + control-plane non-zero; `coverage/lcov.info` emitted; overall 63.9% lines |
+| All U/C/I suites green | ✅ **83 tests, 16 files** |
+| Coverage report generated, non-zero per package | ✅ core ~100% on pure modules; agent + control-plane non-zero; `coverage/lcov.info` emitted; overall 82% lines; agent.ts 81% |
 | `ASSUMPTIONS.md` matches §4 — 24 entries, each file-linked, one of three labels | ✅ 24 |
 | `TEST-CONDITIONS.md` matches §13 — 54 entries | ✅ 54 |
 | Every §4 assumption has a findable comment in its named file | ✅ all 24 verified by `grep -rl "\bA<n>\b" packages/*/src` |

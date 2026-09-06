@@ -44,7 +44,8 @@ is a test harness over the framework, not a product UI).
 See [`ASSUMPTIONS.md`](ASSUMPTIONS.md) (24 entries) and
 [`TEST-CONDITIONS.md`](TEST-CONDITIONS.md) (54 conditions) and
 [`TRACEABILITY.md`](TRACEABILITY.md) (Table C skeleton — every non-system condition
-mapped to a Table B case or a test file; enforced by a meta-test).
+mapped to a Table B case or a test file; enforced by a meta-test), and
+[`DEVIATIONS.md`](DEVIATIONS.md) (every difference from the plan, declared).
 
 ## Setup
 
@@ -93,7 +94,7 @@ npm run test:component
 npm run test:integration
 ```
 
-79 automated tests across 15 files. Four test levels (§12 of the plan). Unit + component + integration are
+83 automated tests across 16 files. Four test levels (§12 of the plan). Unit + component + integration are
 **automated inside the frozen baseline**. System-level cases (SRS UC1–UC4) are
 **manual, per the brief** — they are not in the automated suite.
 
@@ -105,12 +106,13 @@ npm run test:integration
 Integration suites fork agents on the fixed demo ports, so `vitest.config.ts`
 sets `fileParallelism: false`.
 
-### Known coverage limitation
+### Coverage
 
-`packages/agent/src/main.ts` is the forked-child bootstrap. It **is** exercised
-by the integration suites through real `fork()`, but v8 coverage does not
-instrument forked children by default (plan §12.4). This is disclosed here and
-in the Part 3A coverage context rather than papered over.
+Overall ~82% lines. The agent orchestrator (`packages/agent/src/agent.ts`, ~81%)
+is driven directly by the component suite (`agent-orchestration.test.ts`) with a
+stub `send`, so it is measured rather than lost to v8's forked-child blind spot
+(plan §12.4 — see [`DEVIATIONS.md`](DEVIATIONS.md) D-4). Only the ~25-line
+forked-child bootstrap `packages/agent/src/main.ts` is excluded from the report.
 
 ## Preconditions (before any test session)
 

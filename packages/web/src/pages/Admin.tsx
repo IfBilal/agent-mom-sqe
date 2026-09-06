@@ -14,14 +14,14 @@ export function Admin({ events }: PageProps) {
 
   return (
     <div>
-      <h2>Admin <span className="req">NFR9 reliability · NFR10 security readout</span></h2>
+      <h2>Admin <span className="req-chip">NFR9 reliability · NFR10 security readout</span></h2>
 
-      <div className="card">
+      <div className="panel">
         <h3 style={{ marginTop: 0 }}>Reliability dial <span className="muted">(NFR9 demo aid)</span></h3>
         <ReliabilityDial onChange={(r) => api.setReliability(r)} />
       </div>
 
-      <div className="card">
+      <div className="panel">
         <h3 style={{ marginTop: 0 }}>Default TTL <span className="muted">(A3.1 demo — UNSUPPORTED assumption)</span></h3>
         <div className="row tight">
           <label>default TTL <input type="number" value={ttl} onChange={(e) => setTtl(Number(e.target.value))} style={{ width: 70 }} /></label>
@@ -33,7 +33,7 @@ export function Admin({ events }: PageProps) {
         </p>
       </div>
 
-      <div className="card">
+      <div className="panel">
         <h3 style={{ marginTop: 0 }}>Crypto configuration readout <span className="muted">(NFR10)</span></h3>
         <pre className="readout">{crypto ? JSON.stringify(crypto, null, 2) : "…"}</pre>
         <p className="muted">

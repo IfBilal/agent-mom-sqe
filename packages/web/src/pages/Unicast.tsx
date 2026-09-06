@@ -23,8 +23,8 @@ export function Unicast({ agents, events, eventsRef }: PageProps) {
 
   return (
     <div>
-      <h2>Unicast <span className="req">FR1 · FR5</span></h2>
-      <div className="card">
+      <h2>Unicast <span className="req-chip">FR1 · FR5</span></h2>
+      <div className="panel">
         <div className="row">
           <label>from
             <select value={sender} onChange={(e) => setSender(e.target.value)}>

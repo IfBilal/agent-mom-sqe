@@ -17,14 +17,14 @@ export function Compatibility({ agents, events, eventsRef }: PageProps) {
 
   return (
     <div>
-      <h2>Compatibility <span className="req">NFR8 · agentMom 1.2</span></h2>
-      <div className="card caution">
+      <h2>Compatibility <span className="req-chip">NFR8 · agentMom 1.2</span></h2>
+      <div className="panel caution">
         This evaluation <strong>cannot validate real compatibility</strong>. No agentMom 1.2
         artifact was obtainable and this implementation is not on the JVM the SRS specifies
         (2.1 / 2.1.1). The contract inspected is our own reconstruction (A8.2, Unsupported).
         A self-authored contract cannot fail.
       </div>
-      <div className="card">
+      <div className="panel">
         <p className="muted">
           The legacy path exposes only <code>sendMessage(toAgentId, body)</code> /
           <code>onMessage(handler)</code> — no encryption toggle, no TTL, no group controls.

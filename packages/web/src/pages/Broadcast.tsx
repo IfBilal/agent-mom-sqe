@@ -27,8 +27,8 @@ export function Broadcast({ agents, events, eventsRef }: PageProps) {
 
   return (
     <div>
-      <h2>Broadcast <span className="req">FR4</span></h2>
-      <div className="card">
+      <h2>Broadcast <span className="req-chip">FR4</span></h2>
+      <div className="panel">
         <div className="row">
           <label>from
             <select value={sender} onChange={(e) => setSender(e.target.value)}>

@@ -13,13 +13,13 @@ export function Dashboard({ agents, events, refresh }: PageProps) {
 
   return (
     <div>
-      <h2>Dashboard <span className="req">all requirements</span></h2>
+      <h2>Dashboard <span className="req-chip">all requirements</span></h2>
       <div className="row tight" style={{ margin: "10px 0" }}>
         <button className="btn" onClick={() => api.spawnDemo().then(refresh)}>Spawn demo topology (agent-A…D)</button>
         <button className="btn secondary" onClick={refresh}>Refresh</button>
       </div>
 
-      <div className="card note">
+      <div className="panel note">
         <strong>Precondition banner — CON-04 / CON-05</strong>
         <pre className="readout">{pre ? JSON.stringify(pre, null, 2) : "…"}</pre>
         <p className="muted">

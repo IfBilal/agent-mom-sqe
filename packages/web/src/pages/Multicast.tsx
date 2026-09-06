@@ -29,9 +29,9 @@ export function Multicast({ agents, events, eventsRef, refresh }: PageProps) {
 
   return (
     <div>
-      <h2>Multicast <span className="req">FR2 membership · FR3 messaging + TTL</span></h2>
+      <h2>Multicast <span className="req-chip">FR2 membership · FR3 messaging + TTL</span></h2>
 
-      <div className="card">
+      <div className="panel">
         <label>group
           <select value={group} onChange={(e) => { setGroup(e.target.value); setPort(e.target.value === GROUPS[0] ? 5007 : 5008); }}>
             {GROUPS.map((g) => <option key={g}>{g}</option>)}
@@ -53,7 +53,7 @@ export function Multicast({ agents, events, eventsRef, refresh }: PageProps) {
         </div>
       </div>
 
-      <div className="card">
+      <div className="panel">
         <h3 style={{ marginTop: 0 }}>Send a multicast (FR3)</h3>
         <div className="row">
           <label>from
@@ -68,7 +68,7 @@ export function Multicast({ agents, events, eventsRef, refresh }: PageProps) {
         <StatusBadge state={send.status.state} event={send.status.event} detail={send.status.detail} />
       </div>
 
-      <div className="card">
+      <div className="panel">
         <h3 style={{ marginTop: 0 }}>BR-06 — “send while leaving” <span className="muted">(TC-05 entry point)</span></h3>
         <p className="muted">
           Fires a leave and an inbound multicast from another agent within the same event-loop tick.
