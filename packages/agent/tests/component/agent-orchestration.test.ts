@@ -120,8 +120,11 @@ describe("Agent orchestrator — starts in component-controlled mode", () => {
       id: "cc1", mode: "broadcast", senderId: "agent-C", sequenceNumber: 1,
       timestampSentMs: Date.now(), encrypted: false, payload: JSON.stringify({ kind: "ping", body: {} }),
     });
-    await new Promise((r) => setTimeout(r, 30));
+    await new Promise((r) => setTimeout(r, 50));
     expect(a.events.some((e) => e.type === "AGENT_STATUS")).toBe(true);
+    // the pong reply to a non-peer is best-effort — it surfaces as a logged
+    // PROTOCOL_VIOLATION, never an unhandled rejection
+    expect(a.events.some((e) => e.type === "PROTOCOL_VIOLATION" && e.payload["reason"] === "REPLY_UNDELIVERABLE")).toBe(true);
   });
 });
 

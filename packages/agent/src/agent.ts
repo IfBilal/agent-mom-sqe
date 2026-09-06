@@ -174,7 +174,9 @@ export class Agent {
       }),
     );
     // BR-19 — key response is ALWAYS encrypted, overriding BR-14.
-    void this.sendUnicast(requestingAgentId, { kind: "system", body }, true);
+    this.sendUnicast(requestingAgentId, { kind: "system", body }, true).catch((err: Error) =>
+      this.emit(makeEvent("PROTOCOL_VIOLATION", { reason: "KEY_RESPONSE_UNDELIVERABLE", requestingAgentId, detail: err.message })),
+    );
   }
 
   /** Inbound multicast (also the transport's onEnvelope callback). */
@@ -197,7 +199,13 @@ export class Agent {
   private dispatch(envelope: MessageEnvelope, payload: DecryptedPayload): void {
     this.handler.handleIncoming(envelope, payload, {
       agentId: this.config.agentId,
-      reply: (recipientId, p, encrypted) => void this.sendUnicast(recipientId, p, encrypted),
+      // A conversation reply is best-effort — a missing address-book entry or a
+      // dead peer must not surface as an unhandled rejection.
+      reply: (recipientId, p, encrypted) => {
+        this.sendUnicast(recipientId, p, encrypted).catch((err: Error) =>
+          this.emit(makeEvent("PROTOCOL_VIOLATION", { reason: "REPLY_UNDELIVERABLE", recipientId, detail: err.message })),
+        );
+      },
       emit: (type, detail) => this.emit(makeEvent("AGENT_STATUS", { conversation: type, ...detail })),
     });
   }

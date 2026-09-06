@@ -157,6 +157,17 @@ describe("Agent — broadcast receive + simulated drops + leave-then-inject + sn
     await d.agent.start();
     const snap = (await cmd(d, "snapshot")) as { allowList?: Record<string, string[]> };
     expect(snap.allowList?.[GROUP]).toEqual(expect.arrayContaining(["agent-C"]));
+
+    // a key request from an agent not in the address book: the grant decision is
+    // made, but the encrypted response cannot be delivered → logged, not thrown
+    d.agent.receiveUnicast({
+      id: "kr1", mode: "unicast", senderId: "agent-C", recipientId: "agent-D",
+      sequenceNumber: 1, timestampSentMs: Date.now(), encrypted: false,
+      payload: JSON.stringify({ kind: "system", body: { action: "REQUEST_GROUP_KEY", groupAddress: GROUP, requestingAgentId: "agent-C" } }),
+    });
+    await new Promise((r) => setTimeout(r, 50));
+    expect(d.events.some((e) => e.type === "GROUP_KEY_GRANTED")).toBe(true);
+    expect(d.events.some((e) => e.type === "PROTOCOL_VIOLATION" && e.payload["reason"] === "KEY_RESPONSE_UNDELIVERABLE")).toBe(true);
   });
 
   it("onMulticast / onBroadcast inbound paths dispatch a synthetic datagram deterministically", async () => {
