@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Phase 11 — Freeze. Tags the baseline, records the hash, zips packages/.
 # From here the baseline is IMMUTABLE. Fixes discovered in Phases 12–14 go on
-# fix/post-baseline, created AFTER all evidence is collected. The tag is never moved.
+# main AFTER all evidence is collected. The baseline-v1 tag is never moved.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 

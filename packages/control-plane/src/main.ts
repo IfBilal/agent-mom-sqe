@@ -66,11 +66,27 @@ export async function startControlPlane(port = 0): Promise<RunningControlPlane> 
   app.use("/api", adminRoutes(ctx));
 
   const server = http.createServer(app);
+
+  // Bind first. Only attach the WebSocket server once the port is actually ours,
+  // so a listen failure (EADDRINUSE / EACCES) rejects cleanly instead of leaving
+  // an unhandled 'error' on a half-wired ws server.
+  await new Promise<void>((resolve, reject) => {
+    const onError = (err: Error) => {
+      server.off("listening", onListening);
+      reject(err);
+    };
+    const onListening = () => {
+      server.off("error", onError);
+      resolve();
+    };
+    server.once("error", onError);
+    server.once("listening", onListening);
+    server.listen(port);
+  });
+  const actualPort = (server.address() as { port: number }).port;
+
   const liveHub = new LiveEventHub(server);
   hub.publish = (e) => liveHub.publish(e);
-
-  await new Promise<void>((resolve) => server.listen(port, resolve));
-  const actualPort = (server.address() as { port: number }).port;
 
   return {
     port: actualPort,
@@ -85,28 +101,50 @@ export async function startControlPlane(port = 0): Promise<RunningControlPlane> 
   };
 }
 
-// CLI entry
-if (process.argv[1] && import.meta.url === `file://${process.argv[1]}`) {
-  const port = Number(process.env.CONTROL_PLANE_PORT ?? 4000);
-  startControlPlane(port)
-    .then(async (cp) => {
-      // eslint-disable-next-line no-console
-      console.log(`agentMom control plane on http://localhost:${cp.port}/api  (ws :/live)`);
-      if (process.env.SPAWN_DEMO === "1") {
-        await cp.spawnDemoTopology();
-        console.log("demo topology spawned: agent-A..D");
-      }
-      // Kill the forked agents on any orderly shutdown signal, so a stopped
-      // control plane never leaves orphan agents holding ports 7001–7004.
-      for (const signal of ["SIGINT", "SIGTERM", "SIGHUP"] as const) {
-        process.on(signal, async () => {
-          await cp.close();
-          process.exit(0);
-        });
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      process.exit(1);
-    });
+export interface CliOptions {
+  port?: number;
+  spawnDemo?: boolean;
+  registerSignals?: boolean;
+  log?: (message: string) => void;
 }
+
+/**
+ * Boots the control plane the way the CLI does — resolved port, optional demo
+ * topology, orderly-shutdown signal handlers. Exported (not inlined in the
+ * entry guard) so it is exercised by the test suite rather than left as an
+ * uncovered process shim.
+ */
+export async function runCli(opts: CliOptions = {}): Promise<RunningControlPlane> {
+  const log = opts.log ?? ((m: string) => console.log(m));
+  const port = opts.port ?? Number(process.env.CONTROL_PLANE_PORT ?? 4000);
+
+  const cp = await startControlPlane(port);
+  log(`agentMom control plane on http://localhost:${cp.port}/api  (ws :/live)`);
+
+  if (opts.spawnDemo ?? process.env.SPAWN_DEMO === "1") {
+    await cp.spawnDemoTopology();
+    log("demo topology spawned: agent-A..D");
+  }
+
+  // Kill the forked agents on any orderly shutdown signal, so a stopped control
+  // plane never leaves orphan agents holding ports 7001–7004.
+  if (opts.registerSignals ?? true) {
+    for (const signal of ["SIGINT", "SIGTERM", "SIGHUP"] as const) {
+      /* v8 ignore next 3 -- signal callback cannot run under the test runner without killing it */
+      process.once(signal, () => {
+        void cp.close().then(() => process.exit(0));
+      });
+    }
+  }
+
+  return cp;
+}
+
+/* v8 ignore start -- process entry guard, not logic */
+if (process.argv[1] && import.meta.url === `file://${process.argv[1]}`) {
+  runCli().catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+}
+/* v8 ignore stop */

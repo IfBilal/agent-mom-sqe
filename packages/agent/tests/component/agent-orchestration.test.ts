@@ -144,3 +144,59 @@ describe("Agent orchestrator — FR2 membership commands", () => {
     expect(((await cmd(a, "snapshot")) as { memberships: string[] }).memberships).not.toContain(GROUP);
   });
 });
+
+describe("Agent orchestrator — NFR8 legacy adapter path + remaining commands", () => {
+  it("legacy-send round-trips through the 1.2 adapter and bypasses every new feature (BR-22)", async () => {
+    const a = harness(cfg("agent-A", 18408));
+    const b = harness(cfg("agent-B", 18409));
+    open.push(a.agent, b.agent);
+    await a.agent.start();
+    await b.agent.start();
+    const peers = { "agent-A": { host: "127.0.0.1", unicastPort: 18408 }, "agent-B": { host: "127.0.0.1", unicastPort: 18409 } };
+    await a.agent.onMessage({ type: "peer-update", peers });
+    await b.agent.onMessage({ type: "peer-update", peers });
+
+    await cmd(a, "legacy-send", { toAgentId: "agent-B", body: "legacy hello" });
+    await new Promise((r) => setTimeout(r, 150));
+
+    const recv = b.events.find((e) => e.type === "MESSAGE_RECEIVED");
+    expect(recv?.payload["encrypted"]).toBe(false); // 1.2 predates FR5 — always plaintext
+  });
+
+  it("an unknown command yields ok:false without crashing the agent", async () => {
+    const a = harness(cfg("agent-A", 18410));
+    open.push(a.agent);
+    await a.agent.start();
+    const id = "bad-1";
+    await a.agent.onMessage({ type: "cmd", id, cmd: { kind: "not-a-real-command" } as never });
+    const r = a.results.find((x) => x.id === id);
+    expect(r).toMatchObject({ ok: false });
+    expect(r?.error).toContain("unknown command");
+    // still responsive
+    expect(await cmd(a, "snapshot")).toMatchObject({ agentId: "agent-A" });
+  });
+
+  it("config-group and admin demo-aid commands round-trip", async () => {
+    const a = harness(cfg("agent-A", 18411));
+    open.push(a.agent);
+    await a.agent.start();
+    expect(await cmd(a, "config-group", { groupAddress: GROUP, port: 15650 })).toMatchObject({ port: 15650 });
+    // send-broadcast returns an addressUsed
+    const bc = (await cmd(a, "send-broadcast", { body: { kind: "chat", body: { text: "hi" } } })) as { addressUsed?: string };
+    expect(typeof bc.addressUsed).toBe("string");
+    // send-multicast to a joined group does not throw
+    await cmd(a, "join", { groupAddress: GROUP });
+    await cmd(a, "send-multicast", { groupAddress: GROUP, body: { kind: "chat", body: { text: "mc" } }, ttl: 5, encrypted: false });
+  });
+
+  it("a peer-update refreshes the address book", async () => {
+    const a = harness(cfg("agent-A", 18412));
+    open.push(a.agent);
+    await a.agent.start();
+    await a.agent.onMessage({ type: "peer-update", peers: { "agent-Z": { host: "127.0.0.1", unicastPort: 18499 } } });
+    // sending to an unknown peer now fails with a connect error, not "no address book entry"
+    await a.agent.onMessage({ type: "cmd", id: "z", cmd: { kind: "send-unicast", recipientId: "agent-Z", body: { kind: "chat", body: {} }, encrypted: false } });
+    const r = a.results.find((x) => x.id === "z");
+    expect(r?.ok).toBe(false);
+  });
+});

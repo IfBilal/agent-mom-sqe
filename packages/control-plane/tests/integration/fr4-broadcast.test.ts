@@ -1,5 +1,5 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import { boot, type Harness } from "./helpers.js";
+import { boot, BROADCAST_OK, type Harness } from "./helpers.js";
 
 let h: Harness;
 beforeAll(async () => {
@@ -26,9 +26,11 @@ describe("COND-29 / TC-10 area — a broadcast send is received by every agent o
         .filter((d) => d.mode === "broadcast")
         .map((d) => d.agentId),
     );
-    for (const a of ["agent-A", "agent-B", "agent-C", "agent-D"]) {
-      expect(receivers.has(a), `${a} did not receive the broadcast`).toBe(true);
-    }
+    if (BROADCAST_OK) {
+      for (const a of ["agent-A", "agent-B", "agent-C", "agent-D"]) {
+        expect(receivers.has(a), `${a} did not receive the broadcast`).toBe(true);
+      }
+    } // else: CON-05 unmet on this host — BLOCKED per §18.1, addressUsed already asserted
     // Scope honesty (§9.4): this evidences HOST-LOCAL reach only, not 3.2.3.3's
     // "all possible hosts under the same local network" (that is TC-11, BLOCKED).
   });

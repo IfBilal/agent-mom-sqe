@@ -17,6 +17,7 @@
     "test:component": "vitest run packages/agent/tests/component",
     "test:integration": "vitest run packages/control-plane/tests/integration",
     "coverage": "vitest run --coverage",
+    "verify": "npm run typecheck && npm run build && npm run coverage && npm --workspace @agentmom/web run build",
     "dev-up": "bash scripts/dev-up.sh",
     "spawn-demo": "bash scripts/spawn-demo-agents.sh",
     "verify-preconditions": "bash scripts/verify-preconditions.sh"

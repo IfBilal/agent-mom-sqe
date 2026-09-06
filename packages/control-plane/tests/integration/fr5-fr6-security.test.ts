@@ -1,5 +1,5 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import { boot, type Harness } from "./helpers.js";
+import { boot, MULTICAST_OK, type Harness } from "./helpers.js";
 
 let h: Harness;
 beforeAll(async () => {
@@ -49,7 +49,7 @@ describe("COND-43 — key request and response are encrypted regardless of the s
   });
 });
 
-describe("COND-44 — an encrypted multicast is readable by key-holding members and raises DECRYPTION_FAILED for others (3.2.4.5/.6)", () => {
+describe.skipIf(!MULTICAST_OK)("COND-44 — an encrypted multicast is readable by key-holding members and raises DECRYPTION_FAILED for others (3.2.4.5/.6) [needs CON-04]", () => {
   it("agent-D (key holder) reads it; agent-B (no key) fails closed", async () => {
     // agent-C obtains the group key; agent-B deliberately does not (not allow-listed).
     await h.api("/api/keys/request", { method: "POST", body: JSON.stringify({ requestingAgentId: "agent-C", groupAddress: "239.1.1.5" }) });
@@ -79,7 +79,7 @@ describe("COND-54 — ciphertext observed on the wire differs from the plaintext
   });
 });
 
-describe("COND-45 / BR-20 / A6.2 — after leaving, an agent that already holds the group key can still decrypt (deliberate, flagged)", () => {
+describe.skipIf(!MULTICAST_OK)("COND-45 / BR-20 / A6.2 — after leaving, an agent that already holds the group key can still decrypt (deliberate, flagged) [needs CON-04]", () => {
   it("agent-C keeps a working key across a leave and still sends readable encrypted multicast", async () => {
     await h.api("/api/keys/request", { method: "POST", body: JSON.stringify({ requestingAgentId: "agent-C", groupAddress: "239.1.1.5" }) });
     await new Promise((r) => setTimeout(r, 400));

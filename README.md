@@ -87,6 +87,7 @@ Groups: α `239.1.1.5:5007`, β `239.1.1.6:5008`. Broadcast port `9001`
 ## Test
 
 ```bash
+npm run verify        # typecheck + build + all tests + coverage + web build (the full gate)
 npm test              # all levels: unit + component + integration
 npm run coverage      # emits coverage/lcov.info for SonarQube
 npm run test:unit
@@ -94,7 +95,7 @@ npm run test:component
 npm run test:integration
 ```
 
-83 automated tests across 16 files. Four test levels (§12 of the plan). Unit + component + integration are
+122 automated tests across 18 files. Four test levels (§12 of the plan). Unit + component + integration are
 **automated inside the frozen baseline**. System-level cases (SRS UC1–UC4) are
 **manual, per the brief** — they are not in the automated suite.
 
@@ -108,11 +109,28 @@ sets `fileParallelism: false`.
 
 ### Coverage
 
-Overall ~82% lines. The agent orchestrator (`packages/agent/src/agent.ts`, ~81%)
+Overall ~85% lines. The agent orchestrator (`packages/agent/src/agent.ts`, ~88%)
 is driven directly by the component suite (`agent-orchestration.test.ts`) with a
 stub `send`, so it is measured rather than lost to v8's forked-child blind spot
 (plan §12.4 — see [`DEVIATIONS.md`](DEVIATIONS.md) D-4). Only the ~25-line
 forked-child bootstrap `packages/agent/src/main.ts` is excluded from the report.
+
+### CON-04 / CON-05 and the automated suite
+
+Integration cases that need a datagram to *actually arrive* (multicast/broadcast
+delivery) probe the host at start-up (`helpers.ts`) and **SKIP with a BLOCKED
+note** where loopback multicast/broadcast is unavailable — matching §18.1's
+"unmet precondition → BLOCKED, not FAILED". Drop / gate / boundary / negative
+cases always run. So `npm test` is green on any machine.
+
+### Machine-checked Definition of Done
+
+`packages/core/tests/unit/dod.test.ts` and `traceability.test.ts` enforce plan
+§20 as tests: 24 assumptions each with a findable comment in the file
+`ASSUMPTIONS.md` names, 54 conditions all traced (zero Table-C orphans), the
+three-label rule, the "sent to / not reaches" wording discipline (§20.8), and
+the §21 non-goals (no DB / auth / retry layer). These fail the build on
+regression.
 
 ## Preconditions (before any test session)
 
@@ -134,7 +152,8 @@ bash scripts/freeze-baseline.sh   # git tag baseline-v1, zip packages/
 ```
 
 After the freeze the baseline is immutable; SonarQube and test evidence are
-collected against it, and fixes go on `fix/post-baseline`.
+collected against the `baseline-v1` tag. Post-freeze fixes are committed on
+`main` and the tag is **not** moved.
 
 ## Repository layout
 

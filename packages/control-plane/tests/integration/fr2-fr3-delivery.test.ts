@@ -1,5 +1,5 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import { boot, type Harness } from "./helpers.js";
+import { boot, MULTICAST_OK, type Harness } from "./helpers.js";
 
 let h: Harness;
 beforeAll(async () => {
@@ -22,7 +22,7 @@ function receiversFor(log: Array<Record<string, unknown>>, envelopeId?: string):
   );
 }
 
-describe("COND-26 / TC-06 area — a multicast send reaches every current member of the group (3.2.2.1/.2)", () => {
+describe.skipIf(!MULTICAST_OK)("COND-26 / TC-06 area — a multicast send reaches every current member of the group (3.2.2.1/.2) [needs CON-04]", () => {
   it("group α members agent-B, agent-C, agent-D all receive", async () => {
     const t0 = Date.now();
     await h.api("/api/messages/multicast", {
@@ -36,7 +36,7 @@ describe("COND-26 / TC-06 area — a multicast send reaches every current member
   });
 });
 
-describe("COND-16 — an agent joined to α and β receives from both, each attributed to the correct group (3.2.2.9 / BR-07)", () => {
+describe.skipIf(!MULTICAST_OK)("COND-16 — an agent joined to α and β receives from both, each attributed to the correct group (3.2.2.9 / BR-07) [needs CON-04]", () => {
   it("agent-C attributes α and β traffic to the right group", async () => {
     const t0 = Date.now();
     await h.api("/api/messages/multicast", {
@@ -72,8 +72,8 @@ describe("COND-15 — a message sent to a group after an agent leaves is not del
     });
     await new Promise((r) => setTimeout(r, 400));
     const recv = receiversFor(await h.logSince(t0));
-    expect(recv.has("agent-B")).toBe(false);
-    expect(recv.has("agent-C")).toBe(true); // C still a member
+    expect(recv.has("agent-B")).toBe(false); // BR-05 holds regardless of CON-04
+    if (MULTICAST_OK) expect(recv.has("agent-C")).toBe(true); // C still a member
     // rejoin for later suites
     await h.api("/api/groups/239.1.1.5/join", { method: "POST", body: JSON.stringify({ agentId: "agent-B" }) });
   });
