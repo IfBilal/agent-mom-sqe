@@ -1,0 +1,18 @@
+{
+  "name": "@agentmom/agent",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/main.js",
+  "exports": {
+    ".": "./dist/main.js",
+    "./config": "./dist/config.js",
+    "./ipc": "./dist/ipc.js"
+  },
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "dependencies": {
+    "@agentmom/core": "1.0.0"
+  }
+}
