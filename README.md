@@ -42,7 +42,9 @@ is a test harness over the framework, not a product UI).
 | NFR10 | basic security only | discipline — verified by inspection (`ASSUMPTIONS.md` A10.2, BR-24) |
 
 See [`ASSUMPTIONS.md`](ASSUMPTIONS.md) (24 entries) and
-[`TEST-CONDITIONS.md`](TEST-CONDITIONS.md) (54 conditions).
+[`TEST-CONDITIONS.md`](TEST-CONDITIONS.md) (54 conditions) and
+[`TRACEABILITY.md`](TRACEABILITY.md) (Table C skeleton — every non-system condition
+mapped to a Table B case or a test file; enforced by a meta-test).
 
 ## Setup
 
@@ -91,7 +93,7 @@ npm run test:component
 npm run test:integration
 ```
 
-Four test levels (§12 of the plan). Unit + component + integration are
+79 automated tests across 15 files. Four test levels (§12 of the plan). Unit + component + integration are
 **automated inside the frozen baseline**. System-level cases (SRS UC1–UC4) are
 **manual, per the brief** — they are not in the automated suite.
 

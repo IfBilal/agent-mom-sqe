@@ -356,3 +356,10 @@ process.on("SIGTERM", async () => {
   await agent?.stop();
   process.exit(0);
 });
+
+// If the control plane (our IPC parent) goes away, do not linger as an orphan
+// holding a unicast/multicast/broadcast port.
+process.on("disconnect", async () => {
+  await agent?.stop();
+  process.exit(0);
+});

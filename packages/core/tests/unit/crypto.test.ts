@@ -17,6 +17,17 @@ describe("COND-34 — AES-256-GCM encrypt → decrypt round-trips to the origina
   });
 });
 
+describe("COND-54 — ciphertext observed on the wire differs from the plaintext body (2.4.2)", () => {
+  it("the ciphertext contains none of the plaintext substring, at any offset", () => {
+    const key = derivePairwiseKey("agent-A", "agent-B", SEED);
+    const secret = "TOP-SECRET-MARKER-9c3f";
+    const parts = encrypt(JSON.stringify({ kind: "chat", body: { text: secret } }), key);
+    const decoded = Buffer.from(parts.ciphertext, "base64").toString("latin1");
+    expect(decoded).not.toContain(secret);
+    expect(parts.ciphertext).not.toContain(secret);
+  });
+});
+
 describe("COND-35 — a tampered authTag causes decryption to throw; no plaintext is produced (BR-17)", () => {
   it("fails closed", () => {
     const key = derivePairwiseKey("agent-A", "agent-B", SEED);

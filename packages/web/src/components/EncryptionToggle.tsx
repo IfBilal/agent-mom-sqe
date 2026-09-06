@@ -2,9 +2,9 @@
 // setting. This toggle is wired straight to MessageEnvelope.encrypted.
 export function EncryptionToggle({ value, onChange }: { value: boolean; onChange: (v: boolean) => void }) {
   return (
-    <label style={{ display: "inline-flex", gap: 6, alignItems: "center", fontSize: 13 }}>
+    <label>
       <input type="checkbox" checked={value} onChange={(e) => onChange(e.target.checked)} />
-      encrypt this message (per-message — BR-14)
+      encrypt this message <span className="muted">(per-message — BR-14)</span>
     </label>
   );
 }

@@ -11,12 +11,15 @@ export function MessageComposer({
 }) {
   const [body, setBody] = useState("hello from the harness");
   return (
-    <div style={{ display: "flex", gap: 8, margin: "8px 0" }}>
+    <div className="composer">
       <input
-        style={{ flex: 1 }}
+        type="text"
         value={body}
         placeholder={placeholder}
         onChange={(e) => setBody(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && !disabled) onSend(body);
+        }}
       />
       <button disabled={disabled} onClick={() => onSend(body)}>
         Send

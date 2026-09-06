@@ -28,37 +28,48 @@ export function Security({ agents, events, eventsRef }: PageProps) {
 
   return (
     <div>
-      <h2>Security — FR5 (unicast), FR6 (multicast group key)</h2>
-      <label>
-        group{" "}
-        <select value={group} onChange={(e) => setGroup(e.target.value)}>
-          {GROUPS.map((g) => <option key={g}>{g}</option>)}
-        </select>
-      </label>
+      <h2>Security <span className="req">FR5 unicast · FR6 group key</span></h2>
 
-      <h3>Key-holder allow-list (agent-D) — BR-18</h3>
-      <p style={{ fontSize: 12 }}>Allow-list ≠ current membership (§9.6). Allowed: <code>{allow.join(", ") || "none"}</code></p>
+      <div className="card">
+        <label>group
+          <select value={group} onChange={(e) => setGroup(e.target.value)}>
+            {GROUPS.map((g) => <option key={g}>{g}</option>)}
+          </select>
+        </label>
+        <h3>Key-holder allow-list (agent-D) — BR-18</h3>
+        <p className="muted">
+          Allow-list ≠ current membership (§9.6). Allowed: <code>{allow.join(", ") || "none"}</code>
+        </p>
 
-      <h3>Request group key</h3>
-      <label>
-        as{" "}
-        <select value={requester} onChange={(e) => setRequester(e.target.value)}>
-          {agents.map((a) => <option key={a.agentId}>{a.agentId}</option>)}
-        </select>
-      </label>{" "}
-      <button onClick={() => { setSender(requester); keyReq.run(() => api.requestKey(requester, group)); }}>
-        Request Group Key
-      </button>
-      <StatusBadge state={keyReq.status.state} event={keyReq.status.event} detail={keyReq.status.detail} />
+        <h3>Request group key</h3>
+        <div className="row tight">
+          <label>as
+            <select value={requester} onChange={(e) => setRequester(e.target.value)}>
+              {agents.map((a) => <option key={a.agentId}>{a.agentId}</option>)}
+            </select>
+          </label>
+          <button className="btn" onClick={() => { setSender(requester); keyReq.run(() => api.requestKey(requester, group)); }}>
+            Request Group Key
+          </button>
+        </div>
+        <StatusBadge state={keyReq.status.state} event={keyReq.status.event} detail={keyReq.status.detail} />
+      </div>
 
-      <h3>Encrypted multicast composer (FR6)</h3>
-      {!hasKey && <p style={{ color: "#c62828", fontSize: 12 }} title="request and be granted a group key first">disabled — {sender} holds no group key for {group}</p>}
-      <MessageComposer
-        disabled={!hasKey}
-        onSend={(body) => mcSend.run(() => api.sendMulticast({ senderId: sender, groupAddress: group, body, ttl: 5, encrypted: true }))}
-      />
-      <StatusBadge state={mcSend.status.state} event={mcSend.status.event} detail={mcSend.status.detail} />
+      <div className="card">
+        <h3 style={{ marginTop: 0 }}>Encrypted multicast composer (FR6)</h3>
+        {!hasKey && (
+          <p className="disabled-hint" title="request and be granted a group key first">
+            disabled — {sender} holds no group key for {group}
+          </p>
+        )}
+        <MessageComposer
+          disabled={!hasKey}
+          onSend={(body) => mcSend.run(() => api.sendMulticast({ senderId: sender, groupAddress: group, body, ttl: 5, encrypted: true }))}
+        />
+        <StatusBadge state={mcSend.status.state} event={mcSend.status.event} detail={mcSend.status.detail} />
+      </div>
 
+      <h3>Security log</h3>
       <MessageLog events={events} filter={(e) => e.type.includes("KEY") || e.type === "DECRYPTION_FAILED" || e.type.includes("MESSAGE")} />
     </div>
   );

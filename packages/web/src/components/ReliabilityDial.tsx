@@ -5,9 +5,9 @@ import { useState } from "react";
 export function ReliabilityDial({ onChange }: { onChange: (rate: number) => void }) {
   const [rate, setRate] = useState(0);
   return (
-    <div style={{ fontSize: 13 }}>
+    <div>
       <label>
-        drop rate: {(rate * 100).toFixed(0)}%
+        drop rate: <strong>{(rate * 100).toFixed(0)}%</strong>
         <input
           type="range"
           min={0}
@@ -21,9 +21,9 @@ export function ReliabilityDial({ onChange }: { onChange: (rate: number) => void
           }}
         />
       </label>
-      <p style={{ color: "#666" }}>
+      <p className="muted">
         Simulates packet loss for NFR 2.4.1 observation. Default 0%. Real UDP loss
-        can occur independently of this control. Applies to multicast/broadcast
+        can occur independently of this control. Applies to multicast / broadcast
         only — never unicast.
       </p>
     </div>
