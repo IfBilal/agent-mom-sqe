@@ -11,6 +11,15 @@ import { makeEvent, type Emit } from "../events.js";
 // FR4 — §9.4. BR-12, BR-13.
 // Wording discipline: a broadcast is "SENT TO" all possible hosts, never
 // "reaches" them (NFR9 / 2.4.1 permits delivery to none).
+//
+// AI ASSUMPTION A4.1 — Design decision (SRS names no address).
+// Limited broadcast 255.255.255.255 is taken to satisfy "all possible hosts
+// under the same local network," with a subnet-directed fallback (BR-12).
+//
+// AI ASSUMPTION A4.2 — classified UNSUPPORTED in the Part 1 report.
+// We assume the dev/test machines permit broadcast without administrator
+// restriction. SRS 2.4.4 states the opposite may hold; when it does, the
+// EACCES/EPERM path below surfaces BROADCAST_PERMISSION_DENIED (BR-13).
 
 export interface BroadcastDeps {
   agentId: string;

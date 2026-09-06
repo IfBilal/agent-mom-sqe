@@ -5,6 +5,10 @@ import {
 import type { MessageEnvelope } from "../types/message.js";
 
 // §8 invariants, enforced here. BR-16 lives here too.
+//
+// AI ASSUMPTION A5.3 — Design decision.
+// `encrypted = true` without `iv`/`authTag` is treated as MALFORMED: the
+// envelope is dropped and logged, with NO decryption attempted (BR-16).
 
 export type ValidationCode =
   | "OK"

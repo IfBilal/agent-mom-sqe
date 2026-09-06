@@ -2,6 +2,9 @@ import { newGroupKey } from "@agentmom/core";
 
 // FR6 — §9.6. BR-18, BR-20.
 //
+// AI ASSUMPTION A6.1 — Supported by SRS (2.5.3): a key holder exists and gates
+// group-key distribution by an allow-list.
+//
 // Allow-list ≠ current membership. SRS 2.5.3 says the key holder maintains a
 // list of agents ALLOWED TO GET THE KEYS — not a list of current members. The
 // two can legitimately diverge; this models the allow-list.

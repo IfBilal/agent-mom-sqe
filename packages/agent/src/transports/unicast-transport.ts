@@ -9,6 +9,7 @@ import type { PeerAddress } from "../config.js";
 import { makeEvent, type Emit } from "../events.js";
 
 // FR1 — §9.1.
+// AI ASSUMPTION A1.1 — Supported by SRS (2.1.2): TCP is the unicast transport.
 // Connection model (A1.2): one persistent TCP connection per ORDERED pair,
 // lazily established on first send, reused thereafter. TCP guarantees ordering
 // per connection — that, and only that, is why BR-02 holds.

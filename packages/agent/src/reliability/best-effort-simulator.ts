@@ -10,6 +10,12 @@ import type { TransportMode } from "@agentmom/core";
 // Hard rule (§9.4 / §9.9): a drop the app handles correctly is a PASS, never
 // evidence of a FAILED case.
 //
+// AI ASSUMPTION A9.1 — Supported by SRS (2.4.1): best-effort delivery permits loss.
+// AI ASSUMPTION A9.2 — Design decision: therefore NO ack / retry / resend layer
+// exists anywhere (BR-23). On a simulated drop we log and skip — there is
+// deliberately no code path that retransmits. NFR9 is evaluated against this
+// absence (COND-52 static inspection + COND-53 observed non-retransmission).
+//
 // crypto.randomInt is used rather than Math.random so SonarQube S2245 does not
 // flag it — see §16 finding #2. This is not security-relevant either way; it
 // seeds a demo aid, not a key.
