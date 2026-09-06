@@ -59,6 +59,14 @@ export function adminRoutes(ctx: RouteContext): Router {
     });
   });
 
+  r.post(
+    "/admin/spawn-demo",
+    wrap(async (_req, res) => {
+      if (ctx.registry.descriptors().length === 0) await ctx.spawnDemoTopology();
+      res.json({ agents: ctx.registry.descriptors().map((a) => a.agentId) });
+    }),
+  );
+
   r.get("/admin/crypto", (_req, res) => {
     res.json({
       algorithm: "AES-256-GCM",

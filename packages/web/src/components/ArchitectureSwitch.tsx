@@ -1,0 +1,28 @@
+// FR7 — per-agent mode radio. A7.2: switching replaces only the handler,
+// never the sockets. The log emits ARCHITECTURE_SWITCHED at the exact moment.
+export function ArchitectureSwitch({
+  agentId,
+  mode,
+  onSwitch,
+}: {
+  agentId: string;
+  mode: string;
+  onSwitch: (agentId: string, mode: string) => void;
+}) {
+  return (
+    <div style={{ fontSize: 13, margin: "4px 0" }}>
+      <strong>{agentId}</strong>:{" "}
+      {(["agent-controlled", "component-controlled"] as const).map((m) => (
+        <label key={m} style={{ marginRight: 10 }}>
+          <input
+            type="radio"
+            name={`arch-${agentId}`}
+            checked={mode === m}
+            onChange={() => onSwitch(agentId, m)}
+          />{" "}
+          {m}
+        </label>
+      ))}
+    </div>
+  );
+}

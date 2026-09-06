@@ -8,6 +8,7 @@ export interface RouteContext {
   log: LogAggregator;
   groupPort: (groupAddress: string) => number;
   allowList: Record<string, string[]>;
+  spawnDemoTopology: () => Promise<void>;
 }
 
 export function wrap(

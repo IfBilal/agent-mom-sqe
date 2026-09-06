@@ -41,21 +41,6 @@ export async function startControlPlane(port = 0): Promise<RunningControlPlane> 
   registry = new AgentRegistry(supervisor);
 
   const groupPort = (g: string): number => DEMO_GROUPS[g]?.port ?? BROADCAST_PORT;
-  const ctx: RouteContext = { supervisor, registry, log, groupPort, allowList: DEMO_ALLOWLIST };
-
-  app.get("/api/health", (_req, res) => res.json({ ok: true }));
-  app.use("/api", agentsRoutes(ctx));
-  app.use("/api", messagesRoutes(ctx));
-  app.use("/api", groupsRoutes(ctx));
-  app.use("/api", keysRoutes(ctx));
-  app.use("/api", adminRoutes(ctx));
-
-  const server = http.createServer(app);
-  const liveHub = new LiveEventHub(server);
-  hub.publish = (e) => liveHub.publish(e);
-
-  await new Promise<void>((resolve) => server.listen(port, resolve));
-  const actualPort = (server.address() as { port: number }).port;
 
   const spawnDemoTopology = async (): Promise<void> => {
     for (const spec of DEMO_TOPOLOGY) {
@@ -70,6 +55,22 @@ export async function startControlPlane(port = 0): Promise<RunningControlPlane> 
       registry.seed(spec);
     }
   };
+
+  const ctx: RouteContext = { supervisor, registry, log, groupPort, allowList: DEMO_ALLOWLIST, spawnDemoTopology };
+
+  app.get("/api/health", (_req, res) => res.json({ ok: true }));
+  app.use("/api", agentsRoutes(ctx));
+  app.use("/api", messagesRoutes(ctx));
+  app.use("/api", groupsRoutes(ctx));
+  app.use("/api", keysRoutes(ctx));
+  app.use("/api", adminRoutes(ctx));
+
+  const server = http.createServer(app);
+  const liveHub = new LiveEventHub(server);
+  hub.publish = (e) => liveHub.publish(e);
+
+  await new Promise<void>((resolve) => server.listen(port, resolve));
+  const actualPort = (server.address() as { port: number }).port;
 
   return {
     port: actualPort,
