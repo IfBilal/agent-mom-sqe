@@ -59,12 +59,14 @@ npm run build    # tsc -b for core, agent, control-plane
 ## Run
 
 ```bash
-npm run dev-up
+bash runsystem.sh        # or: npm run dev-up
 ```
 
-This builds, starts the control plane on **:4000** with the four-agent demo
-topology (agent-A…D mirroring SRS Figures 1–4), and starts the harness on
-**http://localhost:5173**.
+One command: frees the ports, builds, starts the control plane on **:4000** with
+the four-agent demo topology (agent-A…D mirroring SRS Figures 1–4), and starts
+the harness on **http://localhost:5173**. **Ctrl-C** stops the control plane,
+all forked agents, and the harness. See `oneliner how to run.txt` for the
+clone-and-run one-liner.
 
 Manual, without the script:
 

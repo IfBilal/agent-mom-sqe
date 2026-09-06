@@ -1,0 +1,33 @@
+agentMom — one-liner to run the whole system
+=============================================
+
+ALREADY CLONED (you are in the repo folder):
+
+    bash runsystem.sh
+
+FROM SCRATCH (clone + install + run, single line):
+
+    git clone https://github.com/IfBilal/agent-mom-sqe.git && cd agent-mom-sqe && npm install && bash runsystem.sh
+
+Then open:  http://localhost:5173
+
+Stop everything:  press Ctrl-C in that terminal.
+
+
+What it does
+------------
+- frees the ports (4000, 5173, 7001-7004, 5007/5008, 9001)
+- npm install (first run only) + npm run build
+- starts the control plane on :4000 and forks the 4 demo agents (A, B, C, D)
+- starts the React harness on :5173
+- Ctrl-C stops the control plane, all agents, and the harness
+
+Requirements:  Node.js >= 20, npm.
+
+
+Other useful commands
+---------------------
+    npm run verify     # full gate: typecheck + build + 217 tests + coverage + web build
+    npm test           # all tests
+    npm run coverage   # emits coverage/lcov.info for SonarQube
+    bash scripts/verify-preconditions.sh   # CON-04 / CON-05 check before a test session
