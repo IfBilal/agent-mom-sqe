@@ -156,6 +156,7 @@ h3 { font-size: 12px; font-weight: 650; text-transform: uppercase; letter-spacin
 
 /* ---------- panels ---------- */
 .panel {
+  position: relative;
   background: var(--panel);
   border: 1px solid var(--panel-brd);
   border-radius: var(--radius);
@@ -164,6 +165,12 @@ h3 { font-size: 12px; font-weight: 650; text-transform: uppercase; letter-spacin
   margin: 14px 0;
   box-shadow: 0 20px 50px -24px rgba(0, 0, 0, 0.6);
   animation: rise 0.4s var(--ease) both;
+  overflow: hidden;
+}
+.panel::before {
+  content: ""; position: absolute; inset: 0 0 auto 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--panel-brd-hi) 20%, var(--cyan) 50%, var(--panel-brd-hi) 80%, transparent);
+  opacity: 0.6;
 }
 .panel.accent { border-color: var(--panel-brd-hi); }
 .panel.note { background: linear-gradient(180deg, rgba(255,198,77,0.12), var(--panel)); border-color: rgba(255,198,77,0.3); }
@@ -227,13 +234,28 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--accent); width
 @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
 
 /* ---------- topology ---------- */
-.topo { width: 100%; height: 340px; display: block; }
-.topo .edge { stroke: rgba(140, 165, 255, 0.22); stroke-width: 1.5; }
+.topo-wrap {
+  position: relative; border: 1px solid var(--panel-brd); border-radius: var(--radius);
+  background:
+    radial-gradient(circle at 50% 42%, rgba(110,168,254,0.08), transparent 60%),
+    rgba(4, 6, 14, 0.5);
+  overflow: hidden;
+}
+.topo-wrap::after {
+  content: ""; position: absolute; left: 50%; top: 42%; width: 4px; height: 4px;
+  border-radius: 50%; box-shadow: 0 0 0 1px rgba(110,168,254,0.14), 0 0 0 60px rgba(110,168,254,0.05), 0 0 0 130px rgba(110,168,254,0.03);
+  transform: translate(-50%, -50%); pointer-events: none;
+}
+.topo { width: 100%; height: 300px; display: block; position: relative; }
+.topo .edge { stroke: rgba(140, 165, 255, 0.18); stroke-width: 1.5; }
 .topo .edge.alpha { stroke: rgba(110, 168, 254, 0.4); }
 .topo .edge.beta { stroke: rgba(157, 123, 255, 0.4); }
 .topo .halo { fill: none; stroke-width: 2; opacity: 0.5; }
 .topo .node-c { fill: var(--panel-solid); stroke: var(--panel-brd-hi); stroke-width: 1.5; transition: all 0.3s; }
-.topo .node-c.hot { stroke: var(--ok); filter: drop-shadow(0 0 12px rgba(69,214,122,0.7)); }
+.topo .node-c.hot { stroke: var(--ok); filter: drop-shadow(0 0 14px rgba(69,214,122,0.8)); }
+.topo .ring { fill: none; stroke: var(--ok); stroke-width: 1.5; opacity: 0; }
+.topo .ring.on { animation: ringpulse 0.9s var(--ease); }
+@keyframes ringpulse { 0% { r: 24; opacity: 0.7; } 100% { r: 46; opacity: 0; } }
 .topo .node-c.keyholder { stroke: var(--warn); }
 .topo text { fill: var(--text); font: 600 12px var(--mono); }
 .topo text.sub { fill: var(--text-faint); font: 400 9.5px var(--mono); }

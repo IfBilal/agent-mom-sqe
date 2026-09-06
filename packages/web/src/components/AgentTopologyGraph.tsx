@@ -73,6 +73,7 @@ export function AgentTopologyGraph({ agents, events }: { agents: AgentDescriptor
   }, [agents]);
 
   return (
+    <div className="topo-wrap">
     <svg className="topo" viewBox="0 0 980 340" preserveAspectRatio="xMidYMid meet" role="img" aria-label="agent topology">
       {edges.map((e, i) => {
         const A = pos(e.a), B = pos(e.b);
@@ -84,9 +85,15 @@ export function AgentTopologyGraph({ agents, events }: { agents: AgentDescriptor
         const A = pos(f.from), B = pos(f.to);
         const color = f.kind === "multicast" ? "var(--accent)" : f.kind === "broadcast" ? "var(--pink)" : "var(--cyan)";
         return (
-          <circle key={f.id} className="packet" r="4.5" cx={A.x} cy={A.y} style={{ fill: color }}>
-            <animateMotion dur="0.7s" fill="freeze" repeatCount="1" path={`M ${A.x} ${A.y} L ${B.x} ${B.y}`} />
-          </circle>
+          <g key={f.id}>
+            <line x1={A.x} y1={A.y} x2={B.x} y2={B.y} stroke={color} strokeWidth="2" strokeLinecap="round" opacity="0.55">
+              <animate attributeName="opacity" from="0.55" to="0" dur="0.8s" fill="freeze" />
+            </line>
+            <circle className="packet" r="5" cx={A.x} cy={A.y} style={{ fill: color }}>
+              <animateMotion dur="0.7s" fill="freeze" repeatCount="1" path={`M ${A.x} ${A.y} L ${B.x} ${B.y}`} />
+              <animate attributeName="opacity" from="1" to="0.2" begin="0.55s" dur="0.2s" fill="freeze" />
+            </circle>
+          </g>
         );
       })}
 
@@ -100,6 +107,7 @@ export function AgentTopologyGraph({ agents, events }: { agents: AgentDescriptor
               <circle key={g} className="halo" r={30 + k * 7} cx={P.x} cy={P.y}
                 style={{ stroke: g === "239.1.1.5" ? "var(--accent)" : "var(--accent-2)" }} />
             ))}
+            {isHot && <circle key={hot[a.agentId]} className="ring on" cx={P.x} cy={P.y} r="24" />}
             <circle className={cls} r="24" cx={P.x} cy={P.y} />
             <text x={P.x} y={P.y + 3} textAnchor="middle">{a.agentId.replace("agent-", "")}</text>
             <text className="sub" x={P.x} y={P.y + 44} textAnchor="middle">
@@ -110,5 +118,6 @@ export function AgentTopologyGraph({ agents, events }: { agents: AgentDescriptor
         );
       })}
     </svg>
+    </div>
   );
 }

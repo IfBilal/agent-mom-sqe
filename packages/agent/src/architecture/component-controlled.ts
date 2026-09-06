@@ -34,6 +34,13 @@ class JoinLeaveComponent implements ConversationComponent {
   }
 }
 
+class ChatComponent implements ConversationComponent {
+  readonly kinds: PayloadKind[] = ["chat", "system"];
+  handle(_e: MessageEnvelope, payload: DecryptedPayload, ctx: ConversationContext): void {
+    ctx.emit("CONVERSATION_HANDLED", { by: "ChatComponent", kind: payload.kind });
+  }
+}
+
 export class ConversationRouter {
   private readonly byKind = new Map<PayloadKind, ConversationComponent>();
 
@@ -57,6 +64,7 @@ export class ComponentControlledHandler implements ConversationHandler {
     new PingComponent(),
     new TaskBidComponent(),
     new JoinLeaveComponent(),
+    new ChatComponent(),
   ]);
 
   handleIncoming(

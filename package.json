@@ -11,13 +11,13 @@
   ],
   "scripts": {
     "build": "tsc -b packages/core packages/agent packages/control-plane",
-    "typecheck": "tsc -b --noEmit packages/core packages/agent packages/control-plane",
+    "typecheck": "tsc -b packages/core packages/agent packages/control-plane && tsc --noEmit -p packages/web/tsconfig.json",
     "test": "vitest run",
     "test:unit": "vitest run packages/core/tests/unit",
     "test:component": "vitest run packages/agent/tests/component",
     "test:integration": "vitest run packages/control-plane/tests/integration",
     "coverage": "vitest run --coverage",
-    "verify": "npm run typecheck && npm run build && npm run coverage && npm --workspace @agentmom/web run build",
+    "verify": "npm run typecheck && npm run coverage && npm --workspace @agentmom/web run build",
     "dev-up": "bash scripts/dev-up.sh",
     "spawn-demo": "bash scripts/spawn-demo-agents.sh",
     "verify-preconditions": "bash scripts/verify-preconditions.sh"
