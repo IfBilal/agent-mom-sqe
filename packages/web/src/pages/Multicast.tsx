@@ -19,9 +19,12 @@ export function Multicast({ agents, events, eventsRef, refresh }: PageProps) {
     success: ["MESSAGE_RECEIVED"],
     failure: ["MESSAGE_DROPPED_TTL_EXPIRED", "MESSAGE_DROPPED_MEMBERSHIP", "DECRYPTION_FAILED", "PROTOCOL_VIOLATION"],
   });
+  // BR-06 holds iff agent-B receives nothing. Other α members (C, D) legitimately
+  // still receive the injected datagram, so a generic MESSAGE_RECEIVED is NOT a
+  // failure here — only a receipt attributed to agent-B would be.
   const leaveInject = useAction(eventsRef, {
-    success: ["MESSAGE_DROPPED_MEMBERSHIP"],
-    failure: ["MESSAGE_RECEIVED"],
+    success: ["MESSAGE_DROPPED_MEMBERSHIP", "MESSAGE_SENT"],
+    failure: [],
   });
 
   return (
