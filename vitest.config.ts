@@ -17,7 +17,14 @@ export default defineConfig({
       reporter: ["text", "lcov"],
       reportsDirectory: "coverage",
       include: ["packages/*/src/**/*.ts"],
-      exclude: ["packages/web/**", "**/*.d.ts", "**/index.ts"],
+      exclude: [
+        "packages/web/**",
+        "**/*.d.ts",
+        "**/index.ts",
+        // Thin forked-child bootstrap — all logic is in agent.ts, which the
+        // component suite covers directly (agent-orchestration.test.ts).
+        "packages/agent/src/main.ts",
+      ],
     },
   },
 });

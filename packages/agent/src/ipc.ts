@@ -29,7 +29,3 @@ export type AgentToControl =
   | { type: "ready"; agentId: string }
   | { type: "event"; event: LiveEvent }
   | { type: "cmd-result"; id: string; ok: boolean; data?: unknown; error?: string };
-
-export function send(msg: AgentToControl): void {
-  process.send?.(msg);
-}
