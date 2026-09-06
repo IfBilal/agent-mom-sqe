@@ -11,7 +11,14 @@ let agent: Agent | null = null;
 process.on("message", async (raw: ControlToAgent) => {
   if (raw.type === "init") {
     agent = new Agent(raw.config, send);
-    await agent.start();
+    try {
+      await agent.start();
+    } catch (err) {
+      // e.g. a port is already bound — exit so the supervisor's spawn() rejects
+      // cleanly instead of waiting on the ready watchdog.
+      console.error(`agent ${raw.config.agentId} failed to start:`, (err as Error).message);
+      process.exit(1);
+    }
     return;
   }
   await agent?.onMessage(raw);

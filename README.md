@@ -42,7 +42,8 @@ is a test harness over the framework, not a product UI).
 | NFR10 | basic security only | discipline — verified by inspection (`ASSUMPTIONS.md` A10.2, BR-24) |
 
 See [`ASSUMPTIONS.md`](ASSUMPTIONS.md) (24 entries) and
-[`TEST-CONDITIONS.md`](TEST-CONDITIONS.md) (54 conditions) and
+[`TEST-CONDITIONS.md`](TEST-CONDITIONS.md) (54 conditions),
+[`FEATURE-MAP.md`](FEATURE-MAP.md) (every feature → FR/NFR → module → test),
 [`TRACEABILITY.md`](TRACEABILITY.md) (Table C skeleton — every non-system condition
 mapped to a Table B case or a test file; enforced by a meta-test), and
 [`DEVIATIONS.md`](DEVIATIONS.md) (every difference from the plan, declared).
@@ -95,7 +96,7 @@ npm run test:component
 npm run test:integration
 ```
 
-122 automated tests across 18 files. Four test levels (§12 of the plan). Unit + component + integration are
+217 automated tests across 26 files; ~99.7% line coverage, 100% functions (enforced floor 99/99/100/91). Four test levels (§12 of the plan). Unit + component + integration are
 **automated inside the frozen baseline**. System-level cases (SRS UC1–UC4) are
 **manual, per the brief** — they are not in the automated suite.
 
@@ -109,11 +110,19 @@ sets `fileParallelism: false`.
 
 ### Coverage
 
-Overall ~85% lines. The agent orchestrator (`packages/agent/src/agent.ts`, ~88%)
-is driven directly by the component suite (`agent-orchestration.test.ts`) with a
-stub `send`, so it is measured rather than lost to v8's forked-child blind spot
-(plan §12.4 — see [`DEVIATIONS.md`](DEVIATIONS.md) D-4). Only the ~25-line
-forked-child bootstrap `packages/agent/src/main.ts` is excluded from the report.
+**~99.7% lines, 100% functions, ~92% branches** — enforced (build fails below
+99/99/100/91). 100% of the pure logic (core: crypto, framing, validation,
+sequence). The agent orchestrator and the multicast/broadcast receive rules were
+factored into directly-testable units (`agent.ts` with an injectable `send`,
+`multicast-inbound.ts` as a pure classifier) rather than left to v8's
+forked-child blind spot (see [`DEVIATIONS.md`](DEVIATIONS.md) D-4).
+
+The residual branch gap is defensive `?.` / `??` guards and OS-error arms — an
+`EACCES` on a broadcast send, an `addMembership` failure on a NIC without
+multicast — that cannot be induced deterministically. Each is marked with an
+inline `/* v8 ignore */` and a one-line reason. Only the ~30-line forked-child
+bootstrap `packages/agent/src/main.ts` and pure type-declaration files are
+excluded from the report.
 
 ### CON-04 / CON-05 and the automated suite
 

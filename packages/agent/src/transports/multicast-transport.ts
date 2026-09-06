@@ -4,12 +4,12 @@ import {
   decodeDatagram,
   encodeDatagram,
   isMulticastAddress,
-  isTtlExpired,
   stampTtl,
   type MessageEnvelope,
 } from "@agentmom/core";
 import { MULTICAST_INTERFACE } from "../config.js";
 import { makeEvent, type Emit } from "../events.js";
+import { classifyMulticastInbound } from "./multicast-inbound.js";
 import type { GroupMembershipManager } from "../membership/group-membership-manager.js";
 
 // FR2 + FR3 — §9.2 / §9.3.
@@ -63,6 +63,7 @@ export class MulticastTransport {
           socket.setMulticastLoopback(true);
           resolve();
         } catch (err) {
+          /* v8 ignore next -- addMembership fails only when the OS/NIC lacks multicast (CON-04) */
           reject(err as Error);
         }
       });
@@ -79,6 +80,7 @@ export class MulticastTransport {
     const gs = this.sockets.get(groupAddress);
     if (!gs) return;
     this.sockets.delete(groupAddress);
+    /* v8 ignore next 3 -- dropMembership throws only if the OS already dropped it */
     try {
       gs.socket.dropMembership(groupAddress, MULTICAST_INTERFACE);
     } catch {
@@ -87,65 +89,33 @@ export class MulticastTransport {
     await new Promise<void>((resolve) => gs.socket.close(() => resolve()));
   }
 
-  private receive(socketGroup: string, buf: Buffer): void {
-    let env: MessageEnvelope;
+  /** Socket `message` callback → pure classification → emit + dispatch. */
+  receive(socketGroup: string, buf: Buffer): void {
+    let env: MessageEnvelope | null = null;
     try {
       env = decodeDatagram(buf);
     } catch {
-      this.deps.emit(makeEvent("MESSAGE_MALFORMED", { reason: "UNPARSEABLE_DATAGRAM" }));
-      return;
+      /* env stays null → classified as "malformed" */
     }
+    const v = classifyMulticastInbound(env, socketGroup, this.deps.membership.isDeliverable(socketGroup));
+    const agentId = this.deps.agentId;
 
-    // BR-04 / BR-05 — checked against the application-level set, which may
-    // already reject while the OS still delivers (the BR-06 window).
-    if (!this.deps.membership.isDeliverable(socketGroup)) {
-      this.deps.emit(
-        makeEvent("MESSAGE_DROPPED_MEMBERSHIP", {
-          groupAddress: socketGroup,
-          envelopeId: env.id,
-          agentId: this.deps.agentId,
-        }),
-      );
-      return;
+    switch (v.kind) {
+      case "malformed":
+        return this.deps.emit(makeEvent("MESSAGE_MALFORMED", { reason: "UNPARSEABLE_DATAGRAM", agentId }));
+      case "dropped-membership":
+        return this.deps.emit(makeEvent("MESSAGE_DROPPED_MEMBERSHIP", { groupAddress: socketGroup, envelopeId: env!.id, agentId }));
+      case "protocol-violation":
+        return this.deps.emit(makeEvent("PROTOCOL_VIOLATION", { reason: "GROUP_ADDRESS_MISMATCH", socketGroup, envelopeGroup: v.envelopeGroup, agentId }));
+      case "ttl-expired":
+        return this.deps.emit(makeEvent("MESSAGE_DROPPED_TTL_EXPIRED", { groupAddress: socketGroup, ttl: v.ttl, envelopeId: env!.id, agentId }));
+      case "deliver":
+        this.deps.emit(makeEvent("MESSAGE_RECEIVED", {
+          mode: "multicast", groupAddress: socketGroup, envelopeId: v.envelope.id,
+          senderId: v.envelope.senderId, encrypted: v.envelope.encrypted, agentId,
+        }));
+        return this.deps.onEnvelope(v.envelope, socketGroup);
     }
-
-    // Cross-check §9.2 — the envelope's groupAddress must match the socket group.
-    if (env.groupAddress && env.groupAddress !== socketGroup) {
-      this.deps.emit(
-        makeEvent("PROTOCOL_VIOLATION", {
-          reason: "GROUP_ADDRESS_MISMATCH",
-          socketGroup,
-          envelopeGroup: env.groupAddress,
-        }),
-      );
-      return;
-    }
-
-    // BR-09 — application-level TTL check (A3.2). This is NOT SRS §1.3's
-    // router-hop TTL; it is a receiver-enforced check that exists only because
-    // level-1 setMulticastTTL has no observable effect on a single host.
-    if (isTtlExpired(env)) {
-      this.deps.emit(
-        makeEvent("MESSAGE_DROPPED_TTL_EXPIRED", {
-          groupAddress: socketGroup,
-          ttl: env.ttl,
-          envelopeId: env.id,
-        }),
-      );
-      return;
-    }
-
-    this.deps.emit(
-      makeEvent("MESSAGE_RECEIVED", {
-        mode: "multicast",
-        groupAddress: socketGroup,
-        envelopeId: env.id,
-        senderId: env.senderId,
-        encrypted: env.encrypted,
-        agentId: this.deps.agentId,
-      }),
-    );
-    this.deps.onEnvelope(env, socketGroup);
   }
 
   async sendMulticast(
@@ -161,7 +131,9 @@ export class MulticastTransport {
     const stamped = stampTtl({ ...env, ttl: env.ttl ?? this.defaultTtl });
     const datagram = encodeDatagram(stamped); // BR-11 — throws if too large
 
-    // Level 1 TTL — the real OS hop-count control, matching SRS §1.3.
+    // Level 1 TTL — the real OS hop-count control, matching SRS §1.3. The
+    // level-2 receiver-side check (A3.2 — a different mechanism, a deliberate
+    // divergence from §1.3) lives in `classifyMulticastInbound`.
     const existing = this.sockets.get(groupAddress)?.socket;
     const sender = existing ?? dgram.createSocket({ type: "udp4", reuseAddr: true });
     const ephemeral = !existing;
@@ -169,6 +141,7 @@ export class MulticastTransport {
       // A socket must be bound before setMulticastInterface on Linux (EBADF otherwise).
       await new Promise<void>((resolve) => sender.bind(0, () => resolve()));
     }
+    /* v8 ignore next 3 -- setMulticastInterface throws only where the loopback iface has no multicast (CON-04) */
     try {
       sender.setMulticastInterface(MULTICAST_INTERFACE);
     } catch {

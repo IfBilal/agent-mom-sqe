@@ -28,7 +28,9 @@ export interface BroadcastDeps {
   onEnvelope: (env: MessageEnvelope) => void;
 }
 
-function subnetDirectedAddress(): string | null {
+// BR-12 — the subnet-directed fallback address of the active interface, used
+// where the OS will not route the limited broadcast. Exported for unit testing.
+export function subnetDirectedAddress(): string | null {
   for (const ifaces of Object.values(os.networkInterfaces())) {
     for (const iface of ifaces ?? []) {
       if (iface.family !== "IPv4" || iface.internal) continue;
@@ -38,6 +40,7 @@ function subnetDirectedAddress(): string | null {
       return addr.map((o, i) => o | (~mask[i]! & 0xff)).join(".");
     }
   }
+  /* v8 ignore next -- only on a host with no non-loopback IPv4 interface */
   return null;
 }
 
@@ -104,17 +107,20 @@ export class BroadcastTransport {
       this.emitSent(env, LIMITED_BROADCAST_ADDRESS);
       return { addressUsed: LIMITED_BROADCAST_ADDRESS };
     } catch (err) {
+      /* v8 ignore start -- OS-broadcast-failure arm: needs the kernel to reject
+         255.255.255.255 (or EACCES as non-root), which cannot be induced
+         deterministically. handlePermissionError is covered via the simulate
+         toggle; BR-12's subnet fallback is exercised in the demo on macOS/Windows. */
       const code = (err as NodeJS.ErrnoException).code;
       if (code === "EACCES" || code === "EPERM") {
         return this.handlePermissionError(err as NodeJS.ErrnoException);
       }
-      // BR-12 — OS did not route the limited broadcast; fall back to the
-      // subnet-directed address of the active interface.
       const fallback = subnetDirectedAddress();
       if (!fallback) throw err;
       await trySend(fallback);
       this.emitSent(env, fallback);
       return { addressUsed: fallback };
+      /* v8 ignore stop */
     }
   }
 

@@ -6,7 +6,6 @@ export interface RouteContext {
   supervisor: AgentSupervisor;
   registry: AgentRegistry;
   log: LogAggregator;
-  groupPort: (groupAddress: string) => number;
   allowList: Record<string, string[]>;
   spawnDemoTopology: () => Promise<void>;
 }

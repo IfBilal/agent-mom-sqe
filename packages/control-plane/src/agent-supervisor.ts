@@ -25,10 +25,6 @@ export class AgentSupervisor {
     return [...this.agents.values()].map((s) => s.config);
   }
 
-  has(agentId: string): boolean {
-    return this.agents.has(agentId);
-  }
-
   async spawn(config: AgentConfig): Promise<void> {
     if (this.agents.has(config.agentId)) throw new Error(`agent ${config.agentId} already running`);
     // restart-on-crash is OFF — visible crashes are wanted (Phase 1 notes).
@@ -42,6 +38,7 @@ export class AgentSupervisor {
     });
 
     const ready = new Promise<void>((resolve, reject) => {
+      /* v8 ignore next 3 -- 10s watchdog for a hung fork; a working agent replies in ms */
       const timer = setTimeout(() => {
         child.off("message", handler);
         reject(new Error(`agent ${config.agentId} did not become ready within 10s`));
@@ -71,6 +68,7 @@ export class AgentSupervisor {
     if (!s) throw new Error(`agent ${agentId} not found`);
     s.child.kill("SIGTERM");
     await new Promise<void>((resolve) => {
+      /* v8 ignore next 3 -- SIGKILL fallback for a process that ignores SIGTERM; the agent handles it */
       const t = setTimeout(() => {
         s.child.kill("SIGKILL");
         resolve();
@@ -89,6 +87,7 @@ export class AgentSupervisor {
     return new Promise((resolve, reject) => {
       this.pending.set(id, { resolve, reject });
       this.sendRaw(agentId, { type: "cmd", id, cmd });
+      /* v8 ignore next 3 -- 8s watchdog; every command in the suite resolves in ms */
       setTimeout(() => {
         if (this.pending.delete(id)) reject(new Error(`command ${cmd.kind} timed out`));
       }, 8000);

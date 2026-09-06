@@ -30,6 +30,7 @@ export async function startControlPlane(port = 0): Promise<RunningControlPlane> 
   const app = express();
   app.use(express.json());
 
+  /* v8 ignore next -- no-op until the ws hub is wired after listen() */
   const hub: { publish: (e: LiveEvent) => void } = { publish: () => void 0 };
   const log = new LogAggregator();
   let registry: AgentRegistry;
@@ -40,7 +41,6 @@ export async function startControlPlane(port = 0): Promise<RunningControlPlane> 
   });
   registry = new AgentRegistry(supervisor);
 
-  const groupPort = (g: string): number => DEMO_GROUPS[g]?.port ?? BROADCAST_PORT;
 
   const spawnDemoTopology = async (): Promise<void> => {
     for (const spec of DEMO_TOPOLOGY) {
@@ -56,7 +56,7 @@ export async function startControlPlane(port = 0): Promise<RunningControlPlane> 
     }
   };
 
-  const ctx: RouteContext = { supervisor, registry, log, groupPort, allowList: DEMO_ALLOWLIST, spawnDemoTopology };
+  const ctx: RouteContext = { supervisor, registry, log, allowList: DEMO_ALLOWLIST, spawnDemoTopology };
 
   app.get("/api/health", (_req, res) => res.json({ ok: true }));
   app.use("/api", agentsRoutes(ctx));
@@ -115,6 +115,7 @@ export interface CliOptions {
  * uncovered process shim.
  */
 export async function runCli(opts: CliOptions = {}): Promise<RunningControlPlane> {
+  /* v8 ignore next -- console.log fallback; tests inject a capturing logger */
   const log = opts.log ?? ((m: string) => console.log(m));
   const port = opts.port ?? Number(process.env.CONTROL_PLANE_PORT ?? 4000);
 

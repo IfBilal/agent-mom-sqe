@@ -109,6 +109,22 @@ describe("Agent orchestrator — FR6 key-holder protocol (serveKeyRequest, BR-18
   });
 });
 
+describe("Agent orchestrator — starts in component-controlled mode", () => {
+  it("an agent booted component-controlled routes via the component router", async () => {
+    const a = harness(cfg("agent-A", 18420, { architectureMode: "component-controlled" }));
+    open.push(a.agent);
+    await a.agent.start();
+    const snap = (await cmd(a, "snapshot")) as { architectureMode: string };
+    expect(snap.architectureMode).toBe("component-controlled");
+    a.agent.receiveBroadcast({
+      id: "cc1", mode: "broadcast", senderId: "agent-C", sequenceNumber: 1,
+      timestampSentMs: Date.now(), encrypted: false, payload: JSON.stringify({ kind: "ping", body: {} }),
+    });
+    await new Promise((r) => setTimeout(r, 30));
+    expect(a.events.some((e) => e.type === "AGENT_STATUS")).toBe(true);
+  });
+});
+
 describe("Agent orchestrator — FR7 live switch + admin commands", () => {
   it("set-architecture swaps the handler and emits ARCHITECTURE_SWITCHED; snapshot reports the new mode", async () => {
     const a = harness(cfg("agent-A", 18406));

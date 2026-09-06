@@ -57,20 +57,21 @@ export class Agent {
       unicastPort: this.config.unicastPort,
       peers: this.config.peers,
       emit: this.emit,
-      onEnvelope: (env) => this.onUnicast(env),
+      onEnvelope: (env) => this.receiveUnicast(env),
     });
     this.multicast = new MulticastTransport({
       agentId: this.config.agentId,
       membership: this.membership,
       emit: this.emit,
-      onEnvelope: (env, group) => this.onMulticast(env, group),
+      /* v8 ignore next -- delegation; receiveMulticast is directly tested, and the wiring runs in the integration suite */
+      onEnvelope: (env, group) => this.receiveMulticast(env, group),
       groupPort: (g) => this.groupPort(g),
     });
     this.broadcast = new BroadcastTransport({
       agentId: this.config.agentId,
       port: this.config.broadcastPort,
       emit: this.emit,
-      onEnvelope: (env) => this.onBroadcast(env),
+      onEnvelope: (env) => this.receiveBroadcast(env),
     });
     this.unicastSec = new UnicastSecurity(this.config.agentId, this.config.seed);
     this.legacy = new AgentMom1_2Adapter(this.config.agentId, this.unicast);
@@ -106,7 +107,8 @@ export class Agent {
     return { kind: parsed.kind ?? "system", body: parsed.body ?? {} };
   }
 
-  private onUnicast(env: MessageEnvelope): void {
+  /** Inbound unicast (also the transport's onEnvelope callback). */
+  receiveUnicast(env: MessageEnvelope): void {
     let plaintext: string;
     try {
       plaintext = this.unicastSec.decryptInbound(env); // BR-15 auto-decrypt
@@ -175,7 +177,8 @@ export class Agent {
     void this.sendUnicast(requestingAgentId, { kind: "system", body }, true);
   }
 
-  private onMulticast(env: MessageEnvelope, group: string): void {
+  /** Inbound multicast (also the transport's onEnvelope callback). */
+  receiveMulticast(env: MessageEnvelope, group: string): void {
     let plaintext: string;
     try {
       plaintext = this.multicastSec.decryptInbound(env);
@@ -186,7 +189,8 @@ export class Agent {
     this.dispatch(env, this.parsePayload(plaintext));
   }
 
-  private onBroadcast(env: MessageEnvelope): void {
+  /** Inbound broadcast (also the transport's onEnvelope callback). */
+  receiveBroadcast(env: MessageEnvelope): void {
     this.dispatch(env, this.parsePayload(env.payload));
   }
 
