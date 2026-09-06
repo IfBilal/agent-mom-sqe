@@ -1,0 +1,8 @@
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+.env
+baseline-frozen.zip
+packages/web/dist/
+.DS_Store
