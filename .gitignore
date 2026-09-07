@@ -6,3 +6,5 @@ coverage/
 baseline-frozen.zip
 packages/web/dist/
 .DS_Store
+.scannerwork/
+.~lock.*#
