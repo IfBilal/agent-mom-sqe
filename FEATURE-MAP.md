@@ -50,7 +50,7 @@ Legend for test level: **U** unit · **C** component · **I** integration · **S
 | Destination range check `224.0.0.0/4` at send | `agent/transports/multicast-transport.ts`, `core/validation/envelope-validator.ts` | BR-10 | `validator-and-sequence.test.ts` (U: COND-24), `membership-and-multicast.test.ts` (C), `fr3-ttl.test.ts` (I: TC-09) |
 | Runtime group address / port reconfiguration | `agent/transports/multicast-transport.ts` + `groups` route | 3.2.2.8 | `security-and-config.test.ts` (C: COND-23), `rest-coverage.test.ts` (I) |
 | **TC-08 — `setMulticastTTL(0)` confinement (executed, expected FAILED)** | — | SRS §1.3 | `fr3-ttl.test.ts` (I) — outcome recorded, **no workaround** |
-| Use Case 3, end-to-end | `web/pages/Multicast.tsx` | — | **S** — TC-27 (manual, Phase 13) |
+| Use Case 3, end-to-end | `web/pages/Multicast.tsx` | — | **S** — observed during the FR3 manual walkthrough (COND-27); not separately numbered — TC-07/08/09 already cover FR3 |
 
 ## FR4 — Broadcast (SRS 3.2.3.1–.3)
 

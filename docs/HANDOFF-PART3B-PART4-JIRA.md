@@ -15,10 +15,16 @@ Done, in `docs/SQE_ASSIGNMENT1_Report_v2.docx`:
 - **Part 3.A — SonarQube Report and NFR Evaluation** (15 marks). Complete. Evidence in
   `evidence/sonarqube/`.
 
-Still to do, covered by this document:
+**UPDATE 2026-09-07 — done, covered by this document and executed:**
 
-- **Part 3.B — Functional Test Derivation, Execution and Traceability** (30 marks).
-- **Part 4 — Defect Reporting and Final Quality Judgment** (15 marks), including Jira.
+- **Part 3.B — Functional Test Derivation, Execution and Traceability** (30 marks). Executed —
+  15/15 test cases run against the frozen baseline, evidence in `evidence/test-execution/`,
+  write-up in `docs/PART-3B-4.md`.
+- **Part 4 — Defect Reporting and Final Quality Judgment** (15 marks). Triaged — zero confirmed
+  defects (documented, not hidden), `evidence/jira/DEFECT-TRIAGE.md`; 350-word judgment in
+  `docs/PART-3B-4.md`.
+
+Only remaining step: paste `docs/PART-3B-4.md`'s content into the Word report. See §7–8 below.
 
 The baseline is frozen at commit `e79b197` (see `evidence/BASELINE_TAG_HASH.txt`). **Do not
 change any file under `packages/` while doing Part 3.B/4** — you are testing and reporting on
@@ -330,17 +336,40 @@ table, it's the closing argument of the report.
 
 ## 7. Final submission checklist (from the assignment, mapped to this repo)
 
+**STATUS (2026-09-07): Part 3.B and Part 4 executed and written up.** Content is in
+`docs/PART-3B-4.md`, ready to paste into `docs/SQE_ASSIGNMENT1_Report_v2.docx` under the existing
+"B. Functional Test Derivation, Execution and Traceability" and "Part 4" headings (both currently
+say "To be added."). Everything below is now checkable.
+
 - [x] Pair details and SRS selection — in the report header.
-- [ ] Full report: 7FR+3NFR table (done) + AI assumptions (done) + **testing records (Table
-      A/B/C) + traceability (done once Part 3.B is written)** + **300–400 word final judgment**.
+- [x] Full report content ready: 7FR+3NFR table (done) + AI assumptions (done) + **testing records
+      (Table A/B/C, in `docs/PART-3B-4.md`) + traceability** + **350-word final judgment** — only
+      remains to be pasted into the .docx.
 - [x] Frozen baseline source code, setup/run instructions, AI-assisted development record — Part 2.
 - [x] Complete SonarQube report/evidence + ~5 interpreted findings — Part 3.A.
 - [x] Evidence for all 3 NFRs — Part 3.A.
-- [ ] **12–15 executed test cases**, with the required boundary/invalid/manual/FAILED-BLOCKED mix
-      — design already satisfies this; execution + write-up still needed.
-- [ ] **Jira defect evidence/export** for confirmed, reproducible defects.
+- [x] **15 executed test cases** (TC-01…TC-15) — 3 boundary, 3 invalid/error, 5 manual
+      system-level, 2 genuine FAILED/BLOCKED (TC-08, TC-11). Full evidence in
+      `evidence/test-execution/`. All 217 automated tests + 5 manual/mixed cases executed
+      2026-09-07 against baseline `e79b197`.
+- [x] **Defect evidence** — `evidence/jira/DEFECT-TRIAGE.md`. Triage of every FAILED/BLOCKED case
+      plus the two SonarQube findings with any functional angle (F1, F4) found **zero confirmed
+      defects** (all four investigated and excluded for a specific, evidenced reason — see the
+      file). No Jira Bug issues were created; this is a valid outcome per plan §18.2 and is fully
+      documented. A literal Jira project is optional supplementary evidence, not required — see
+      §5.3 of `docs/PART-3B-4.md` for how to add one if you want it for the viva.
 
-## 8. Before the demo/viva
+## 8. What's left — literally nothing but pasting
+
+1. Open `docs/PART-3B-4.md`, copy Table A, Table B, Table C, and the Part 4 content into
+   `SQE_ASSIGNMENT1_Report_v2.docx` under the two "To be added." headings.
+2. Optional: skim `evidence/test-execution/*.png` and pick 2–3 to embed inline in the Word doc
+   next to their Table B rows (nice for the marker, not required — the files are already the
+   evidence of record).
+3. Re-read §1 (already fixed in `FEATURE-MAP.md`/`TRACEABILITY.md`) so both of you can explain the
+   TC-10/TC-11 split if asked.
+
+## 9. Before the demo/viva
 
 The assignment states explicitly: *"Submission of files does not guarantee full marks... Failure
 to explain these may result in deductions... 'We forgot during the demo' is not an acceptable

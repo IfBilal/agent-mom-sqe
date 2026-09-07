@@ -29,9 +29,8 @@ appears in at least one test file** — Table C has no orphans by construction.
 | | | COND-26 | `fr2-fr3-delivery.test.ts` |
 | | | COND-27 | manual, SRS UC3 (Phase 13) |
 | FR4 — 3.2.3.1–.3 | BR-12, 13 | COND-28, 31, 32 | `agent/tests/component/broadcast-keyholder-misc.test.ts` |
-| | | COND-29 | **TC-10** · `control-plane/tests/integration/fr4-broadcast.test.ts` |
+| | | COND-29, 33 | **TC-10** — manual, SRS UC4 (Phase 13); automated evidence for COND-29 also in `control-plane/tests/integration/fr4-broadcast.test.ts` |
 | | | COND-30 | **TC-11 (BLOCKED — single host)** — manual (Phase 13) |
-| | | COND-33 | manual, SRS UC4 (Phase 13) |
 | FR5 — 3.2.4.1–.4 | BR-14, 15, 16, 17 | COND-34, 35, 36, 54 | `core/tests/unit/crypto.test.ts` |
 | | | COND-37 | **TC-12** · `agent/tests/component/security-and-config.test.ts` |
 | | | COND-38, 39 | **TC-13** · `control-plane/tests/integration/fr5-fr6-security.test.ts` |
