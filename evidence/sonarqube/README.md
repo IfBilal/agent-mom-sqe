@@ -14,7 +14,7 @@
 ## Headline results
 - Quality Gate: Passed
 - Lines of Code: 3.3k
-- Security rating: B (19 issues — all one pattern, hardcoded multicast IP 239.1.1.5/239.1.1.6)
+- Security rating: A (`security_rating` = 1.0, 0 open vulnerabilities, 0 security hotspots — see `sonar-measures.json`). 19 Security-domain issues exist, but all are `CODE_SMELL`-type (rule S1313, one pattern: hardcoded multicast IP 239.1.1.5/239.1.1.6), not `VULNERABILITY`-type, so they do not depress the rating.
 - Reliability rating: D (14 issues — 1 Critical bug, 1 Major bug, 12 JSX-spacing code smells)
 - Maintainability rating: A (50 issues)
 - Coverage: 88.8%

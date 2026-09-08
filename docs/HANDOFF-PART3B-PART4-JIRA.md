@@ -355,19 +355,31 @@ say "To be added."). Everything below is now checkable.
 - [x] **Defect evidence** — `evidence/jira/DEFECT-TRIAGE.md`. Triage of every FAILED/BLOCKED case
       plus the two SonarQube findings with any functional angle (F1, F4) found **zero confirmed
       defects** (all four investigated and excluded for a specific, evidenced reason — see the
-      file). No Jira Bug issues were created; this is a valid outcome per plan §18.2 and is fully
-      documented. A literal Jira project is optional supplementary evidence, not required — see
-      §5.3 of `docs/PART-3B-4.md` for how to add one if you want it for the viva.
+      file). This is a valid outcome per plan §18.2 and is fully documented.
+- [x] **Live Jira project** — project **KAN** ("Vexa Testing") on `muhammadbilaltahir.atlassian.net`.
+      All four investigated candidates are logged as closed, fully-evidenced Task-type records
+      (KAN-5…KAN-8, prefixed `[Investigated — Not a Defect]`) under Epic KAN-9, created via the
+      Jira REST API. Raw export: `evidence/jira/jira-export.json`; rendered detail view:
+      `evidence/jira/jira-issues-detail.png`. `docs/PART-3B-4.md` §5.3, `evidence/jira/DEFECT-TRIAGE.md`,
+      and the .docx report all link the real issue keys.
 
-## 8. What's left — literally nothing but pasting
+## 8. What's left
 
-1. Open `docs/PART-3B-4.md`, copy Table A, Table B, Table C, and the Part 4 content into
-   `SQE_ASSIGNMENT1_Report_v2.docx` under the two "To be added." headings.
-2. Optional: skim `evidence/test-execution/*.png` and pick 2–3 to embed inline in the Word doc
-   next to their Table B rows (nice for the marker, not required — the files are already the
-   evidence of record).
-3. Re-read §1 (already fixed in `FEATURE-MAP.md`/`TRACEABILITY.md`) so both of you can explain the
-   TC-10/TC-11 split if asked.
+Nothing outstanding. Everything below has already happened, in this order:
+
+1. Table A, Table B, Table C, and the Part 4 content were pasted from `docs/PART-3B-4.md` into
+   `SQE_ASSIGNMENT1_Report_v2.docx` under the two former "To be added." headings.
+2. The Jira project was created live and populated (KAN-5…KAN-9); the report's Jira section,
+   `evidence/jira/DEFECT-TRIAGE.md`, and `docs/PART-3B-4.md` were all updated from their original
+   "no Jira issues" placeholder language to the real issue links, plus the export/screenshot
+   evidence above.
+3. A factual inconsistency was caught and fixed: the SonarQube "Security rating" was written up as
+   B in an earlier pass, but the retained `sonar-measures.json` shows `security_rating` = 1.0 (A),
+   0 vulnerabilities, 0 hotspots — the 19 Security-domain issues are `CODE_SMELL`-type (S1313,
+   hardcoded multicast IP), not `VULNERABILITY`-type, so they don't depress the rating. Corrected
+   in the .docx and `evidence/sonarqube/README.md`.
+4. §1 (already fixed in `FEATURE-MAP.md`/`TRACEABILITY.md`) — both of you should still be able to
+   explain the TC-10/TC-11 split if asked, since it's exactly the kind of thing a viva probes.
 
 ## 9. Before the demo/viva
 
