@@ -391,24 +391,32 @@ test case and every SonarQube finding investigated for defect potential (F1, F4 
 plausible functional angle; F2, F3, F5 are accessibility/style items with no test-derived defect
 claim to investigate) resolved to "not a defect" for a specific, evidenced reason, per §5.2.
 
-Per the assignment's own wording — *"not every failure or blocker should become a Jira bug"* and
-(plan §18.2) *"a submission with two genuine failures and zero Jira defects is a valid outcome,
-provided the investigation is documented"* — **no Jira Bug issues were created**, because none of
-the four investigated candidates satisfies all four defect criteria (executed test; actual ≠
-expected; reproduced ≥2 times; not explained by an already-declared assumption/limitation).
+Per the assignment's own wording — *"not every failure or blocker should become a Jira bug"* —
+**none of the four investigated candidates was logged as an open Bug**, because none satisfies all
+four defect criteria (executed test; actual ≠ expected; reproduced ≥2 times; not explained by an
+already-declared assumption/limitation). Instead, each is logged in Jira as a **closed,
+fully-documented investigation record**, so the audit trail exists in the tool the assignment
+requires, not only in this report.
 
-**Evidence retained in place of Jira issues** (`evidence/jira/DEFECT-TRIAGE.md`): the same
-investigation table as §5.2, formatted as the record a marker can audit — this **is** the required
-"Jira defect evidence/export" artifact for a pair whose testing produced no confirmed defects; it
-documents that the investigation happened and why each candidate was excluded, rather than
-asserting an empty Jira board proves nothing was checked.
+**Jira project:** Vexa Testing (`KAN`),
+https://muhammadbilaltahir.atlassian.net/jira/software/projects/KAN. Epic **KAN-9** — "SE3002
+Assignment 01 — Defect Triage (Part 4)" — groups four Task-type issues (this project defines no
+Bug issue type), each `Done` / `Low` priority, each carrying environment/build, preconditions,
+numbered reproduction steps, expected vs. actual result, reproducibility, severity/priority, the
+full investigation writeup, verdict, related test-case ID, and a comment linking to the exact
+source evidence in the repository:
 
-*(If, before submission, either partner wants a literal Jira project as supplementary evidence —
-e.g. to demonstrate familiarity with the tool during the viva — create a free Jira Software project
-at https://www.atlassian.com/software/jira/free, and either (a) log the four investigated
-candidates as issues with a "Won't Fix — investigated, not a defect" resolution and the §5.2
-reasoning in the description, or (b) skip it: the assignment does not require a defect to exist,
-only that failures/blockers be investigated before deciding, which is documented above.)*
+| Candidate | Jira issue |
+|---|---|
+| TC-08 / COND-22 (setMulticastTTL(0) confinement) | [KAN-5](https://muhammadbilaltahir.atlassian.net/browse/KAN-5) |
+| TC-11 / COND-30 (LAN-wide broadcast reach) | [KAN-6](https://muhammadbilaltahir.atlassian.net/browse/KAN-6) |
+| SonarQube F1 (crypto sort) | [KAN-7](https://muhammadbilaltahir.atlassian.net/browse/KAN-7) |
+| SonarQube F4 (JSX spacing) | [KAN-8](https://muhammadbilaltahir.atlassian.net/browse/KAN-8) |
+
+**Evidence export:** `evidence/jira/DEFECT-TRIAGE.md` mirrors the same investigation content for
+reviewers without Jira access; `evidence/jira/jira-export.json` and
+`evidence/jira/jira-issues-detail.png` are the raw API export and a rendered detail view of all
+five issues, pulled via the Jira REST API against the live project.
 
 ### 5.4 Final Quality Judgment (350 words)
 

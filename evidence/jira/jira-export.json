@@ -1,0 +1,1805 @@
+{
+  "KAN-9": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10082",
+    "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/issue/10082",
+    "key": "KAN-9",
+    "fields": {
+      "summary": "SE3002 Assignment 01 \u2014 Defect Triage (Part 4)",
+      "issuetype": {
+        "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/issuetype/10006",
+        "id": "10006",
+        "description": "Epics track collections of related bugs, stories, and tasks.",
+        "iconUrl": "https://muhammadbilaltahir.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+        "name": "Epic",
+        "subtask": false,
+        "avatarId": 10307,
+        "entityId": "97cf498a-95ed-413f-a835-7ae7c52e73a4",
+        "hierarchyLevel": 1
+      },
+      "created": "2026-09-08T12:11:31.494+0500",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "SE3002 Assignment 01 \u2014 Part 4 Defect Reporting"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Team: M. Bilal Tahir (24i-3166), Taimoor Shaukat (24i-3015) \u2014 Section SE-B."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Project under test: agentMom (broadcast/multicast/secured communication SRS enhancement). Repo: https://github.com/IfBilal/agent-mom-sqe, frozen baseline commit e79b197."
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Process"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Part 3.B executed all 15 designed test cases against the frozen baseline (evidence/test-execution/). Two produced a genuine non-PASSED status by design: TC-08 (FAILED) and TC-11 (BLOCKED). Per the assignment brief, every FAILED/BLOCKED case plus every SonarQube finding with a plausible functional angle was investigated before deciding whether it represents a defect."
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Outcome"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "4 candidates investigated. 0 met all 4 defect criteria (executed; actual != expected; reproduced >= 2x; not explained by an already-declared assumption/limitation). All 4 are logged below as Done / Low priority, each with full investigation notes and a link back to the source evidence \u2014 this documents that the investigation happened and why each was excluded, rather than leaving an empty board with no audit trail."
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "KAN-5 \u2014 TC-08 / setMulticastTTL(0) confinement \u2014 environment limitation (no router on single-host test bed)"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "KAN-6 \u2014 TC-11 / LAN-wide broadcast reach \u2014 precondition unmet (no second host)"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "KAN-7 \u2014 SonarQube F1 / crypto sort \u2014 investigated, functionally correct"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "KAN-8 \u2014 SonarQube F4 / JSX spacing \u2014 investigated, no rendering fault"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Full triage record: https://github.com/IfBilal/agent-mom-sqe/blob/main/evidence/jira/DEFECT-TRIAGE.md",
+                "marks": [
+                  {
+                    "type": "strong"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "comment": {
+        "comments": [],
+        "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/issue/10082/comment",
+        "maxResults": 0,
+        "total": 0,
+        "startAt": 0
+      },
+      "reporter": {
+        "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/user?accountId=712020%3A8c9069ab-cf45-421c-b7e1-3bbff01c946d",
+        "accountId": "712020:8c9069ab-cf45-421c-b7e1-3bbff01c946d",
+        "emailAddress": "tshaukat.25@gmail.com",
+        "avatarUrls": {
+          "48x48": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+          "24x24": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+          "16x16": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+          "32x32": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png"
+        },
+        "displayName": "TAIMOOR SHAUKAT",
+        "active": true,
+        "timeZone": "Asia/Karachi",
+        "accountType": "atlassian"
+      },
+      "priority": {
+        "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/priority/3",
+        "iconUrl": "https://muhammadbilaltahir.atlassian.net/images/icons/priorities/medium_new.svg",
+        "name": "Medium",
+        "id": "3"
+      },
+      "updated": "2026-09-08T12:12:44.452+0500",
+      "status": {
+        "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/status/10007",
+        "description": "",
+        "iconUrl": "https://muhammadbilaltahir.atlassian.net/images/icons/statuses/generic.png",
+        "name": "Done",
+        "id": "10007",
+        "statusCategory": {
+          "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      },
+      "labels": [
+        "defect-triage",
+        "se3002"
+      ]
+    }
+  },
+  "KAN-5": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10078",
+    "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/issue/10078",
+    "key": "KAN-5",
+    "fields": {
+      "summary": "[Investigated \u2014 Not a Defect] TC-08 / COND-22 \u2014 setMulticastTTL(0) confinement does not occur on single-host test bed",
+      "issuetype": {
+        "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/issuetype/10008",
+        "id": "10008",
+        "description": "Tasks track small, distinct pieces of work.",
+        "iconUrl": "https://muhammadbilaltahir.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+        "name": "Task",
+        "subtask": false,
+        "avatarId": 10318,
+        "entityId": "72ca56b4-a382-4242-8483-76fb714d309f",
+        "hierarchyLevel": 0
+      },
+      "parent": {
+        "id": "10082",
+        "key": "KAN-9",
+        "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/issue/10082",
+        "fields": {
+          "summary": "SE3002 Assignment 01 \u2014 Defect Triage (Part 4)",
+          "status": {
+            "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/status/10007",
+            "description": "",
+            "iconUrl": "https://muhammadbilaltahir.atlassian.net/images/icons/statuses/generic.png",
+            "name": "Done",
+            "id": "10007",
+            "statusCategory": {
+              "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/statuscategory/3",
+              "id": 3,
+              "key": "done",
+              "colorName": "green",
+              "name": "Done"
+            }
+          },
+          "priority": {
+            "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/priority/3",
+            "iconUrl": "https://muhammadbilaltahir.atlassian.net/images/icons/priorities/medium_new.svg",
+            "name": "Medium",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/issuetype/10006",
+            "id": "10006",
+            "description": "Epics track collections of related bugs, stories, and tasks.",
+            "iconUrl": "https://muhammadbilaltahir.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+            "name": "Epic",
+            "subtask": false,
+            "avatarId": 10307,
+            "entityId": "97cf498a-95ed-413f-a835-7ae7c52e73a4",
+            "hierarchyLevel": 1
+          }
+        }
+      },
+      "created": "2026-09-08T12:09:41.681+0500",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Environment / build"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "agentmom-se3002, frozen baseline commit e79b197 (evidence/BASELINE_TAG_HASH.txt), triage executed 2026-09-07"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Preconditions"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Demo topology running (agent-A..D); single physical machine, no router in the network path."
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Steps to reproduce"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Send a group-alpha multicast with a positive envelope TTL (isolating the level-1 OS TTL as the only possible confinement mechanism)."
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Record which co-located agents receive it."
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Expected result"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Per SRS section 1.3 (TTL defined as router-hop count), setMulticastTTL(0) confines the datagram to the originating host \u2014 no other agent should receive it."
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Actual result"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "agent-C, agent-B, and agent-D all received it. Console evidence: \"[TC-08] co-located receivers observed for a group-alpha multicast: agent-C, agent-B, agent-D\"."
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Reproducibility"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Always \u2014 deterministic every run (3/3 in the triage session; consistent across CI history)."
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Severity / Priority"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "N/A \u2014 not a defect (see investigation below). If it were a defect it would be Low severity, Low priority."
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Investigation"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "SRS section 1.3 defines TTL as a router-hop counter. On same-host delivery no router is traversed, so the mechanism has nothing to act on. Code inspection confirms socket.setMulticastTTL() is called correctly (packages/agent/src/transports/multicast-transport.ts). The implementation matches the SRS; the test bed cannot exercise router-hop scope. Declared in advance in DEVIATIONS.md D-5 and evidence/PHASE-10-VERIFICATION.md."
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Verdict"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "NOT A DEFECT \u2014 environment limitation (single-host test bed has no router).",
+                "marks": [
+                  {
+                    "type": "strong"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Related test case"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "TC-08"
+              }
+            ]
+          }
+        ]
+      },
+      "comment": {
+        "comments": [
+          {
+            "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/issue/10078/comment/10000",
+            "id": "10000",
+            "author": {
+              "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/user?accountId=712020%3A8c9069ab-cf45-421c-b7e1-3bbff01c946d",
+              "accountId": "712020:8c9069ab-cf45-421c-b7e1-3bbff01c946d",
+              "emailAddress": "tshaukat.25@gmail.com",
+              "avatarUrls": {
+                "48x48": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+                "24x24": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+                "16x16": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+                "32x32": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png"
+              },
+              "displayName": "TAIMOOR SHAUKAT",
+              "active": true,
+              "timeZone": "Asia/Karachi",
+              "accountType": "atlassian"
+            },
+            "body": {
+              "type": "doc",
+              "version": 1,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Full evidence: https://github.com/IfBilal/agent-mom-sqe/blob/main/evidence/test-execution/npm-test-output-verbose.txt (search TC-08) and https://github.com/IfBilal/agent-mom-sqe/blob/main/DEVIATIONS.md#d-5. Test source: packages/control-plane/tests/integration/fr3-ttl.test.ts."
+                    }
+                  ]
+                }
+              ]
+            },
+            "updateAuthor": {
+              "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/user?accountId=712020%3A8c9069ab-cf45-421c-b7e1-3bbff01c946d",
+              "accountId": "712020:8c9069ab-cf45-421c-b7e1-3bbff01c946d",
+              "emailAddress": "tshaukat.25@gmail.com",
+              "avatarUrls": {
+                "48x48": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+                "24x24": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+                "16x16": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+                "32x32": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png"
+              },
+              "displayName": "TAIMOOR SHAUKAT",
+              "active": true,
+              "timeZone": "Asia/Karachi",
+              "accountType": "atlassian"
+            },
+            "created": "2026-09-08T12:11:04.591+0500",
+            "updated": "2026-09-08T12:11:04.591+0500",
+            "jsdPublic": true
+          }
+        ],
+        "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/issue/10078/comment",
+        "maxResults": 1,
+        "total": 1,
+        "startAt": 0
+      },
+      "reporter": {
+        "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/user?accountId=712020%3A8c9069ab-cf45-421c-b7e1-3bbff01c946d",
+        "accountId": "712020:8c9069ab-cf45-421c-b7e1-3bbff01c946d",
+        "emailAddress": "tshaukat.25@gmail.com",
+        "avatarUrls": {
+          "48x48": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+          "24x24": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+          "16x16": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+          "32x32": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png"
+        },
+        "displayName": "TAIMOOR SHAUKAT",
+        "active": true,
+        "timeZone": "Asia/Karachi",
+        "accountType": "atlassian"
+      },
+      "priority": {
+        "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/priority/4",
+        "iconUrl": "https://muhammadbilaltahir.atlassian.net/images/icons/priorities/low_new.svg",
+        "name": "Low",
+        "id": "4"
+      },
+      "updated": "2026-09-08T12:11:59.778+0500",
+      "status": {
+        "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/status/10007",
+        "description": "",
+        "iconUrl": "https://muhammadbilaltahir.atlassian.net/images/icons/statuses/generic.png",
+        "name": "Done",
+        "id": "10007",
+        "statusCategory": {
+          "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      },
+      "labels": [
+        "defect-triage",
+        "not-a-defect",
+        "se3002"
+      ]
+    }
+  },
+  "KAN-6": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10079",
+    "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/issue/10079",
+    "key": "KAN-6",
+    "fields": {
+      "summary": "[Investigated \u2014 Not a Defect] TC-11 / COND-30 \u2014 LAN-wide broadcast reach cannot be verified on a single-host test bed",
+      "issuetype": {
+        "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/issuetype/10008",
+        "id": "10008",
+        "description": "Tasks track small, distinct pieces of work.",
+        "iconUrl": "https://muhammadbilaltahir.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+        "name": "Task",
+        "subtask": false,
+        "avatarId": 10318,
+        "entityId": "72ca56b4-a382-4242-8483-76fb714d309f",
+        "hierarchyLevel": 0
+      },
+      "parent": {
+        "id": "10082",
+        "key": "KAN-9",
+        "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/issue/10082",
+        "fields": {
+          "summary": "SE3002 Assignment 01 \u2014 Defect Triage (Part 4)",
+          "status": {
+            "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/status/10007",
+            "description": "",
+            "iconUrl": "https://muhammadbilaltahir.atlassian.net/images/icons/statuses/generic.png",
+            "name": "Done",
+            "id": "10007",
+            "statusCategory": {
+              "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/statuscategory/3",
+              "id": 3,
+              "key": "done",
+              "colorName": "green",
+              "name": "Done"
+            }
+          },
+          "priority": {
+            "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/priority/3",
+            "iconUrl": "https://muhammadbilaltahir.atlassian.net/images/icons/priorities/medium_new.svg",
+            "name": "Medium",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/issuetype/10006",
+            "id": "10006",
+            "description": "Epics track collections of related bugs, stories, and tasks.",
+            "iconUrl": "https://muhammadbilaltahir.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+            "name": "Epic",
+            "subtask": false,
+            "avatarId": 10307,
+            "entityId": "97cf498a-95ed-413f-a835-7ae7c52e73a4",
+            "hierarchyLevel": 1
+          }
+        }
+      },
+      "created": "2026-09-08T12:09:43.693+0500",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Environment / build"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "agentmom-se3002, frozen baseline commit e79b197 (evidence/BASELINE_TAG_HASH.txt), triage executed 2026-09-07"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Preconditions"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Required: a multi-host local network so 'all possible hosts' can be enumerated and receipt confirmed on each. Available: one physical machine only (dns-HP-EliteBook-640-14-inch-G10-Notebook-PC)."
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Steps to reproduce"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Run scripts/verify-preconditions.sh."
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Attempt to confirm broadcast receipt on a second host on the same local network."
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Expected result"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Per SRS 3.2.3.3, a broadcast is sent to all possible hosts under the same local network."
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Actual result"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "The required precondition (>=2 hosts on the same LAN) does not exist on this test bed \u2014 confirmed by verify-preconditions.sh (one host, 5 network interfaces, zero reachable peers). This is not a claim that LAN-wide delivery failed; it was never executed at LAN scope. TC-10 already confirms host-local delivery works (all 4 agents receive)."
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Reproducibility"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "N/A \u2014 BLOCKED status means the case could not execute, not that it executed and failed."
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Severity / Priority"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "N/A \u2014 not a defect."
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Investigation"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Declared in advance in ASSUMPTIONS.md A4.1/A4.2. The precondition (multi-host LAN) simply does not exist on this development/test machine."
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Verdict"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "NOT A DEFECT \u2014 precondition unmet (no second host available to test against).",
+                "marks": [
+                  {
+                    "type": "strong"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Related test case"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "TC-11"
+              }
+            ]
+          }
+        ]
+      },
+      "comment": {
+        "comments": [
+          {
+            "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/issue/10079/comment/10001",
+            "id": "10001",
+            "author": {
+              "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/user?accountId=712020%3A8c9069ab-cf45-421c-b7e1-3bbff01c946d",
+              "accountId": "712020:8c9069ab-cf45-421c-b7e1-3bbff01c946d",
+              "emailAddress": "tshaukat.25@gmail.com",
+              "avatarUrls": {
+                "48x48": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+                "24x24": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+                "16x16": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+                "32x32": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png"
+              },
+              "displayName": "TAIMOOR SHAUKAT",
+              "active": true,
+              "timeZone": "Asia/Karachi",
+              "accountType": "atlassian"
+            },
+            "body": {
+              "type": "doc",
+              "version": 1,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Full evidence: https://github.com/IfBilal/agent-mom-sqe/blob/main/evidence/test-execution/TC-11-single-host-network-interfaces.txt and https://github.com/IfBilal/agent-mom-sqe/blob/main/ASSUMPTIONS.md (A4.1/A4.2). TC-10 (host-local, PASSED) confirms the send/receive logic itself works."
+                    }
+                  ]
+                }
+              ]
+            },
+            "updateAuthor": {
+              "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/user?accountId=712020%3A8c9069ab-cf45-421c-b7e1-3bbff01c946d",
+              "accountId": "712020:8c9069ab-cf45-421c-b7e1-3bbff01c946d",
+              "emailAddress": "tshaukat.25@gmail.com",
+              "avatarUrls": {
+                "48x48": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+                "24x24": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+                "16x16": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+                "32x32": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png"
+              },
+              "displayName": "TAIMOOR SHAUKAT",
+              "active": true,
+              "timeZone": "Asia/Karachi",
+              "accountType": "atlassian"
+            },
+            "created": "2026-09-08T12:11:05.719+0500",
+            "updated": "2026-09-08T12:11:05.719+0500",
+            "jsdPublic": true
+          }
+        ],
+        "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/issue/10079/comment",
+        "maxResults": 1,
+        "total": 1,
+        "startAt": 0
+      },
+      "reporter": {
+        "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/user?accountId=712020%3A8c9069ab-cf45-421c-b7e1-3bbff01c946d",
+        "accountId": "712020:8c9069ab-cf45-421c-b7e1-3bbff01c946d",
+        "emailAddress": "tshaukat.25@gmail.com",
+        "avatarUrls": {
+          "48x48": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+          "24x24": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+          "16x16": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+          "32x32": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png"
+        },
+        "displayName": "TAIMOOR SHAUKAT",
+        "active": true,
+        "timeZone": "Asia/Karachi",
+        "accountType": "atlassian"
+      },
+      "priority": {
+        "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/priority/4",
+        "iconUrl": "https://muhammadbilaltahir.atlassian.net/images/icons/priorities/low_new.svg",
+        "name": "Low",
+        "id": "4"
+      },
+      "updated": "2026-09-08T12:12:01.056+0500",
+      "status": {
+        "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/status/10007",
+        "description": "",
+        "iconUrl": "https://muhammadbilaltahir.atlassian.net/images/icons/statuses/generic.png",
+        "name": "Done",
+        "id": "10007",
+        "statusCategory": {
+          "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      },
+      "labels": [
+        "defect-triage",
+        "not-a-defect",
+        "se3002"
+      ]
+    }
+  },
+  "KAN-7": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10080",
+    "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/issue/10080",
+    "key": "KAN-7",
+    "fields": {
+      "summary": "[Investigated \u2014 Not a Defect] SonarQube F1 \u2014 implicit Array.sort() in symmetric.ts:59 (rule S2871)",
+      "issuetype": {
+        "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/issuetype/10008",
+        "id": "10008",
+        "description": "Tasks track small, distinct pieces of work.",
+        "iconUrl": "https://muhammadbilaltahir.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+        "name": "Task",
+        "subtask": false,
+        "avatarId": 10318,
+        "entityId": "72ca56b4-a382-4242-8483-76fb714d309f",
+        "hierarchyLevel": 0
+      },
+      "parent": {
+        "id": "10082",
+        "key": "KAN-9",
+        "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/issue/10082",
+        "fields": {
+          "summary": "SE3002 Assignment 01 \u2014 Defect Triage (Part 4)",
+          "status": {
+            "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/status/10007",
+            "description": "",
+            "iconUrl": "https://muhammadbilaltahir.atlassian.net/images/icons/statuses/generic.png",
+            "name": "Done",
+            "id": "10007",
+            "statusCategory": {
+              "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/statuscategory/3",
+              "id": 3,
+              "key": "done",
+              "colorName": "green",
+              "name": "Done"
+            }
+          },
+          "priority": {
+            "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/priority/3",
+            "iconUrl": "https://muhammadbilaltahir.atlassian.net/images/icons/priorities/medium_new.svg",
+            "name": "Medium",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/issuetype/10006",
+            "id": "10006",
+            "description": "Epics track collections of related bugs, stories, and tasks.",
+            "iconUrl": "https://muhammadbilaltahir.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+            "name": "Epic",
+            "subtask": false,
+            "avatarId": 10307,
+            "entityId": "97cf498a-95ed-413f-a835-7ae7c52e73a4",
+            "hierarchyLevel": 1
+          }
+        }
+      },
+      "created": "2026-09-08T12:09:45.279+0500",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Environment / build"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "agentmom-se3002, frozen baseline commit e79b197 (evidence/BASELINE_TAG_HASH.txt), triage executed 2026-09-07 \u2014 packages/core/src/crypto/symmetric.ts:59"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Preconditions"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "None."
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Steps to reproduce"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Run packages/core/tests/unit/crypto.test.ts (COND-36: derivePairwiseKey(A,B) === derivePairwiseKey(B,A))."
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Inspect derivePairwiseKey(): sorts [agentA, agentB] with the default comparator, joins, and hashes."
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Expected result (Sonar's implication)"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Rule S2871 flags default Array.sort() as producing an unreliable/locale-dependent order."
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Actual result"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "derivePairwiseKey produces an identical, correctly order-independent key on every run. JavaScript's default comparator sorts ASCII strings by UTF-16 code-unit order, which is deterministic and NOT locale-dependent for this input. Applying Sonar's own suggested fix (localeCompare) would make the ordering locale-dependent \u2014 the opposite of what a hash canonicalization step needs, and would introduce the exact class of bug the rule exists to prevent."
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Reproducibility"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "N/A \u2014 no failure to reproduce; the derivation is confirmed correct on every run."
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Severity / Priority"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "N/A \u2014 not a defect. Flagged by SonarQube as Critical/Reliability, but investigation shows no functional fault."
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Verdict"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "NOT A DEFECT \u2014 true-positive static pattern, confirmed functionally correct for this specific usage on manual investigation.",
+                "marks": [
+                  {
+                    "type": "strong"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Related test case"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "SonarQube Part 3.A Finding F1; core/tests/unit/crypto.test.ts COND-36"
+              }
+            ]
+          }
+        ]
+      },
+      "comment": {
+        "comments": [
+          {
+            "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/issue/10080/comment/10002",
+            "id": "10002",
+            "author": {
+              "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/user?accountId=712020%3A8c9069ab-cf45-421c-b7e1-3bbff01c946d",
+              "accountId": "712020:8c9069ab-cf45-421c-b7e1-3bbff01c946d",
+              "emailAddress": "tshaukat.25@gmail.com",
+              "avatarUrls": {
+                "48x48": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+                "24x24": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+                "16x16": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+                "32x32": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png"
+              },
+              "displayName": "TAIMOOR SHAUKAT",
+              "active": true,
+              "timeZone": "Asia/Karachi",
+              "accountType": "atlassian"
+            },
+            "body": {
+              "type": "doc",
+              "version": 1,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Full evidence: https://github.com/IfBilal/agent-mom-sqe/blob/main/packages/core/tests/unit/crypto.test.ts (COND-36) and https://github.com/IfBilal/agent-mom-sqe/blob/main/packages/core/src/crypto/symmetric.ts#L59. SonarQube raw finding: https://github.com/IfBilal/agent-mom-sqe/blob/main/evidence/sonarqube/sonar-issues-full.json."
+                    }
+                  ]
+                }
+              ]
+            },
+            "updateAuthor": {
+              "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/user?accountId=712020%3A8c9069ab-cf45-421c-b7e1-3bbff01c946d",
+              "accountId": "712020:8c9069ab-cf45-421c-b7e1-3bbff01c946d",
+              "emailAddress": "tshaukat.25@gmail.com",
+              "avatarUrls": {
+                "48x48": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+                "24x24": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+                "16x16": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+                "32x32": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png"
+              },
+              "displayName": "TAIMOOR SHAUKAT",
+              "active": true,
+              "timeZone": "Asia/Karachi",
+              "accountType": "atlassian"
+            },
+            "created": "2026-09-08T12:11:06.914+0500",
+            "updated": "2026-09-08T12:11:06.914+0500",
+            "jsdPublic": true
+          }
+        ],
+        "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/issue/10080/comment",
+        "maxResults": 1,
+        "total": 1,
+        "startAt": 0
+      },
+      "reporter": {
+        "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/user?accountId=712020%3A8c9069ab-cf45-421c-b7e1-3bbff01c946d",
+        "accountId": "712020:8c9069ab-cf45-421c-b7e1-3bbff01c946d",
+        "emailAddress": "tshaukat.25@gmail.com",
+        "avatarUrls": {
+          "48x48": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+          "24x24": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+          "16x16": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+          "32x32": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png"
+        },
+        "displayName": "TAIMOOR SHAUKAT",
+        "active": true,
+        "timeZone": "Asia/Karachi",
+        "accountType": "atlassian"
+      },
+      "priority": {
+        "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/priority/4",
+        "iconUrl": "https://muhammadbilaltahir.atlassian.net/images/icons/priorities/low_new.svg",
+        "name": "Low",
+        "id": "4"
+      },
+      "updated": "2026-09-08T12:12:02.330+0500",
+      "status": {
+        "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/status/10007",
+        "description": "",
+        "iconUrl": "https://muhammadbilaltahir.atlassian.net/images/icons/statuses/generic.png",
+        "name": "Done",
+        "id": "10007",
+        "statusCategory": {
+          "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      },
+      "labels": [
+        "defect-triage",
+        "not-a-defect",
+        "se3002"
+      ]
+    }
+  },
+  "KAN-8": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10081",
+    "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/issue/10081",
+    "key": "KAN-8",
+    "fields": {
+      "summary": "[Investigated \u2014 Not a Defect] SonarQube F4 \u2014 ambiguous JSX spacing across 12 harness locations (rule S6772)",
+      "issuetype": {
+        "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/issuetype/10008",
+        "id": "10008",
+        "description": "Tasks track small, distinct pieces of work.",
+        "iconUrl": "https://muhammadbilaltahir.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+        "name": "Task",
+        "subtask": false,
+        "avatarId": 10318,
+        "entityId": "72ca56b4-a382-4242-8483-76fb714d309f",
+        "hierarchyLevel": 0
+      },
+      "parent": {
+        "id": "10082",
+        "key": "KAN-9",
+        "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/issue/10082",
+        "fields": {
+          "summary": "SE3002 Assignment 01 \u2014 Defect Triage (Part 4)",
+          "status": {
+            "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/status/10007",
+            "description": "",
+            "iconUrl": "https://muhammadbilaltahir.atlassian.net/images/icons/statuses/generic.png",
+            "name": "Done",
+            "id": "10007",
+            "statusCategory": {
+              "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/statuscategory/3",
+              "id": 3,
+              "key": "done",
+              "colorName": "green",
+              "name": "Done"
+            }
+          },
+          "priority": {
+            "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/priority/3",
+            "iconUrl": "https://muhammadbilaltahir.atlassian.net/images/icons/priorities/medium_new.svg",
+            "name": "Medium",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/issuetype/10006",
+            "id": "10006",
+            "description": "Epics track collections of related bugs, stories, and tasks.",
+            "iconUrl": "https://muhammadbilaltahir.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+            "name": "Epic",
+            "subtask": false,
+            "avatarId": 10307,
+            "entityId": "97cf498a-95ed-413f-a835-7ae7c52e73a4",
+            "hierarchyLevel": 1
+          }
+        }
+      },
+      "created": "2026-09-08T12:09:46.799+0500",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Environment / build"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "agentmom-se3002, frozen baseline commit e79b197 (evidence/BASELINE_TAG_HASH.txt), triage executed 2026-09-07 \u2014 packages/web/src/pages/*.tsx and EncryptionToggle.tsx"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Preconditions"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Harness running (bash runsystem.sh, http://localhost:5173)."
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Steps to reproduce"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Open each flagged page: Unicast, Multicast, Broadcast, Security, Compatibility."
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Visually inspect the labels Sonar flagged: 'TTL', 'port', 'from', 'to', 'encrypt this message'."
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Expected result (Sonar's implication)"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Rule S6772 flags a label/text node sitting directly against an input/select with no explicit space, which could render as e.g. 'TTL5' instead of 'TTL 5'."
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Actual result"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Every flagged label renders with a clear, correctly spaced value next to it, confirmed visually in screenshots captured during TC-01, TC-04, TC-10, TC-15 and the COND-51 walkthrough (evidence/test-execution/)."
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Reproducibility"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "N/A \u2014 no rendering fault observed to reproduce, checked across 5 separate page loads."
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Severity / Priority"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "N/A \u2014 not a defect."
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Verdict"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "NOT A DEFECT \u2014 static-analysis-only concern (linter cannot infer JSX whitespace intent); no observable rendering fault.",
+                "marks": [
+                  {
+                    "type": "strong"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 3
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Related test case"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "SonarQube Part 3.A Finding F4; TC-01, TC-04, TC-10, TC-15"
+              }
+            ]
+          }
+        ]
+      },
+      "comment": {
+        "comments": [
+          {
+            "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/issue/10081/comment/10003",
+            "id": "10003",
+            "author": {
+              "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/user?accountId=712020%3A8c9069ab-cf45-421c-b7e1-3bbff01c946d",
+              "accountId": "712020:8c9069ab-cf45-421c-b7e1-3bbff01c946d",
+              "emailAddress": "tshaukat.25@gmail.com",
+              "avatarUrls": {
+                "48x48": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+                "24x24": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+                "16x16": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+                "32x32": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png"
+              },
+              "displayName": "TAIMOOR SHAUKAT",
+              "active": true,
+              "timeZone": "Asia/Karachi",
+              "accountType": "atlassian"
+            },
+            "body": {
+              "type": "doc",
+              "version": 1,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Full evidence: https://github.com/IfBilal/agent-mom-sqe/blob/main/evidence/test-execution/ (TC-01, TC-04, TC-10, TC-15, COND-51 screenshots \u2014 all show correctly spaced labels). SonarQube raw finding: https://github.com/IfBilal/agent-mom-sqe/blob/main/evidence/sonarqube/sonar-issues-full.json."
+                    }
+                  ]
+                }
+              ]
+            },
+            "updateAuthor": {
+              "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/user?accountId=712020%3A8c9069ab-cf45-421c-b7e1-3bbff01c946d",
+              "accountId": "712020:8c9069ab-cf45-421c-b7e1-3bbff01c946d",
+              "emailAddress": "tshaukat.25@gmail.com",
+              "avatarUrls": {
+                "48x48": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+                "24x24": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+                "16x16": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+                "32x32": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png"
+              },
+              "displayName": "TAIMOOR SHAUKAT",
+              "active": true,
+              "timeZone": "Asia/Karachi",
+              "accountType": "atlassian"
+            },
+            "created": "2026-09-08T12:11:08.086+0500",
+            "updated": "2026-09-08T12:11:08.086+0500",
+            "jsdPublic": true
+          }
+        ],
+        "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/issue/10081/comment",
+        "maxResults": 1,
+        "total": 1,
+        "startAt": 0
+      },
+      "reporter": {
+        "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/user?accountId=712020%3A8c9069ab-cf45-421c-b7e1-3bbff01c946d",
+        "accountId": "712020:8c9069ab-cf45-421c-b7e1-3bbff01c946d",
+        "emailAddress": "tshaukat.25@gmail.com",
+        "avatarUrls": {
+          "48x48": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+          "24x24": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+          "16x16": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png",
+          "32x32": "https://secure.gravatar.com/avatar/a7eb0c3426a41ca44838f544a7a81088?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTS-1.png"
+        },
+        "displayName": "TAIMOOR SHAUKAT",
+        "active": true,
+        "timeZone": "Asia/Karachi",
+        "accountType": "atlassian"
+      },
+      "priority": {
+        "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/priority/4",
+        "iconUrl": "https://muhammadbilaltahir.atlassian.net/images/icons/priorities/low_new.svg",
+        "name": "Low",
+        "id": "4"
+      },
+      "updated": "2026-09-08T12:12:03.676+0500",
+      "status": {
+        "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/status/10007",
+        "description": "",
+        "iconUrl": "https://muhammadbilaltahir.atlassian.net/images/icons/statuses/generic.png",
+        "name": "Done",
+        "id": "10007",
+        "statusCategory": {
+          "self": "https://muhammadbilaltahir.atlassian.net/rest/api/3/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      },
+      "labels": [
+        "defect-triage",
+        "not-a-defect",
+        "se3002"
+      ]
+    }
+  }
+}

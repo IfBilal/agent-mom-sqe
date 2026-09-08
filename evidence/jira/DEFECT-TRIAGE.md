@@ -67,13 +67,19 @@ explains it away. All four candidates below fail criterion (b), (d), or both.
 
 | Candidate | Status | Jira issue |
 |---|---|---|
-| TC-08 (COND-22) | FAILED (expected, environment) | Not logged — not a defect |
-| TC-11 (COND-30) | BLOCKED (expected, precondition) | Not logged — not a defect |
-| SonarQube F1 | Investigated | Not logged — not a defect |
-| SonarQube F4 | Investigated | Not logged — not a defect |
+| TC-08 (COND-22) | FAILED (expected, environment) | [KAN-5](https://muhammadbilaltahir.atlassian.net/browse/KAN-5) — Done, Low, not a defect |
+| TC-11 (COND-30) | BLOCKED (expected, precondition) | [KAN-6](https://muhammadbilaltahir.atlassian.net/browse/KAN-6) — Done, Low, not a defect |
+| SonarQube F1 | Investigated | [KAN-7](https://muhammadbilaltahir.atlassian.net/browse/KAN-7) — Done, Low, not a defect |
+| SonarQube F4 | Investigated | [KAN-8](https://muhammadbilaltahir.atlassian.net/browse/KAN-8) — Done, Low, not a defect |
 
-**0 of 4 investigated candidates met all four defect criteria. 0 Jira Bug issues created.** This is
-the complete defect-investigation evidence for Part 4.
+**0 of 4 investigated candidates met all four defect criteria — so 0 open Bugs.** All four are
+logged in Jira project **KAN** (Vexa Testing) as closed, fully-evidenced investigation records
+under Epic [KAN-9](https://muhammadbilaltahir.atlassian.net/browse/KAN-9) — "SE3002 Assignment 01
+— Defect Triage (Part 4)". Each carries environment/build, preconditions, numbered repro steps,
+expected vs. actual result, reproducibility, severity/priority, the investigation writeup below,
+verdict, related test-case ID, and a comment linking to the exact source evidence in this repo.
+This file and the Jira issues are the same content in two places — this is the complete
+defect-investigation evidence for Part 4.
 
 Supplementary evidence for the two designed genuine failures: `evidence/test-execution/`
 (`npm-test-output-verbose.txt`, `TC-11-single-host-network-interfaces.txt`, and the manual-case
