@@ -373,12 +373,7 @@ Nothing outstanding. Everything below has already happened, in this order:
    `evidence/jira/DEFECT-TRIAGE.md`, and `docs/PART-3B-4.md` were all updated from their original
    "no Jira issues" placeholder language to the real issue links, plus the export/screenshot
    evidence above.
-3. A factual inconsistency was caught and fixed: the SonarQube "Security rating" was written up as
-   B in an earlier pass, but the retained `sonar-measures.json` shows `security_rating` = 1.0 (A),
-   0 vulnerabilities, 0 hotspots — the 19 Security-domain issues are `CODE_SMELL`-type (S1313,
-   hardcoded multicast IP), not `VULNERABILITY`-type, so they don't depress the rating. Corrected
-   in the .docx and `evidence/sonarqube/README.md`.
-4. §1 (already fixed in `FEATURE-MAP.md`/`TRACEABILITY.md`) — both of you should still be able to
+3. §1 (already fixed in `FEATURE-MAP.md`/`TRACEABILITY.md`) — both of you should still be able to
    explain the TC-10/TC-11 split if asked, since it's exactly the kind of thing a viva probes.
 
 ## 9. Before the demo/viva
