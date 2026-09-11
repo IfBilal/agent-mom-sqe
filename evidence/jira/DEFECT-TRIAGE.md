@@ -81,6 +81,12 @@ verdict, related test-case ID, and a comment linking to the exact source evidenc
 This file and the Jira issues are the same content in two places — this is the complete
 defect-investigation evidence for Part 4.
 
+**Visual evidence:** `evidence/jira/jira-kanban-board.png` is a live screenshot of the KAN board
+(space "SQE AGENT MOM TESTING") showing all four issues in the Done column under Epic KAN-9;
+`evidence/jira/jira-issues-detail.png` is a rendered detail view of all five issues (the Epic plus
+the four Tasks), built from the raw API export `evidence/jira/jira-export.json`. The same board
+screenshot is also embedded as Figure 1 in `docs/SQE_ASSIGNMENT1_Report_v2.docx`.
+
 Supplementary evidence for the two designed genuine failures: `evidence/test-execution/`
 (`npm-test-output-verbose.txt`, `TC-11-single-host-network-interfaces.txt`, and the manual-case
 screenshots referenced in `docs/PART-3B-4.md`).
