@@ -1,0 +1,232 @@
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+ RUN  v2.1.9 /home/dns/Desktop/agent-mom-sqe
+
+ ✓ packages/agent/tests/component/agent-orchestration.test.ts > Agent orchestrator — unicast path (onUnicast, dispatch, sequence, auto-decrypt) > delivers A→B, auto-decrypts an encrypted message, and drops a wrong-recipient envelope
+ ✓ packages/agent/tests/component/agent-orchestration.test.ts > Agent orchestrator — FR6 key-holder protocol (serveKeyRequest, BR-18/BR-19) > grants an allow-listed request and denies a non-allow-listed one, both over encrypted unicast
+ ✓ packages/agent/tests/component/agent-orchestration.test.ts > Agent orchestrator — starts in component-controlled mode > an agent booted component-controlled routes via the component router
+ ✓ packages/agent/tests/component/agent-orchestration.test.ts > Agent orchestrator — FR7 live switch + admin commands > set-architecture swaps the handler and emits ARCHITECTURE_SWITCHED; snapshot reports the new mode
+ ✓ packages/agent/tests/component/agent-orchestration.test.ts > Agent orchestrator — FR2 membership commands > join → leave updates the application-level membership set (BR-04/BR-05)
+ ✓ packages/agent/tests/component/agent-orchestration.test.ts > Agent orchestrator — NFR8 legacy adapter path + remaining commands > legacy-send round-trips through the 1.2 adapter and bypasses every new feature (BR-22)
+ ✓ packages/agent/tests/component/agent-orchestration.test.ts > Agent orchestrator — NFR8 legacy adapter path + remaining commands > an unknown command yields ok:false without crashing the agent
+ ✓ packages/agent/tests/component/agent-orchestration.test.ts > Agent orchestrator — NFR8 legacy adapter path + remaining commands > config-group and admin demo-aid commands round-trip
+ ✓ packages/agent/tests/component/agent-orchestration.test.ts > Agent orchestrator — NFR8 legacy adapter path + remaining commands > a peer-update refreshes the address book
+ ✓ packages/agent/tests/component/agent-inbound-paths.test.ts > Agent.receiveUnicast — inbound error branches > a malformed encrypted envelope (no iv/authTag) → MESSAGE_MALFORMED, no decryption
+ ✓ packages/agent/tests/component/agent-inbound-paths.test.ts > Agent.receiveUnicast — inbound error branches > an encrypted multicast with no held key → DECRYPTION_FAILED via receiveMulticast
+ ✓ packages/agent/tests/component/agent-inbound-paths.test.ts > Agent.receiveUnicast — inbound error branches > a wire frame addressed to another agent → PROTOCOL_VIOLATION (BR-01), still delivered nowhere
+ ✓ packages/agent/tests/component/agent-inbound-paths.test.ts > Agent.receiveUnicast — inbound error branches > an encrypted envelope from a peer with a different seed → DECRYPTION_FAILED, deliver nothing
+ ✓ packages/agent/tests/component/agent-inbound-paths.test.ts > Agent — broadcast receive + simulated drops + leave-then-inject + snapshot > onBroadcast dispatches a received broadcast
+ ✓ packages/agent/tests/component/agent-inbound-paths.test.ts > Agent — broadcast receive + simulated drops + leave-then-inject + snapshot > drop rate 1.0 → send-multicast and send-broadcast return { dropped: true }
+ ✓ packages/agent/tests/component/agent-inbound-paths.test.ts > Agent — broadcast receive + simulated drops + leave-then-inject + snapshot > leave-then-inject runs the BR-06 command path
+ ✓ packages/agent/tests/component/agent-inbound-paths.test.ts > Agent — broadcast receive + simulated drops + leave-then-inject + snapshot > set-architecture toggles both ways and emits ARCHITECTURE_SWITCHED each time
+ ✓ packages/agent/tests/component/agent-inbound-paths.test.ts > Agent — broadcast receive + simulated drops + leave-then-inject + snapshot > a key holder's snapshot includes the per-group allow-list
+ ✓ packages/agent/tests/component/agent-inbound-paths.test.ts > Agent — broadcast receive + simulated drops + leave-then-inject + snapshot > onMulticast / onBroadcast inbound paths dispatch a synthetic datagram deterministically
+ ✓ packages/agent/tests/component/coverage-gaps.test.ts > unicast-transport — SEQUENCE_ANOMALY on an out-of-order frame (BR-03) > emits SEQUENCE_ANOMALY when a frame skips a number
+ ✓ packages/agent/tests/component/coverage-gaps.test.ts > broadcast-transport — real datagram receive + subnetDirectedAddress helper > a bound receiver gets a broadcast datagram and emits MESSAGE_RECEIVED / MESSAGE_SENT
+ ✓ packages/agent/tests/component/coverage-gaps.test.ts > broadcast-transport — real datagram receive + subnetDirectedAddress helper > a malformed datagram on the broadcast socket emits MESSAGE_MALFORMED
+ ✓ packages/agent/tests/component/coverage-gaps.test.ts > broadcast-transport — real datagram receive + subnetDirectedAddress helper > subnetDirectedAddress returns a dotted-quad or null
+ ✓ packages/agent/tests/component/coverage-gaps.test.ts > multicast-transport — join-twice, leave, and receive branches > join() on an already-joined group is idempotent; leave() closes the socket
+ ✓ packages/agent/tests/component/coverage-gaps.test.ts > multicast-transport — join-twice, leave, and receive branches > an unparseable datagram on a group socket does not crash the transport
+ ✓ packages/agent/tests/component/coverage-gaps.test.ts > multicast-transport — join-twice, leave, and receive branches > setDefaultTtl changes the stamped TTL on an ephemeral send
+ ✓ packages/agent/tests/component/coverage-gaps.test.ts > key-holder-agent — allowListFor unknown group, ensureGroup, onLeave no-op > allowListFor returns [] for an unknown group; ensureGroup then seeds it
+ ✓ packages/agent/tests/component/coverage-gaps.test.ts > agentmom-1_2-adapter — onMessage handler + deliver > deliver invokes the registered onMessage handler
+ ✓ packages/agent/tests/component/coverage-gaps.test.ts > best-effort-simulator — fractional drop rate exercises the RNG branch > dropRate 0.5 drops roughly half over many calls, unicast never
+ ✓ packages/control-plane/tests/integration/rest-coverage.test.ts > agents.routes — REST lifecycle (POST / PATCH / DELETE) > POST /agents forks a new agent, PATCH switches its architecture, DELETE kills it 353ms
+ ✓ packages/control-plane/tests/integration/rest-coverage.test.ts > agents.routes — REST lifecycle (POST / PATCH / DELETE) > DELETE of an unknown agent → 400
+ ✓ packages/control-plane/tests/integration/rest-coverage.test.ts > agents.routes — REST lifecycle (POST / PATCH / DELETE) > POST /agents with role/architecture omitted applies the defaults
+ ✓ packages/control-plane/tests/integration/rest-coverage.test.ts > agents.routes — REST lifecycle (POST / PATCH / DELETE) > POST a key-holder agent through REST
+agent agent-clash failed to start: listen EADDRINUSE: address already in use 127.0.0.1:7001
+ ✓ packages/control-plane/tests/integration/rest-coverage.test.ts > agents.routes — REST lifecycle (POST / PATCH / DELETE) > POST /agents on an already-bound port → 400 (spawn rejects when the fork exits during startup)
+ ✓ packages/control-plane/tests/integration/rest-coverage.test.ts > groups.routes — members + config > GET /groups/:g/members reflects the demo topology
+ ✓ packages/control-plane/tests/integration/rest-coverage.test.ts > groups.routes — members + config > PATCH /groups/:g/config accepts a new port
+ ✓ packages/control-plane/tests/integration/rest-coverage.test.ts > keys.routes — allowlist GET > returns the key holder's allow-list for a group
+ ✓ packages/control-plane/tests/integration/rest-coverage.test.ts > keys.routes — allowlist GET > returns [] for a group with no allow-list
+ ✓ packages/control-plane/tests/integration/rest-coverage.test.ts > admin.routes — every demo-aid endpoint > PATCH /admin/reliability
+ ✓ packages/control-plane/tests/integration/rest-coverage.test.ts > admin.routes — every demo-aid endpoint > PATCH /admin/broadcast-permission
+ ✓ packages/control-plane/tests/integration/rest-coverage.test.ts > admin.routes — every demo-aid endpoint > PATCH /admin/default-ttl
+ ✓ packages/control-plane/tests/integration/rest-coverage.test.ts > admin.routes — every demo-aid endpoint > GET /admin/preconditions + /admin/crypto
+ ✓ packages/control-plane/tests/integration/rest-coverage.test.ts > admin.routes — every demo-aid endpoint > POST /admin/spawn-demo is idempotent once the topology exists
+ ✓ packages/control-plane/tests/integration/rest-coverage.test.ts > messages.routes — log query filters > GET /messages/log accepts agentId / mode / since
+ ✓ packages/control-plane/tests/integration/rest-coverage.test.ts > ws/live-events — a subscriber receives events > delivers a live event over the /live socket
+ ✓ packages/control-plane/tests/integration/fr5-fr6-security.test.ts > COND-38 — encrypted=false travels as plaintext; the same body with encrypted=true differs on the wire (BR-14) > the wire-level encrypted flag tracks the per-message choice 533ms
+ ✓ packages/control-plane/tests/integration/fr5-fr6-security.test.ts > COND-39 — the receiver decrypts automatically with no user action (3.2.4.4) > an encrypted A→B message is received (auto-decrypted) with no DECRYPTION_FAILED 331ms
+ ✓ packages/control-plane/tests/integration/fr5-fr6-security.test.ts > COND-43 — key request and response are encrypted regardless of the sender's opt-out (BR-19) > the key-exchange unicast traffic is encrypted:true 446ms
+ ✓ packages/control-plane/tests/integration/fr5-fr6-security.test.ts > COND-44 — an encrypted multicast is readable by key-holding members and raises DECRYPTION_FAILED for others (3.2.4.5/.6) [needs CON-04] > agent-D (key holder) reads it; agent-B (no key) fails closed 947ms
+ ✓ packages/control-plane/tests/integration/fr5-fr6-security.test.ts > COND-54 — ciphertext observed on the wire differs from the plaintext body (2.4.2) > a unique plaintext marker never appears in the observable event stream for an encrypted send 326ms
+ ✓ packages/control-plane/tests/integration/fr5-fr6-security.test.ts > COND-45 / BR-20 / A6.2 — after leaving, an agent that already holds the group key can still decrypt (deliberate, flagged) [needs CON-04] > agent-C keeps a working key across a leave and still sends readable encrypted multicast 955ms
+ ✓ packages/core/tests/unit/dod.test.ts > §20.6 — ASSUMPTIONS.md (24) and TEST-CONDITIONS.md (54) > has exactly 24 assumption rows
+ ✓ packages/core/tests/unit/dod.test.ts > §20.6 — ASSUMPTIONS.md (24) and TEST-CONDITIONS.md (54) > every assumption uses exactly one of the three legal labels
+ ✓ packages/core/tests/unit/dod.test.ts > §20.6 — ASSUMPTIONS.md (24) and TEST-CONDITIONS.md (54) > TEST-CONDITIONS.md has exactly 54 conditions across all 10 requirements
+ ✓ packages/core/tests/unit/dod.test.ts > §20.2 — each assumption's A<n> comment lives in the file ASSUMPTIONS.md names > 'A1.1' → 'packages/agent/src/transports/unicast…'
+ ✓ packages/core/tests/unit/dod.test.ts > §20.2 — each assumption's A<n> comment lives in the file ASSUMPTIONS.md names > 'A1.2' → 'packages/agent/src/transports/unicast…'
+ ✓ packages/core/tests/unit/dod.test.ts > §20.2 — each assumption's A<n> comment lives in the file ASSUMPTIONS.md names > 'A2.1' → 'packages/agent/src/membership/group-m…'
+ ✓ packages/core/tests/unit/dod.test.ts > §20.2 — each assumption's A<n> comment lives in the file ASSUMPTIONS.md names > 'A2.2' → 'packages/agent/src/transports/multica…'
+ ✓ packages/core/tests/unit/dod.test.ts > §20.2 — each assumption's A<n> comment lives in the file ASSUMPTIONS.md names > 'A3.1' → 'packages/core/src/constants.ts'
+ ✓ packages/core/tests/unit/dod.test.ts > §20.2 — each assumption's A<n> comment lives in the file ASSUMPTIONS.md names > 'A3.2' → 'packages/agent/src/transports/multica…'
+ ✓ packages/core/tests/unit/dod.test.ts > §20.2 — each assumption's A<n> comment lives in the file ASSUMPTIONS.md names > 'A3.3' → 'packages/core/src/protocol/multicast-…'
+ ✓ packages/core/tests/unit/dod.test.ts > §20.2 — each assumption's A<n> comment lives in the file ASSUMPTIONS.md names > 'A4.1' → 'packages/agent/src/transports/broadca…'
+ ✓ packages/core/tests/unit/dod.test.ts > §20.2 — each assumption's A<n> comment lives in the file ASSUMPTIONS.md names > 'A4.2' → 'packages/agent/src/transports/broadca…'
+ ✓ packages/core/tests/unit/dod.test.ts > §20.2 — each assumption's A<n> comment lives in the file ASSUMPTIONS.md names > 'A5.1' → 'packages/core/src/crypto/symmetric.ts'
+ ✓ packages/core/tests/unit/dod.test.ts > §20.2 — each assumption's A<n> comment lives in the file ASSUMPTIONS.md names > 'A5.2' → 'packages/agent/src/security/unicast-s…'
+ ✓ packages/core/tests/unit/dod.test.ts > §20.2 — each assumption's A<n> comment lives in the file ASSUMPTIONS.md names > 'A5.3' → 'packages/core/src/validation/envelope…'
+ ✓ packages/core/tests/unit/dod.test.ts > §20.2 — each assumption's A<n> comment lives in the file ASSUMPTIONS.md names > 'A6.1' → 'packages/agent/src/key-holder/key-hol…'
+ ✓ packages/core/tests/unit/dod.test.ts > §20.2 — each assumption's A<n> comment lives in the file ASSUMPTIONS.md names > 'A6.2' → 'packages/agent/src/key-holder/key-hol…'
+ ✓ packages/core/tests/unit/dod.test.ts > §20.2 — each assumption's A<n> comment lives in the file ASSUMPTIONS.md names > 'A6.3' → 'packages/core/src/crypto/key-holder-p…'
+ ✓ packages/core/tests/unit/dod.test.ts > §20.2 — each assumption's A<n> comment lives in the file ASSUMPTIONS.md names > 'A7.1' → 'packages/agent/src/architecture/conve…'
+ ✓ packages/core/tests/unit/dod.test.ts > §20.2 — each assumption's A<n> comment lives in the file ASSUMPTIONS.md names > 'A7.2' → 'packages/agent/src/agent.ts'
+ ✓ packages/core/tests/unit/dod.test.ts > §20.2 — each assumption's A<n> comment lives in the file ASSUMPTIONS.md names > 'A8.1' → 'packages/agent/src/legacy/agentmom-1_…'
+ ✓ packages/core/tests/unit/dod.test.ts > §20.2 — each assumption's A<n> comment lives in the file ASSUMPTIONS.md names > 'A8.2' → 'packages/agent/src/legacy/agentmom-1_…'
+ ✓ packages/core/tests/unit/dod.test.ts > §20.2 — each assumption's A<n> comment lives in the file ASSUMPTIONS.md names > 'A9.1' → 'packages/agent/src/reliability/best-e…'
+ ✓ packages/core/tests/unit/dod.test.ts > §20.2 — each assumption's A<n> comment lives in the file ASSUMPTIONS.md names > 'A9.2' → 'packages/agent/src/reliability/best-e…'
+ ✓ packages/core/tests/unit/dod.test.ts > §20.2 — each assumption's A<n> comment lives in the file ASSUMPTIONS.md names > 'A10.1' → 'packages/core/src/crypto/symmetric.ts'
+ ✓ packages/core/tests/unit/dod.test.ts > §20.2 — each assumption's A<n> comment lives in the file ASSUMPTIONS.md names > 'A10.2' → 'packages/core/src/crypto/symmetric.ts'
+ ✓ packages/core/tests/unit/dod.test.ts > §20.2 — each assumption's A<n> comment lives in the file ASSUMPTIONS.md names > 'A11' → 'packages/web/src/App.tsx'
+ ✓ packages/core/tests/unit/dod.test.ts > §20.8 — wording discipline: no "reaches all" / "some recipients" claims > no source, harness string, or evidence doc makes the claim
+ ✓ packages/core/tests/unit/dod.test.ts > §20.9 — nothing outside §1: no DB / auth / retry layer / resequencing > no persistence / ORM / database dependency
+ ✓ packages/core/tests/unit/dod.test.ts > §20.9 — nothing outside §1: no DB / auth / retry layer / resequencing > no auth / login / session dependency
+ ✓ packages/core/tests/unit/dod.test.ts > §20.9 — nothing outside §1: no DB / auth / retry layer / resequencing > no retry/ack scheduler symbol in executable code (BR-23 / §21)
+ ✓ packages/agent/tests/component/broadcast-keyholder-misc.test.ts > COND-28 — the broadcast socket binds with reuseAddr and sets setBroadcast(true) after bind > two agents share the port without EADDRINUSE
+ ✓ packages/agent/tests/component/broadcast-keyholder-misc.test.ts > COND-31 — EACCES/EPERM surfaces as BROADCAST_PERMISSION_DENIED, not a crash > simulate toggle produces a handled event
+ ✓ packages/agent/tests/component/broadcast-keyholder-misc.test.ts > COND-32 — addressUsed is reported for every broadcast send (BR-12) > reports an address
+ ✓ packages/agent/tests/component/broadcast-keyholder-misc.test.ts > COND-41 / COND-42 — key holder allow-list gates the group key (BR-18) > COND-41 — an allow-listed agent's request is granted
+ ✓ packages/agent/tests/component/broadcast-keyholder-misc.test.ts > COND-41 / COND-42 — key holder allow-list gates the group key (BR-18) > COND-42 — a non-allow-listed agent's request is denied
+ ✓ packages/agent/tests/component/broadcast-keyholder-misc.test.ts > COND-41 / COND-42 — key holder allow-list gates the group key (BR-18) > BR-20 — leave triggers no rotation; a re-request still returns the same key
+ ✓ packages/agent/tests/component/broadcast-keyholder-misc.test.ts > COND-52 — the reliability simulator never touches unicast (BR-23 spirit) > dropRate = 1.0 drops multicast/broadcast but not unicast
+ ✓ packages/agent/tests/component/broadcast-keyholder-misc.test.ts > COND-46 — both handlers satisfy the ConversationHandler interface (BR-21) > structural conformance
+ ✓ packages/agent/tests/component/broadcast-keyholder-misc.test.ts > COND-50 — the AgentMom1_2 signature snapshot matches the frozen contract (BR-22) > adapter exposes exactly sendMessage/onMessage
+ ✓ packages/control-plane/tests/integration/fr2-fr3-delivery.test.ts > COND-26 / TC-06 area — a multicast send reaches every current member of the group (3.2.2.1/.2) [needs CON-04] > group α members agent-B, agent-C, agent-D all receive 608ms
+ ✓ packages/control-plane/tests/integration/fr2-fr3-delivery.test.ts > COND-16 — an agent joined to α and β receives from both, each attributed to the correct group (3.2.2.9 / BR-07) [needs CON-04] > agent-C attributes α and β traffic to the right group 458ms
+ ✓ packages/control-plane/tests/integration/fr2-fr3-delivery.test.ts > COND-15 — a message sent to a group after an agent leaves is not delivered to it (3.2.2.6) > agent-B, after leaving α, receives no further α multicast 657ms
+ ✓ packages/control-plane/tests/integration/fr2-fr3-delivery.test.ts > COND-53 — a dropped datagram is never retransmitted (BR-23 / 2.4.1) > dropRate = 1.0 yields MESSAGE_DROPPED_SIMULATED and no send/receive for that message 454ms
+ ✓ packages/agent/tests/component/membership-and-multicast.test.ts > COND-11 — join() transitions NOT_MEMBER → JOINING → MEMBER > state machine
+ ✓ packages/agent/tests/component/membership-and-multicast.test.ts > COND-13 — leave() removes from the membership set BEFORE calling dropMembership (BR-06) > synchronous removal
+ ✓ packages/agent/tests/component/membership-and-multicast.test.ts > COND-12 — a datagram arriving before the group is in the membership set is dropped > membership gate drops and logs MESSAGE_DROPPED_MEMBERSHIP
+ ✓ packages/agent/tests/component/membership-and-multicast.test.ts > COND-20 — a send applies setMulticastTTL and stamps ttl into the envelope > stamps ttl and delivers to a joined member
+ ✓ packages/agent/tests/component/membership-and-multicast.test.ts > COND-24 — a destination outside 224.0.0.0/4 is rejected at send time (BR-10) > rejects 10.0.0.1
+ ✓ packages/agent/tests/component/multicast-inbound.test.ts > classifyMulticastInbound — every branch (BR-04/05, §9.2, BR-09) > null envelope → malformed
+ ✓ packages/agent/tests/component/multicast-inbound.test.ts > classifyMulticastInbound — every branch (BR-04/05, §9.2, BR-09) > not a member → dropped-membership
+ ✓ packages/agent/tests/component/multicast-inbound.test.ts > classifyMulticastInbound — every branch (BR-04/05, §9.2, BR-09) > group address mismatch → protocol-violation
+ ✓ packages/agent/tests/component/multicast-inbound.test.ts > classifyMulticastInbound — every branch (BR-04/05, §9.2, BR-09) > ttl <= 0 → ttl-expired
+ ✓ packages/agent/tests/component/multicast-inbound.test.ts > classifyMulticastInbound — every branch (BR-04/05, §9.2, BR-09) > ttl undefined is not expired → deliver
+ ✓ packages/agent/tests/component/multicast-inbound.test.ts > classifyMulticastInbound — every branch (BR-04/05, §9.2, BR-09) > in-membership, matching group, live ttl → deliver
+ ✓ packages/agent/tests/component/multicast-inbound.test.ts > classifyMulticastInbound — every branch (BR-04/05, §9.2, BR-09) > no groupAddress on the envelope skips the cross-check → deliver
+ ✓ packages/agent/tests/component/multicast-inbound.test.ts > MulticastTransport.receive — drives the socket callback with synthetic datagrams > a valid datagram to a member → MESSAGE_RECEIVED + onEnvelope
+ ✓ packages/agent/tests/component/multicast-inbound.test.ts > MulticastTransport.receive — drives the socket callback with synthetic datagrams > garbage bytes → MESSAGE_MALFORMED
+ ✓ packages/agent/tests/component/multicast-inbound.test.ts > MulticastTransport.receive — drives the socket callback with synthetic datagrams > datagram to a non-member → MESSAGE_DROPPED_MEMBERSHIP
+ ✓ packages/agent/tests/component/multicast-inbound.test.ts > MulticastTransport.receive — drives the socket callback with synthetic datagrams > mismatched group address → PROTOCOL_VIOLATION
+ ✓ packages/agent/tests/component/multicast-inbound.test.ts > MulticastTransport.receive — drives the socket callback with synthetic datagrams > expired TTL → MESSAGE_DROPPED_TTL_EXPIRED, not delivered
+ ✓ packages/control-plane/tests/integration/fr3-ttl.test.ts > TC-07 / COND-21 — a received envelope with expired TTL raises MESSAGE_DROPPED_TTL_EXPIRED and is not delivered (BR-09) > ttl=0 at the application layer is dropped
+ ✓ packages/control-plane/tests/integration/fr3-ttl.test.ts > TC-09 / COND-24 — a destination outside 224.0.0.0/4 is rejected at send time (BR-10) > the control plane returns an error for 10.0.0.1
+stdout | packages/control-plane/tests/integration/fr3-ttl.test.ts > TC-08 / COND-22 — setMulticastTTL(0) confinement (EXECUTED, outcome recorded — expected FAILED) > records whether a ttl-level-1=0 datagram still reaches co-located agents
+[TC-08] co-located receivers observed for a group-α multicast: agent-C, agent-B, agent-D
+
+ ✓ packages/control-plane/tests/integration/fr3-ttl.test.ts > TC-08 / COND-22 — setMulticastTTL(0) confinement (EXECUTED, outcome recorded — expected FAILED) > records whether a ttl-level-1=0 datagram still reaches co-located agents 423ms
+ ✓ packages/core/tests/unit/protocol-and-validation-gaps.test.ts > broadcast-framing — encode / decode / size cap > round-trips a broadcast datagram
+ ✓ packages/core/tests/unit/protocol-and-validation-gaps.test.ts > broadcast-framing — encode / decode / size cap > rejects an over-size broadcast payload
+ ✓ packages/core/tests/unit/protocol-and-validation-gaps.test.ts > multicast-framing — decodeDatagram > parses a datagram buffer back to an envelope
+ ✓ packages/core/tests/unit/protocol-and-validation-gaps.test.ts > key-holder-protocol — isKeyRequest > recognises a REQUEST_GROUP_KEY body
+ ✓ packages/core/tests/unit/protocol-and-validation-gaps.test.ts > key-holder-protocol — isKeyRequest > rejects anything else
+ ✓ packages/core/tests/unit/protocol-and-validation-gaps.test.ts > crypto — newGroupKey > returns 32 random bytes, distinct each call
+ ✓ packages/core/tests/unit/protocol-and-validation-gaps.test.ts > envelope-validator — remaining branches > unicast without recipientId → MISSING_RECIPIENT
+ ✓ packages/core/tests/unit/protocol-and-validation-gaps.test.ts > envelope-validator — remaining branches > multicast without groupAddress → MISSING_GROUP_ADDRESS
+ ✓ packages/core/tests/unit/protocol-and-validation-gaps.test.ts > envelope-validator — remaining branches > a well-formed unicast envelope is OK
+ ✓ packages/core/tests/unit/protocol-and-validation-gaps.test.ts > envelope-validator — remaining branches > a well-formed multicast envelope is OK
+ ✓ packages/core/tests/unit/protocol-and-validation-gaps.test.ts > envelope-validator — remaining branches > broadcast with a ttl → TTL_ON_NON_MULTICAST
+ ✓ packages/core/tests/unit/protocol-and-validation-gaps.test.ts > envelope-validator — remaining branches > encrypted:false with a stray iv → STRAY_CRYPTO_FIELDS
+ ✓ packages/core/tests/unit/protocol-and-validation-gaps.test.ts > envelope-validator — remaining branches > encrypted:false with a stray authTag → STRAY_CRYPTO_FIELDS
+ ✓ packages/core/tests/unit/protocol-and-validation-gaps.test.ts > envelope-validator — remaining branches > encrypted:true with only authTag missing → MALFORMED_CRYPTO_FIELDS
+ ✓ packages/agent/tests/component/conversation-handlers.test.ts > AgentControlledHandler — the agent runs the conversation directly > handles a ping payload and emits CONVERSATION_HANDLED
+ ✓ packages/agent/tests/component/conversation-handlers.test.ts > AgentControlledHandler — the agent runs the conversation directly > handles a task-bid payload and emits CONVERSATION_HANDLED
+ ✓ packages/agent/tests/component/conversation-handlers.test.ts > AgentControlledHandler — the agent runs the conversation directly > handles a join-notify payload and emits CONVERSATION_HANDLED
+ ✓ packages/agent/tests/component/conversation-handlers.test.ts > AgentControlledHandler — the agent runs the conversation directly > handles a leave-notify payload and emits CONVERSATION_HANDLED
+ ✓ packages/agent/tests/component/conversation-handlers.test.ts > AgentControlledHandler — the agent runs the conversation directly > handles a chat payload and emits CONVERSATION_HANDLED
+ ✓ packages/agent/tests/component/conversation-handlers.test.ts > AgentControlledHandler — the agent runs the conversation directly > handles a system payload and emits CONVERSATION_HANDLED
+ ✓ packages/agent/tests/component/conversation-handlers.test.ts > AgentControlledHandler — the agent runs the conversation directly > replies pong to a ping from another agent
+ ✓ packages/agent/tests/component/conversation-handlers.test.ts > AgentControlledHandler — the agent runs the conversation directly > does not pong its own ping
+ ✓ packages/agent/tests/component/conversation-handlers.test.ts > AgentControlledHandler — the agent runs the conversation directly > mode is 'agent-controlled'
+ ✓ packages/agent/tests/component/conversation-handlers.test.ts > ComponentControlledHandler — pluggable components run the conversation > routes a ping payload to a component (CONVERSATION_HANDLED)
+ ✓ packages/agent/tests/component/conversation-handlers.test.ts > ComponentControlledHandler — pluggable components run the conversation > routes a task-bid payload to a component (CONVERSATION_HANDLED)
+ ✓ packages/agent/tests/component/conversation-handlers.test.ts > ComponentControlledHandler — pluggable components run the conversation > routes a join-notify payload to a component (CONVERSATION_HANDLED)
+ ✓ packages/agent/tests/component/conversation-handlers.test.ts > ComponentControlledHandler — pluggable components run the conversation > routes a leave-notify payload to a component (CONVERSATION_HANDLED)
+ ✓ packages/agent/tests/component/conversation-handlers.test.ts > ComponentControlledHandler — pluggable components run the conversation > routes a chat payload to a component (CONVERSATION_HANDLED)
+ ✓ packages/agent/tests/component/conversation-handlers.test.ts > ComponentControlledHandler — pluggable components run the conversation > routes a system payload to a component (CONVERSATION_HANDLED)
+ ✓ packages/agent/tests/component/conversation-handlers.test.ts > ComponentControlledHandler — pluggable components run the conversation > PingComponent replies pong
+ ✓ packages/agent/tests/component/conversation-handlers.test.ts > ComponentControlledHandler — pluggable components run the conversation > an unknown kind emits CONVERSATION_UNROUTED, not a crash
+ ✓ packages/agent/tests/component/conversation-handlers.test.ts > ComponentControlledHandler — pluggable components run the conversation > mode is 'component-controlled'
+ ✓ packages/control-plane/tests/integration/fr2-6-7.test.ts > TC-14 / COND-42 — a non-allow-listed agent's key request is denied (BR-18) > agent-B (member, not allow-listed) is denied for group α
+ ✓ packages/control-plane/tests/integration/fr2-6-7.test.ts > TC-14 / COND-42 — a non-allow-listed agent's key request is denied (BR-18) > COND-41 — agent-C (allow-listed) is granted
+ ✓ packages/control-plane/tests/integration/fr2-6-7.test.ts > TC-15 / COND-49 — a live architecture switch is observable with an ARCHITECTURE_SWITCHED marker (FR7) > switch is logged and sockets are not restarted
+ ✓ packages/control-plane/tests/integration/fr2-6-7.test.ts > COND-14 — a message sent to a group before an agent joins is not delivered to it (3.2.2.5) > agent-A (not joined to α) logs no delivery for an α multicast 427ms
+ ✓ packages/control-plane/tests/integration/fr2-6-7.test.ts > TC-05 / COND-18 — a message inbound in the same event-loop tick as leave() is dropped (BR-06) > leave-then-inject drops the in-flight datagram 426ms
+ ✓ packages/agent/tests/component/security-modules.test.ts > MulticastSecurity — FR6 group-key encrypt/decrypt > hasKey / storeKey
+ ✓ packages/agent/tests/component/security-modules.test.ts > MulticastSecurity — FR6 group-key encrypt/decrypt > encryptOutbound throws without a held key
+ ✓ packages/agent/tests/component/security-modules.test.ts > MulticastSecurity — FR6 group-key encrypt/decrypt > round-trips with a held key
+ ✓ packages/agent/tests/component/security-modules.test.ts > MulticastSecurity — FR6 group-key encrypt/decrypt > decryptInbound passes plaintext straight through when not encrypted
+ ✓ packages/agent/tests/component/security-modules.test.ts > MulticastSecurity — FR6 group-key encrypt/decrypt > decryptInbound fails closed with no key (DECRYPTION_FAILED)
+ ✓ packages/agent/tests/component/security-modules.test.ts > MulticastSecurity — FR6 group-key encrypt/decrypt > decryptInbound fails closed with the wrong key
+ ✓ packages/agent/tests/component/security-modules.test.ts > MulticastSecurity — FR6 group-key encrypt/decrypt > an envelope with no groupAddress is handled (falls back to '')
+ ✓ packages/agent/tests/component/security-modules.test.ts > UnicastSecurity — remaining branches > encryptOutbound throws without recipientId
+ ✓ packages/agent/tests/component/security-modules.test.ts > UnicastSecurity — remaining branches > decryptInbound returns plaintext unchanged when not encrypted
+ ✓ packages/agent/tests/component/security-modules.test.ts > UnicastSecurity — remaining branches > malformed (encrypted, missing iv) → MalformedEnvelope, never DecryptionFailed
+ ✓ packages/control-plane/tests/integration/fr1-unicast.test.ts > TC-02 / COND-06 — a message sent A→B is not received by C (3.2.1.3, BR-01) > only B receives 549ms
+ ✓ packages/control-plane/tests/integration/fr1-unicast.test.ts > TC-03 / COND-07 — 50 messages sent A→B arrive in the order sent (3.2.1.4) > ordered delivery 1177ms
+ ✓ packages/control-plane/tests/integration/fr1-unicast.test.ts > TC-13 / COND-38+39 — encryption is opt-in per message and auto-decrypts (FR5) > encrypted send is delivered and readable by the recipient with no user action
+ ✓ packages/control-plane/tests/integration/fr1-unicast.test.ts > COND-09 — sending to a stopped agent surfaces a connection error, not a crash > agent-A stays alive after addressing a killed peer 456ms
+ ✓ packages/core/tests/unit/framing.test.ts > COND-01 — encodeFrame → decode round-trips unchanged at arbitrary size > payload of ~0 bytes
+ ✓ packages/core/tests/unit/framing.test.ts > COND-01 — encodeFrame → decode round-trips unchanged at arbitrary size > payload of ~1 bytes
+ ✓ packages/core/tests/unit/framing.test.ts > COND-01 — encodeFrame → decode round-trips unchanged at arbitrary size > payload of ~50 bytes
+ ✓ packages/core/tests/unit/framing.test.ts > COND-01 — encodeFrame → decode round-trips unchanged at arbitrary size > payload of ~5000 bytes
+ ✓ packages/core/tests/unit/framing.test.ts > COND-01 — encodeFrame → decode round-trips unchanged at arbitrary size > payload of ~40000 bytes
+ ✓ packages/core/tests/unit/framing.test.ts > COND-02 — a frame split across two data events reassembles into exactly one envelope > splits mid-frame
+ ✓ packages/core/tests/unit/framing.test.ts > COND-03 — two frames coalesced into one data event separate into exactly two envelopes > splits back into two
+ ✓ packages/core/tests/unit/framing.test.ts > COND-03 — two frames coalesced into one data event separate into exactly two envelopes > handles three frames plus a partial fourth
+ ✓ packages/core/tests/unit/framing.test.ts > COND-25 — payload at exactly MAX_DATAGRAM_BYTES is accepted; at +1 rejected > exact boundary
+ ✓ packages/core/tests/unit/framing.test.ts > COND-19 — ttl = 1 deliverable; ttl = 0 expired — exact boundary > boundary
+ ✓ packages/core/tests/unit/framing.test.ts > COND-19 — ttl = 1 deliverable; ttl = 0 expired — exact boundary > BR-08 — default TTL is stamped when the sender sets none
+ ✓ packages/agent/tests/component/security-and-config.test.ts > COND-37 — encrypted=true with iv/authTag missing is malformed: dropped, no decryption attempted (BR-16) > throws MalformedEnvelope, not DecryptionFailed
+ ✓ packages/agent/tests/component/security-and-config.test.ts > COND-37 — encrypted=true with iv/authTag missing is malformed: dropped, no decryption attempted (BR-16) > a genuinely wrong key throws DecryptionFailed (COND-40 component form)
+ ✓ packages/agent/tests/component/security-and-config.test.ts > COND-23 — group address and port are reconfigurable at runtime and take effect on the next send (3.2.2.8) > a member bound on a reconfigured port receives the next send
+ ✓ packages/agent/tests/component/unicast-transport.test.ts > COND-04 — a send establishes a connection and the addressed agent receives the envelope > delivers A→B
+ ✓ packages/agent/tests/component/unicast-transport.test.ts > COND-05 — an envelope whose recipientId ≠ this agent is dropped and raises PROTOCOL_VIOLATION (BR-01) > drops the mismatch
+ ✓ packages/agent/tests/component/unicast-transport.test.ts > COND-09 — sending to a stopped agent surfaces a connection error, not a crash > rejects cleanly
+ ✓ packages/core/tests/unit/traceability.test.ts > Traceability — every non-system test condition is carried by a test (§15, no orphans) > parsed all 54 conditions from TEST-CONDITIONS.md
+ ✓ packages/core/tests/unit/traceability.test.ts > Traceability — every non-system test condition is carried by a test (§15, no orphans) > every U/C/I condition appears in a test file
+ ✓ packages/core/tests/unit/traceability.test.ts > Traceability — every non-system test condition is carried by a test (§15, no orphans) > system-level conditions are documented as manual, not silently missing
+ ✓ packages/core/tests/unit/traceability.test.ts > COND-52 — static inspection: no ack / retry / resend / retransmit path on any transport (BR-23) > multicast and broadcast transports contain no retry vocabulary in executable code
+ ✓ packages/core/tests/unit/validator-and-sequence.test.ts > COND-08 — sequenceNumber of lastSeen+2 raises SEQUENCE_ANOMALY; lastSeen+1 does not (BR-03) > boundary
+ ✓ packages/core/tests/unit/validator-and-sequence.test.ts > COND-08 — sequenceNumber of lastSeen+2 raises SEQUENCE_ANOMALY; lastSeen+1 does not (BR-03) > is scoped per (sender, recipient), not global
+ ✓ packages/core/tests/unit/validator-and-sequence.test.ts > COND-08 — sequenceNumber of lastSeen+2 raises SEQUENCE_ANOMALY; lastSeen+1 does not (BR-03) > does not resequence — only observes
+ ✓ packages/core/tests/unit/validator-and-sequence.test.ts > COND-24 — a destination outside 224.0.0.0/4 is rejected (BR-10) > rejects 10.0.0.1
+ ✓ packages/core/tests/unit/validator-and-sequence.test.ts > COND-24 — a destination outside 224.0.0.0/4 is rejected (BR-10) > rejects 192.168.1.1
+ ✓ packages/core/tests/unit/validator-and-sequence.test.ts > COND-24 — a destination outside 224.0.0.0/4 is rejected (BR-10) > rejects 223.255.255.255
+ ✓ packages/core/tests/unit/validator-and-sequence.test.ts > COND-24 — a destination outside 224.0.0.0/4 is rejected (BR-10) > rejects 240.0.0.1
+ ✓ packages/core/tests/unit/validator-and-sequence.test.ts > COND-24 — a destination outside 224.0.0.0/4 is rejected (BR-10) > accepts 224.0.0.1
+ ✓ packages/core/tests/unit/validator-and-sequence.test.ts > COND-24 — a destination outside 224.0.0.0/4 is rejected (BR-10) > accepts 239.1.1.5
+ ✓ packages/core/tests/unit/validator-and-sequence.test.ts > COND-24 — a destination outside 224.0.0.0/4 is rejected (BR-10) > accepts 239.255.255.255
+ ✓ packages/core/tests/unit/validator-and-sequence.test.ts > §8 invariants — BR-16 malformed crypto fields (TC-12 target) > encrypted=true without iv/authTag is MALFORMED_CRYPTO_FIELDS
+ ✓ packages/core/tests/unit/validator-and-sequence.test.ts > §8 invariants — BR-16 malformed crypto fields (TC-12 target) > encrypted=false with stray iv is STRAY_CRYPTO_FIELDS
+ ✓ packages/core/tests/unit/validator-and-sequence.test.ts > §8 invariants — BR-16 malformed crypto fields (TC-12 target) > ttl on a unicast envelope is TTL_ON_NON_MULTICAST
+ ✓ packages/control-plane/tests/integration/fr7-architecture.test.ts > COND-47 — delivery behaviour is identical before and after a live architecture switch (3.2.5.1/.2) > agent-B receives the same count of A→B messages either side of its own switch 1427ms
+ ✓ packages/control-plane/tests/integration/fr7-architecture.test.ts > COND-48 — a switch replaces only the handler; sockets and connections are not restarted (A7.2) > no AGENT_KILLED / AGENT_SPAWNED around the switch, and the agent keeps its ports 333ms
+ ✓ packages/control-plane/tests/integration/cli-boot.test.ts > runCli — control-plane boot > starts on an ephemeral port and serves /api/health
+ ✓ packages/control-plane/tests/integration/cli-boot.test.ts > runCli — control-plane boot > spawnDemo=true forks the four-agent topology
+ ✓ packages/control-plane/tests/integration/cli-boot.test.ts > runCli — control-plane boot > spawnDemo=true forks the four-agent topology 798ms
+ ✓ packages/control-plane/tests/integration/cli-boot.test.ts > runCli — control-plane boot > registerSignals wires SIGINT/SIGTERM/SIGHUP shutdown handlers
+ ✓ packages/control-plane/tests/integration/cli-boot.test.ts > runCli — control-plane boot > rejects (does not hang) when the listen fails
+ ✓ packages/control-plane/tests/integration/aggregator-registry.test.ts > LogAggregator — pure filtering / fallbacks > keeps only loggable event types
+ ✓ packages/control-plane/tests/integration/aggregator-registry.test.ts > LogAggregator — pure filtering / fallbacks > applies '-' / defaults for missing fields and honours query filters
+ ✓ packages/control-plane/tests/integration/aggregator-registry.test.ts > LogAggregator — pure filtering / fallbacks > caps the ring buffer
+ ✓ packages/control-plane/tests/integration/aggregator-registry.test.ts > AgentRegistry — applyEvent / seed / membership / descriptors > applyEvent ignores events with no agentId and records ARCHITECTURE_SWITCHED
+ ✓ packages/core/tests/unit/crypto.test.ts > COND-34 — AES-256-GCM encrypt → decrypt round-trips to the original plaintext > round-trips
+ ✓ packages/core/tests/unit/crypto.test.ts > COND-54 — ciphertext observed on the wire differs from the plaintext body (2.4.2) > the ciphertext contains none of the plaintext substring, at any offset
+ ✓ packages/core/tests/unit/crypto.test.ts > COND-35 — a tampered authTag causes decryption to throw; no plaintext is produced (BR-17) > fails closed
+ ✓ packages/core/tests/unit/crypto.test.ts > COND-35 — a tampered authTag causes decryption to throw; no plaintext is produced (BR-17) > wrong key also fails closed (COND-40 unit form)
+ ✓ packages/core/tests/unit/crypto.test.ts > COND-36 — pairwise key derivation is order-independent: key(A,B) === key(B,A) (A5.2) > order-independent
+ ✓ packages/core/tests/unit/crypto.test.ts > COND-36 — pairwise key derivation is order-independent: key(A,B) === key(B,A) (A5.2) > different pairs derive different keys
+ ✓ packages/control-plane/tests/integration/fr4-broadcast.test.ts > COND-29 / TC-10 area — a broadcast send is received by every agent on the same host (3.2.3.1/.2) > all four demo agents receive one broadcast; addressUsed is reported 555ms
+
+ Test Files  26 passed (26)
+      Tests  217 passed (217)
+   Start at  21:41:30
+   Duration  43.09s (transform 1.50s, setup 0ms, collect 6.34s, tests 23.85s, environment 16ms, prepare 4.80s)
+
